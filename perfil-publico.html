@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script src="luminova-theme.js?v=3.0.0"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#8fd3ff" />
+    <title>LumiNova — Perfil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css?v=3.0.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=3.0.0" />
+    <style>
+      .public-profile-wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 24px 28px 64px;
+      }
+      .pp-layout { display:grid; grid-template-columns:260px minmax(0,1fr); gap:0; min-height:100vh; position:relative; }
+      .pp-layout > .sidebar { position:sticky; top:0; height:100vh; align-self:start; }
+      .pp-main { min-width:0; }
+      .pp-cover, .pp-card, .pp-post, .pp-state, .pp-action { border-radius:0 !important; }
+      .pp-avatar, .pp-post-top img, .pp-badge { border-radius:0 !important; }
+      @media (max-width: 900px) { .pp-layout { grid-template-columns:1fr; } .pp-layout > .sidebar { position:relative; width:100%; height:auto; } }
+      .pp-back {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        color: var(--muted, #b9b4ca);
+        text-decoration: none;
+        margin: 4px 0 20px;
+      }
+      .pp-card {
+        overflow: hidden;
+        border: 1px solid #ffffff18;
+        border-radius: 24px;
+        background: rgba(16, 13, 34, 0.86);
+        box-shadow: 0 24px 80px #0003;
+      }
+      .pp-cover {
+        height: 230px;
+        background:
+          radial-gradient(ellipse at 20% 20%, #8b5cf688, transparent 45%),
+          radial-gradient(ellipse at 80% 0%, #e8c88a55, transparent 42%),
+          linear-gradient(135deg, #17122f, #090817);
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+      .pp-cover:after {
+        content: "✦  ✧       ✦     ✧";
+        position: absolute;
+        inset: 25px;
+        color: #fff9;
+        letter-spacing: 35px;
+        font-size: 20px;
+        pointer-events: none;
+      }
+      .pp-profile-row {
+        display: flex;
+        gap: 22px;
+        align-items: flex-end;
+        padding: 0 30px 24px;
+        margin-top: -52px;
+        position: relative;
+      }
+      .pp-avatar {
+        width: 116px;
+        height: 116px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 5px solid #100d22;
+        background: #27213e;
+        flex: none;
+      }
+      .pp-identity {
+        min-width: 0;
+        flex: 1;
+        padding-bottom: 8px;
+      }
+      .pp-identity h1 {
+        letter-spacing: -0.025em;
+        font:
+          500 clamp(27px, 4vw, 38px) Fraunces,
+          serif;
+        margin: 0 0 5px;
+        color: #fff;
+      }
+      .pp-handle {
+        color: #b8bfd3;
+        font-size: 14px;
+      }
+      .pp-bio {
+        padding: 0 30px 24px;
+        color: #dce2f2;
+        line-height: 1.7;
+        white-space: pre-wrap;
+      }
+      .pp-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 28px;
+        padding: 17px 30px;
+        border-top: 1px solid #ffffff14;
+        color: #bfb6d3;
+        font-size: 13px;
+      }
+      .pp-stats strong {
+        display: block;
+        color: #fff;
+        font-size: 19px;
+        margin-bottom: 2px;
+      }
+      .pp-posts-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 32px 0 16px;
+      }
+      .pp-posts-heading h2 {
+        color: #f5f6fa;
+        font:
+          500 27px Fraunces,
+          serif;
+        margin: 0;
+      }
+      .pp-post {
+        padding: 22px;
+        border: 1px solid #ffffff16;
+        border-radius: 18px;
+        background: #100d22c9;
+        margin-bottom: 14px;
+      }
+      .pp-post-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .pp-post-top img {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #151a2b;
+      }
+      .pp-post-top strong {
+        display: block;
+        color: #fff;
+      }
+      .pp-post-top time {
+        font-size: 12px;
+        color: #aaa2bd;
+      }
+      .pp-post-content {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        line-height: 1.7;
+        color: #eee9f7;
+      }
+      .pp-media {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .pp-media img,
+      .pp-media video {
+        max-width: 100%;
+        max-height: 420px;
+        border-radius: 14px;
+        object-fit: contain;
+        background: #080b16;
+      }
+      .pp-state {
+        padding: 26px;
+        border: 1px solid #ffffff18;
+        border-radius: 18px;
+        background: #100d22c9;
+        color: #d8d0e8;
+        line-height: 1.7;
+      }
+      .pp-badge {
+        display: inline-block;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        color: #e8c88a;
+        border: 1px solid #e8c88a66;
+        padding: 7px 10px;
+        border-radius: 99px;
+        margin-bottom: 12px;
+      }
+      .pp-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid #ffffff24;
+        border-radius: 12px;
+        padding: 11px 15px;
+        color: #fff;
+        text-decoration: none;
+        background: rgba(232, 200, 138, 0.06);
+      }
+      .pp-action:hover {
+        background: #ffffff16;
+      }
+      @media (max-width: 640px) {
+        .public-profile-wrap {
+          padding: 16px 14px 40px;
+        }
+        .pp-cover {
+          height: 165px;
+        }
+        .pp-profile-row {
+          padding: 0 18px 18px;
+          gap: 14px;
+          margin-top: -42px;
+        }
+        .pp-avatar {
+          width: 88px;
+          height: 88px;
+        }
+        .pp-bio {
+          padding: 0 18px 20px;
+        }
+        .pp-stats {
+          padding: 16px 18px;
+          gap: 20px;
+        }
+        .pp-post {
+          padding: 17px;
+        }
+      }
+
+      /* ---- Seções do perfil (mesmo conteúdo do perfil próprio, somente leitura) ---- */
+      .pp-level-chip{display:inline-flex;gap:8px;align-items:center;font-size:12px;color:#e8c88a;border:1px solid #e8c88a55;border-radius:99px;padding:4px 10px;margin-left:8px;vertical-align:middle}
+      .pp-section{margin-top:30px}
+      .pp-section-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+      .pp-section-head h2{color:#f5f6fa;font:500 25px Fraunces,serif;margin:0}
+      .pp-section-head small{color:#aaa2bd;font-size:13px}
+      .pp-empty{color:#aaa2bd;font-size:14px;line-height:1.6;margin:0}
+      .pp-ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+      .pp-ach{display:flex;gap:12px;padding:14px;border:1px solid #ffffff16;background:#100d22c9;border-radius:14px;opacity:.55}
+      .pp-ach.is-earned{opacity:1;border-color:#e8c88a66}
+      .pp-ach-icon{font-size:22px;line-height:1;width:34px;text-align:center;color:#e8c88a;flex:none;padding-top:2px}
+      .pp-ach strong{color:#fff}
+      .pp-ach p{margin:4px 0 8px;color:#bfb6d3;font-size:13px;line-height:1.5}
+      .pp-ach small{color:#aaa2bd;font-size:11px}
+      .pp-bar{height:4px;background:#ffffff1a;border-radius:99px;overflow:hidden}
+      .pp-bar span{display:block;height:100%;background:#e8c88a}
+      .pp-tree{border:1px solid #ffffff16;background:#060914;padding:8px;overflow-x:auto;border-radius:14px}
+      .pp-tree svg{width:100%;min-width:520px;height:auto;display:block}
+      .pp-skill-list{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;color:#7a84a8;font-size:13px}
+      .pp-skill-list li{padding:8px 10px;border:1px solid #ffffff12;border-radius:10px}
+      .pp-skill-list li.on{color:#dff7e6;border-color:#4ade8055}
+      .pp-skill-list li span{color:#4ade80;margin-right:6px}
+      .pp-skill-list small{display:block;color:#6b7596;font-size:11px}
+      .pp-mural{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+      .pp-thank-card{padding:14px;border:1px solid #e8c88a33;border-radius:14px;background:#100d22c9}
+      .pp-thank-card .who{color:#e8c88a;font-size:13px;display:flex;gap:8px;align-items:center}
+      .pp-thank-card p{margin:8px 0;color:#eee9f7;font-size:14px;line-height:1.5}
+      .pp-thank-card time{color:#aaa2bd;font-size:11px}
+      .pp-thank-card a{color:#bfb6d3;font-size:12px}
+      .pp-com-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+      .pp-com{display:flex;gap:10px;align-items:center;padding:12px;border:1px solid #ffffff16;border-radius:14px;background:#100d22c9;color:#fff;text-decoration:none;min-width:0}
+      .pp-com:hover{border-color:#e8c88a66}
+      .pp-com-av{width:38px;height:38px;border-radius:10px;object-fit:cover;background:#27213e;display:grid;place-items:center;color:#e8c88a;flex:none}
+      .pp-com span{min-width:0}
+      .pp-com strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .pp-com small{display:block;color:#aaa2bd;font-size:12px}
+      .pp-act-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;border-top:1px solid #ffffff12;padding-top:10px}
+      .pp-act{background:transparent;border:0;color:#bfb6d3;font:inherit;font-size:13px;padding:6px 10px;border-radius:99px;cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+      .pp-act:hover{background:#ffffff12;color:#fff}
+      .pp-act.on{color:#e8c88a}
+      .pp-act:disabled{opacity:.5;cursor:not-allowed}
+      .pp-act:focus-visible{outline:2px solid #e8c88a;outline-offset:2px}
+      .pp-post-top .pp-meta{color:#aaa2bd;font-size:13px;font-weight:400}
+      .pp-post-top .pp-meta time{margin-left:6px;font-size:12px}
+      @media (max-width: 640px){ .pp-ach-grid,.pp-com-grid,.pp-mural{grid-template-columns:1fr} }
+    </style>
+      <link rel="stylesheet" href="luminova-aero.css?v=3.0.0" />
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true">
+      <div class="haze haze--north"></div>
+      <div class="haze haze--south"></div>
+      <div class="belt"></div>
+      <div class="stars stars--far"></div>
+      <div class="stars stars--near"></div>
+      <div class="vignette"></div>
+    </div>
+    <div class="pp-layout">
+      
+      <main class="pp-main">
+      <div class="public-profile-wrap pp-wrap" id="ppWrap">
+      <a class="pp-back" href="geral.html">← Voltar ao feed</a>
+      <section class="pp-card" aria-label="Perfil público">
+        <div class="pp-cover" id="ppCover"></div>
+        <div class="pp-profile-row">
+          <img class="pp-avatar" id="ppAvatar" alt="Foto de perfil" src="" />
+          <div class="pp-identity">
+            <span class="pp-badge">UNIVERSO LUMINOVA</span>
+            <h1 id="ppName">Carregando perfil…</h1>
+            <div class="pp-handle" id="ppHandle"></div>
+            <div class="pp-actions" id="ppActions"></div>
+          </div>
+        </div>
+        <p class="pp-bio" id="ppBio"></p>
+        <div class="pp-stats">
+          <div><strong id="ppPostsCount">—</strong>Publicações</div>
+          <div><strong id="ppLevel">—</strong>Nível</div>
+          <div><strong id="ppXp">—</strong>XP</div>
+          <button type="button" id="ppFollowersBtn"><strong id="ppFollowers">—</strong>Seguidores</button>
+          <button type="button" id="ppFollowingBtn"><strong id="ppFollowing">—</strong>Seguindo</button>
+        </div>
+      </section>
+      <section class="pp-section" aria-labelledby="ppAchTitle">
+        <div class="pp-section-head"><h2 id="ppAchTitle">Conquistas</h2><small id="ppAchCount"></small></div>
+        <div class="pp-ach-grid" id="ppAchievements"><div class="pp-state">Carregando conquistas…</div></div>
+      </section>
+      <section class="pp-section" aria-labelledby="ppSkillTitle">
+        <div class="pp-section-head"><h2 id="ppSkillTitle">Skill Tree</h2><small id="ppSkillCount"></small></div>
+        <div id="ppSkills"><div class="pp-state">Carregando Skill Tree…</div></div>
+      </section>
+      <section class="pp-section" aria-labelledby="ppMuralTitle">
+        <div class="pp-section-head"><h2 id="ppMuralTitle">Mural de agradecimentos</h2><small id="ppThanksCount"></small></div>
+        <div class="pp-mural" id="ppMural"><div class="pp-state">Carregando agradecimentos…</div></div>
+      </section>
+      <section class="pp-section" aria-labelledby="ppComTitle">
+        <div class="pp-section-head"><h2 id="ppComTitle">Comunidades</h2><small id="ppComCount"></small></div>
+        <div class="pp-com-grid" id="ppCommunities"><div class="pp-state">Carregando comunidades…</div></div>
+      </section>
+      <section class="pp-section" aria-labelledby="ppPostsTitle">
+        <div class="pp-section-head"><h2 id="ppPostsTitle">Publicações</h2><a class="pp-action" href="geral.html">Explorar feed ↗</a></div>
+        <section id="ppPosts" aria-live="polite"><div class="pp-state">Carregando publicações…</div></section>
+      </section>
+      </div>
+      </main>
+    </div>
+    <div class="ln-modal-backdrop" id="ppModal">
+      <div class="ln-modal" role="dialog" aria-modal="true" aria-labelledby="ppModalTitle">
+        <h2 id="ppModalTitle">Pessoas</h2>
+        <div class="pp-people" id="ppPeople"></div>
+        <div class="ln-modal-actions"><button type="button" class="ln-btn ghost" data-close>Fechar</button></div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js?v=3.0.0"></script>
+    <script src="luminova-sidebar.js?v=3.0.0" defer></script>
+    <script src="perfil-publico.js?v=3.0.0" defer></script>
+</body>
+</html>

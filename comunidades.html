@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script src="luminova-theme.js?v=3.0.0"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#8fd3ff" />
+    <title>Comunidades — LumiNova</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=3.0.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=3.0.0" />
+      <link rel="stylesheet" href="luminova-aero.css?v=3.0.0" />
+  </head>
+  <body class="ln-page">
+    <div class="sky" aria-hidden="true"><div class="haze haze--north"></div><div class="haze haze--south"></div><div class="belt"></div><div class="stars stars--far"></div><div class="stars stars--near"></div><div class="vignette"></div></div>
+        <div class="ln-layout">
+      <main class="ln-content" id="main">
+        <header class="ln-top">
+          <div class="ln-crumb">LumiNova <span> / </span> Comunidades</div>
+          <label class="ln-search" aria-label="Buscar comunidade">⌕ <input id="communitySearch" placeholder="Buscar uma comunidade" /></label>
+        </header>
+        <section class="ln-hero">
+          <span class="ln-kicker">ENCONTRE SUA COMUNIDADE</span>
+          <h1 class="ln-title">Seus interesses. Sua<br />comunidade.</h1>
+          <p class="ln-subtitle">Descubra pessoas que curtem as mesmas coisas, compartilhe ideias, faça perguntas e participe de conversas sobre seus interesses favoritos.</p>
+          <div style="margin-top:20px"><button class="ln-btn" id="createCommunity">＋ Criar comunidade</button></div>
+        </section>
+        <div class="ln-panel-head" style="padding:0 0 17px;border:0;flex-wrap:wrap;gap:10px">
+          <h2 style="font-size:17px">Descubra comunidades</h2>
+          <div><button class="ln-chip active" data-filter="all" aria-pressed="true">Todas</button> <button class="ln-chip" data-filter="mine" aria-pressed="false">Minhas</button></div>
+          <span class="ln-muted" id="communityCount">…</span>
+        </div>
+        <div class="ln-community-grid" id="communityGrid" aria-live="polite"></div>
+        <p class="ln-notice" id="limitNotice">Você pode participar de até 4 comunidades (5 com 500 XP).</p>
+      </main>
+    </div>
+    <div class="ln-modal-backdrop" id="createModal">
+      <form class="ln-modal" id="createForm">
+        <span class="ln-kicker">NOVO ESPAÇO</span><h2>Crie seu espaço</h2>
+        <p>Reúna pessoas em torno de um interesse, hobby, fandom ou tema que você ama.</p>
+        <div class="ln-field"><label for="newName">Nome da comunidade</label><input class="ln-input" id="newName" maxlength="50" minlength="3" required placeholder="Ex.: Fãs de ficção científica" /></div>
+        <div class="ln-field"><label for="newDesc">Descrição</label><textarea id="newDesc" maxlength="180" required placeholder="Sobre o que vocês vão conversar?"></textarea></div>
+        <div class="ln-field"><label for="newTheme">Identidade visual</label>
+          <select id="newTheme" class="ln-input">
+            <option value="purple">Violeta cósmico</option><option value="blue">Azul digital</option>
+            <option value="rose">Rosa criativo</option><option value="green">Verde natureza</option>
+          </select></div>
+        <div class="ln-field"><label for="newCover">Capa (opcional)</label><input class="ln-input" id="newCover" type="file" accept="image/*"><div id="coverPrev" class="c-prev" hidden></div></div>
+        <div class="ln-field"><label for="newAvatar">Avatar (opcional)</label><input class="ln-input" id="newAvatar" type="file" accept="image/*"><div id="avatarPrev" class="c-prev c-prev-av" hidden></div></div>
+        <p class="ln-muted" id="createErr" role="alert"></p>
+        <div class="ln-modal-actions"><button type="button" class="ln-btn ghost" data-close>Cancelar</button><button class="ln-btn" type="submit">Criar espaço</button></div>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js?v=3.0.0"></script>
+    <script src="luminova-sidebar.js?v=3.0.0" defer></script>
+    <script src="comunidades.js?v=3.0.0" defer></script>
+  </body>
+</html>

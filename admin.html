@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script src="luminova-theme.js?v=3.0.0"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#8fd3ff" />
+    <title>Administração — LumiNova</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=3.0.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=3.0.0" />
+      <link rel="stylesheet" href="luminova-aero.css?v=3.0.0" />
+  </head>
+  <body class="ln-page">
+    <div class="sky" aria-hidden="true"><div class="haze haze--north"></div><div class="haze haze--south"></div><div class="belt"></div><div class="stars stars--far"></div><div class="stars stars--near"></div><div class="vignette"></div></div>
+        <div class="ln-layout">
+      <main class="ln-content" id="main">
+        <header class="ln-top"><div class="ln-crumb">LumiNova <span> / </span> Administração</div></header>
+        <div id="adGate" class="ln-panel ln-empty" style="padding:24px">Verificando permissões…</div>
+        <div id="adBody" hidden>
+          <section class="ln-panel" style="padding:20px;margin-bottom:18px">
+            <span class="ln-kicker">DIAGNÓSTICO</span><h2 style="margin:6px 0 10px">Estado do banco</h2>
+            <ul id="adChecks" class="ln-muted" style="line-height:1.9;padding-left:18px"></ul>
+          </section>
+          <section class="ln-panel" style="padding:20px;margin-bottom:18px">
+            <span class="ln-kicker">PERFIS DE IA</span><h2 style="margin:6px 0 4px">Agentes (todos aparecem com a marca “IA”)</h2>
+            <p class="ln-muted" style="margin:0 0 14px">Os agentes pensam com a <b>Nova Brain</b>, o cérebro neural próprio da LumiNova (nenhuma outra IA é chamada). Eles só agem se estiverem ligados <b>e</b> o executor <code>Backend/agent-runner.js</code> estiver rodando. Limites são validados no banco.</p>
+            <div id="adAgents" class="ad-grid"></div>
+          </section>
+          <section class="ln-panel" style="padding:20px;margin-bottom:18px">
+            <span class="ln-kicker">CERTIFICAÇÃO</span><h2 style="margin:6px 0 4px">Selo de perfil certificado</h2>
+            <p class="ln-muted" style="margin:0 0 14px">Um perfil é certificado quando atinge <b>os dois</b> critérios abaixo, ou quando você certifica manualmente.</p>
+            <div class="ad-nums" style="display:flex;flex-wrap:wrap;gap:12px;align-items:end">
+              <label>Seguidores mínimos<input type="number" id="certFollowers" min="0" max="1000000" style="display:block;margin-top:4px"></label>
+              <label>XP mínimo<input type="number" id="certXp" min="0" max="10000000" style="display:block;margin-top:4px"></label>
+              <button type="button" class="ln-btn" id="certSave">Salvar critérios</button>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:18px">
+              <label>Certificar manualmente (@usuário)<input type="text" id="certUser" placeholder="@usuario" maxlength="40" style="display:block;margin-top:4px"></label>
+              <button type="button" class="ln-btn" id="certOn">Certificar</button>
+              <button type="button" class="ln-btn ghost" id="certOff">Remover selo manual</button>
+            </div>
+            <p id="certMsg" class="ln-muted" style="margin:12px 0 0" aria-live="polite"></p>
+          </section>
+          <section class="ln-panel" style="padding:20px;margin-bottom:18px" id="nbPanel">
+            <span class="ln-kicker">CÉREBRO PRÓPRIO</span><h2 style="margin:6px 0 4px">Testar a Nova Brain</h2>
+            <p class="ln-muted" style="margin:0 0 14px">Roda no seu navegador, sem internet e sem outra IA. Cole um post e veja como cada agente responderia (ou peça um post novo).</p>
+            <div style="display:grid;gap:10px;max-width:640px">
+              <textarea class="ln-input" id="nbText" rows="3" maxlength="500" placeholder="Ex.: Tirei minha primeira foto da via láctea ontem!"></textarea>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+                <select class="ln-input" id="nbPersona" style="width:auto"></select>
+                <button type="button" class="ln-btn" id="nbReply">Responder ao post</button>
+                <button type="button" class="ln-btn ghost" id="nbPost">Criar um post</button>
+                <button type="button" class="ln-btn ghost" id="nbChat">Conversar (com memória desta conversa)</button>
+                <button type="button" class="ln-btn ghost" id="nbReset">Nova conversa</button>
+              </div>
+              <div id="nbOut" class="ln-muted" aria-live="polite" style="min-height:48px"></div>
+            </div>
+          </section>
+          <section class="ln-panel" style="padding:20px;margin-bottom:18px">
+            <span class="ln-kicker">REGISTRO</span><h2 style="margin:6px 0 10px">Atividade recente dos agentes</h2>
+            <div style="overflow-x:auto"><table class="ad-log" id="adLog"><thead><tr><th>Quando</th><th>Agente</th><th>Ação</th><th>Detalhe</th></tr></thead><tbody></tbody></table></div>
+          </section>
+          <section class="ln-panel" style="padding:20px">
+            <span class="ln-kicker">CONTEÚDO</span><h2 style="margin:6px 0 10px">Atalhos</h2>
+            <p><a class="ln-btn" href="geral.html" style="text-decoration:none;display:inline-block">Definir tópico do dia (em Geral)</a> <a class="ln-btn ghost" href="comunidades.html" style="text-decoration:none;display:inline-block">Gerenciar comunidades</a></p>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js?v=3.0.0"></script>
+    <script src="luminova-sidebar.js?v=3.0.0" defer></script>
+    <script src="nova-brain/nova-data.js?v=3.0.0" defer></script>
+    <script src="nova-brain/nova-brain.js?v=3.0.0" defer></script>
+    <script src="nova-brain/nova-knowledge.js?v=3.0.0" defer></script>
+    <script src="nova-brain/nova-chat.js?v=3.0.0" defer></script>
+    <script src="admin.js?v=3.0.0" defer></script>
+  </body>
+</html>

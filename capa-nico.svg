@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Capa do agente nico">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b4a4a"/><stop offset=".7" stop-color="#29d3a2"/><stop offset="1" stop-color="#e9f8ff"/></linearGradient>
+<radialGradient id="o" cx=".8" cy=".2" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0v40" fill="none" stroke="#fff" stroke-opacity=".12"/></pattern></defs>
+<rect width="1200" height="300" fill="url(#s)"/><rect width="1200" height="300" fill="url(#grid)"/><rect width="1200" height="300" fill="url(#o)"/>
+<path d="M0 250 Q300 200 600 240 T1200 230 V300 H0z" fill="#fff" opacity=".22"/><path d="M0 270 Q400 235 800 265 T1200 255 V300 H0z" fill="#fff" opacity=".3"/>
+<g transform="translate(1010 40) scale(2.6)" opacity=".35"><rect x="14" y="24" width="36" height="20" fill="none" stroke="#fff" stroke-width="3.5"/><path d="M22 34h8M26 30v8" stroke="#fff" stroke-width="3.5"/><rect x="38" y="29" width="4" height="4" fill="#fff"/><rect x="43" y="34" width="4" height="4" fill="#fff"/></g>
+</svg>

@@ -1,0 +1,2938 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script src="luminova-theme.js?v=3.0.0"></script>
+  <link rel="stylesheet" href="style.css?v=3.0.0">
+  <link rel="stylesheet" href="luminova-pages.css?v=3.0.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8fd3ff" />
+    <meta
+      name="description"
+      content="Seu universo na LumiNova: perfil cósmico, Skill Tree completa com pontos de XP e mural de agradecimentos."
+    />
+    <title>LumiNova — Perfil</title>
+
+    <!-- ✦ Favicon: estrela de 4 pontas dourada (LumiNova) -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2304060f'/%3E%3Cpath d='M32 6 L36 28 L58 32 L36 36 L32 58 L28 36 L6 32 L28 28 Z' fill='%23e8c88a'/%3E%3C/svg%3E"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2304060f'/%3E%3Cpath d='M32 6 L36 28 L58 32 L36 36 L32 58 L28 36 L6 32 L28 28 Z' fill='%23e8c88a'/%3E%3C/svg%3E"
+      sizes="any"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%2304060f'/%3E%3Cpath d='M90 18 L100 78 L160 90 L100 102 L90 162 L80 102 L20 90 L80 78 Z' fill='%23e8c88a'/%3E%3C/svg%3E"
+    />
+
+    <!-- ✦ Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:opsz,wght@9..40,100..1000&family=JetBrains+Mono:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ✦ Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script src="./supabase-config.js?v=3.0.0"></script>
+    <script src="./luminova-sidebar.js?v=3.0.0" defer></script>
+    <script src="./luminova-colorwheel.js?v=3.0.0" defer></script>
+    <script src="./supabase-perfil-design.js?v=3.0.0" defer></script>
+
+    <style>
+      /* ============================================================
+   LumiNova — Estilos base (reset + tema + utilitários essenciais)
+   ============================================================ */
+      *,
+      ::after,
+      ::before,
+      ::backdrop {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        border: 0 solid;
+      }
+      html {
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        tab-size: 4;
+        font-family: "DM Sans", system-ui, sans-serif;
+        -webkit-tap-highlight-color: transparent;
+        font-size: 16px;
+      }
+      body {
+        background: #04060f;
+        color: #f5f6fa;
+        min-height: 100vh;
+        overflow-x: hidden;
+        font-family: "DM Sans", system-ui, sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: inherit;
+        font-weight: inherit;
+      }
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+        color: inherit;
+        background: transparent;
+        border-radius: 0;
+        opacity: 1;
+      }
+      button {
+        cursor: pointer;
+        appearance: button;
+      }
+      ol,
+      ul,
+      menu {
+        list-style: none;
+      }
+      img,
+      svg,
+      video {
+        display: block;
+        vertical-align: middle;
+        max-width: 100%;
+        height: auto;
+      }
+      table {
+        text-indent: 0;
+        border-color: inherit;
+        border-collapse: collapse;
+      }
+      textarea {
+        resize: vertical;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(232, 200, 138, 0.18);
+        border: 3px solid #04060f;
+      }
+      ::selection {
+        background: rgba(232, 200, 138, 0.3);
+        color: #fff;
+      }
+
+      /* ============================================================
+   Variáveis do tema LumiNova
+   ============================================================ */
+      :root {
+        --lumi-page: #04060f;
+        --lumi-accent: #e8c88a;
+        --lumi-card: #0c1024;
+        --lumi-on-accent: #141005;
+        --lumi-accent-08: rgba(232, 200, 138, 0.08);
+        --lumi-accent-12: rgba(232, 200, 138, 0.12);
+        --lumi-accent-18: rgba(232, 200, 138, 0.18);
+        --lumi-accent-30: rgba(232, 200, 138, 0.3);
+        --lumi-accent-45: rgba(232, 200, 138, 0.45);
+        --background: #04060f;
+        --foreground: #f5f6fa;
+        --card: #0c1024;
+        --card-foreground: #f8f9fd;
+        --popover: #090d1f;
+        --primary: #e8c88a;
+        --primary-foreground: #141005;
+        --secondary: rgba(255, 255, 255, 0.05);
+        --muted: rgba(255, 255, 255, 0.05);
+        --muted-foreground: #a1a7c4;
+        --accent: rgba(232, 200, 138, 0.12);
+        --destructive: #f87171;
+        --border: rgba(255, 255, 255, 0.08);
+        --input: rgba(255, 255, 255, 0.1);
+        --ring: #e8c88a;
+        --radius: 0rem;
+        --font-heading: "Playfair Display", Georgia, serif;
+        --font-mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+
+      /* ============================================================
+   Camadas de céu estrelado
+   ============================================================ */
+      .lumi-sky-layer {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+      }
+      .lumi-stars-a {
+        background-image:
+          radial-gradient(
+            1px 1px at 25px 35px,
+            rgba(255, 255, 255, 0.55) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1.5px 1.5px at 150px 180px,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1px 1px at 300px 80px,
+            rgba(232, 200, 138, 0.45) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1px 1px at 380px 260px,
+            rgba(255, 255, 255, 0.35) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1.5px 1.5px at 90px 320px,
+            rgba(255, 255, 255, 0.25) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1px 1px at 240px 380px,
+            rgba(232, 200, 138, 0.3) 50%,
+            transparent 51%
+          );
+        background-size: 460px 460px;
+        animation: twinkle 5.5s ease-in-out infinite;
+      }
+      .lumi-stars-b {
+        background-image:
+          radial-gradient(
+            1px 1px at 60px 110px,
+            rgba(255, 255, 255, 0.4) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1.5px 1.5px at 200px 30px,
+            rgba(232, 200, 138, 0.4) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1px 1px at 330px 200px,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1px 1px at 120px 260px,
+            rgba(255, 255, 255, 0.28) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1.5px 1.5px at 400px 330px,
+            rgba(232, 200, 138, 0.25) 50%,
+            transparent 51%
+          );
+        background-size: 640px 640px;
+        animation: twinkle 8s ease-in-out 1.8s infinite;
+      }
+      .lumi-cover-stars {
+        background-image:
+          radial-gradient(
+            1px 1px at 60px 40px,
+            rgba(255, 255, 255, 0.7) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1.5px 1.5px at 220px 90px,
+            rgba(255, 255, 255, 0.4) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1px 1px at 380px 30px,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1px 1px at 500px 110px,
+            rgba(232, 200, 138, 0.6) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            1.5px 1.5px at 160px 140px,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 51%
+          );
+        background-size: 620px 200px;
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.9;
+        }
+        50% {
+          opacity: 0.35;
+        }
+      }
+      @keyframes growLine {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
+      @keyframes drift {
+        from {
+          transform: translate3d(0, 0, 0) scale(1.08);
+        }
+        to {
+          transform: translate3d(-1.5%, -2%, 0) scale(1.14);
+        }
+      }
+      @keyframes nodePulse {
+        0%,
+        100% {
+          opacity: 0.55;
+        }
+        50% {
+          opacity: 0.12;
+        }
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes pulseDot {
+        0% {
+          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.55);
+        }
+        70% {
+          box-shadow: 0 0 0 8px rgba(74, 222, 128, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+        }
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .anim-growline {
+        animation: growLine 0.35s ease both;
+        transform-origin: left center;
+      }
+      .anim-fade-up {
+        animation: fadeUp 0.5s ease both;
+      }
+      .lumi-cover-drift {
+        animation: drift 24s ease-in-out infinite alternate;
+      }
+      .lumi-node-halo {
+        animation: nodePulse 2.4s ease-in-out infinite;
+      }
+      .lumi-online-dot {
+        animation: pulseDot 2.2s infinite;
+      }
+
+      /* ============================================================
+   Utilitários
+   ============================================================ */
+      .relative {
+        position: relative;
+      }
+      .absolute {
+        position: absolute;
+      }
+      .fixed {
+        position: fixed;
+      }
+      .sticky {
+        position: sticky;
+      }
+      .inset-0 {
+        inset: 0;
+      }
+      .top-0 {
+        top: 0;
+      }
+      .top-1 {
+        top: 0.25rem;
+      }
+      .top-2 {
+        top: 0.5rem;
+      }
+      .top-3 {
+        top: 0.75rem;
+      }
+      .right-1 {
+        right: 0.25rem;
+      }
+      .right-2 {
+        right: 0.5rem;
+      }
+      .right-3 {
+        right: 0.75rem;
+      }
+      .-top-2 {
+        top: -0.5rem;
+      }
+      .-right-1 {
+        right: -0.25rem;
+      }
+      .-bottom-1 {
+        bottom: -0.25rem;
+      }
+      .bottom-0 {
+        bottom: 0;
+      }
+      .bottom-2 {
+        bottom: 0.5rem;
+      }
+      .bottom-3 {
+        bottom: 0.75rem;
+      }
+      .left-1\/2 {
+        left: 50%;
+      }
+      .left-4 {
+        left: 1rem;
+      }
+      .-translate-x-1\/2 {
+        transform: translateX(-50%);
+      }
+      .-translate-y-1\/2 {
+        transform: translateY(-50%);
+      }
+      .-rotate-2 {
+        transform: rotate(-2deg);
+      }
+      .z-0 {
+        z-index: 0;
+      }
+      .z-10 {
+        z-index: 10;
+      }
+      .z-40 {
+        z-index: 40;
+      }
+      .z-50 {
+        z-index: 50;
+      }
+      .flex {
+        display: flex;
+      }
+      .grid {
+        display: grid;
+      }
+      .hidden {
+        display: none;
+      }
+      .block {
+        display: block;
+      }
+      .inline-block {
+        display: inline-block;
+      }
+      .inline-flex {
+        display: inline-flex;
+      }
+      .flex-col {
+        flex-direction: column;
+      }
+      .flex-wrap {
+        flex-wrap: wrap;
+      }
+      .flex-1 {
+        flex: 1;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .items-start {
+        align-items: flex-start;
+      }
+      .items-end {
+        align-items: flex-end;
+      }
+      .items-baseline {
+        align-items: baseline;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .justify-self-end {
+        justify-self: flex-end;
+      }
+      .self-start {
+        align-self: flex-start;
+      }
+      .place-content-center {
+        place-content: center;
+      }
+      .shrink-0 {
+        flex-shrink: 0;
+      }
+      .min-w-0 {
+        min-width: 0;
+      }
+      .w-full {
+        width: 100%;
+      }
+      .w-fit {
+        width: fit-content;
+      }
+      .h-full {
+        height: 100%;
+      }
+      .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .ml-auto {
+        margin-left: auto;
+      }
+      .gap-0\.5 {
+        gap: 0.125rem;
+      }
+      .gap-1 {
+        gap: 0.25rem;
+      }
+      .gap-1\.5 {
+        gap: 0.375rem;
+      }
+      .gap-2 {
+        gap: 0.5rem;
+      }
+      .gap-2\.5 {
+        gap: 0.625rem;
+      }
+      .gap-3 {
+        gap: 0.75rem;
+      }
+      .gap-4 {
+        gap: 1rem;
+      }
+      .gap-5 {
+        gap: 1.25rem;
+      }
+      .gap-6 {
+        gap: 1.5rem;
+      }
+      .gap-x-2 {
+        column-gap: 0.5rem;
+      }
+      .gap-x-3 {
+        column-gap: 0.75rem;
+      }
+      .gap-x-4 {
+        column-gap: 1rem;
+      }
+      .gap-x-5 {
+        column-gap: 1.25rem;
+      }
+      .gap-x-6 {
+        column-gap: 1.5rem;
+      }
+      .gap-x-8 {
+        column-gap: 2rem;
+      }
+      .gap-y-2 {
+        row-gap: 0.5rem;
+      }
+      .gap-y-3 {
+        row-gap: 0.75rem;
+      }
+      .gap-y-4 {
+        row-gap: 1rem;
+      }
+      .mt-0\.5 {
+        margin-top: 0.125rem;
+      }
+      .mt-1 {
+        margin-top: 0.25rem;
+      }
+      .mt-1\.5 {
+        margin-top: 0.375rem;
+      }
+      .mt-2 {
+        margin-top: 0.5rem;
+      }
+      .mt-2\.5 {
+        margin-top: 0.625rem;
+      }
+      .mt-3 {
+        margin-top: 0.75rem;
+      }
+      .mt-4 {
+        margin-top: 1rem;
+      }
+      .mt-5 {
+        margin-top: 1.25rem;
+      }
+      .mb-1 {
+        margin-bottom: 0.25rem;
+      }
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+      .mb-5 {
+        margin-bottom: 1.25rem;
+      }
+      .ml-1\.5 {
+        margin-left: 0.375rem;
+      }
+      .pt-2 {
+        padding-top: 0.5rem;
+      }
+      .pt-3 {
+        padding-top: 0.75rem;
+      }
+      .pt-4 {
+        padding-top: 1rem;
+      }
+      .pt-6 {
+        padding-top: 1.5rem;
+      }
+      .pt-7 {
+        padding-top: 1.75rem;
+      }
+      .pr-2 {
+        padding-right: 0.5rem;
+      }
+      .pr-8 {
+        padding-right: 2rem;
+      }
+      .pb-1 {
+        padding-bottom: 0.25rem;
+      }
+      .pb-4 {
+        padding-bottom: 1rem;
+      }
+      .pl-1\.5 {
+        padding-left: 0.375rem;
+      }
+      .pl-2\.5 {
+        padding-left: 0.625rem;
+      }
+      .pl-3 {
+        padding-left: 0.75rem;
+      }
+      .p-0 {
+        padding: 0;
+      }
+      .p-1 {
+        padding: 0.25rem;
+      }
+      .p-2 {
+        padding: 0.5rem;
+      }
+      .p-2\.5 {
+        padding: 0.625rem;
+      }
+      .p-3 {
+        padding: 0.75rem;
+      }
+      .p-4 {
+        padding: 1rem;
+      }
+      .p-5 {
+        padding: 1.25rem;
+      }
+      .px-1\.5 {
+        padding-left: 0.375rem;
+        padding-right: 0.375rem;
+      }
+      .px-2 {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+      .px-2\.5 {
+        padding-left: 0.625rem;
+        padding-right: 0.625rem;
+      }
+      .px-3 {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
+      .px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      .px-5 {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+      .py-0\.5 {
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+      }
+      .py-1 {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+      }
+      .py-1\.5 {
+        padding-top: 0.375rem;
+        padding-bottom: 0.375rem;
+      }
+      .py-2 {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+      .py-2\.5 {
+        padding-top: 0.625rem;
+        padding-bottom: 0.625rem;
+      }
+      .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+      .py-3\.5 {
+        padding-top: 0.875rem;
+        padding-bottom: 0.875rem;
+      }
+      .py-4 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+      .py-6 {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .text-left {
+        text-align: left;
+      }
+      .text-right {
+        text-align: right;
+      }
+      .font-heading {
+        font-family: var(--font-heading);
+      }
+      .font-mono {
+        font-family: var(--font-mono);
+      }
+      .text-\[9px\] {
+        font-size: 9px;
+      }
+      .text-\[10px\] {
+        font-size: 10px;
+      }
+      .text-\[11px\] {
+        font-size: 11px;
+      }
+      .text-\[15px\] {
+        font-size: 15px;
+      }
+      .text-xs {
+        font-size: 0.75rem;
+        line-height: 1.333;
+      }
+      .text-sm {
+        font-size: 0.875rem;
+        line-height: 1.428;
+      }
+      .text-base {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+      .text-lg {
+        font-size: 1.125rem;
+        line-height: 1.555;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+        line-height: 1.4;
+      }
+      .text-2xl {
+        font-size: 1.5rem;
+        line-height: 1.333;
+      }
+      .text-3xl {
+        font-size: 1.875rem;
+        line-height: 1.2;
+      }
+      .text-4xl {
+        font-size: 2.25rem;
+        line-height: 1.111;
+      }
+      .font-medium {
+        font-weight: 500;
+      }
+      .font-semibold {
+        font-weight: 600;
+      }
+      .font-normal {
+        font-weight: 400;
+      }
+      .uppercase {
+        text-transform: uppercase;
+      }
+      .italic {
+        font-style: italic;
+      }
+      .tracking-tight {
+        letter-spacing: -0.025em;
+      }
+      .tracking-wider {
+        letter-spacing: 0.05em;
+      }
+      .tracking-widest {
+        letter-spacing: 0.1em;
+      }
+      .tracking-\[0\.24em\] {
+        letter-spacing: 0.24em;
+      }
+      .leading-none {
+        line-height: 1;
+      }
+      .leading-relaxed {
+        line-height: 1.625;
+      }
+      .leading-snug {
+        line-height: 1.375;
+      }
+      .whitespace-nowrap {
+        white-space: nowrap;
+      }
+      .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .overflow-hidden {
+        overflow: hidden;
+      }
+      .overflow-x-auto {
+        overflow-x: auto;
+      }
+      .overflow-x-hidden {
+        overflow-x: hidden;
+      }
+      .overflow-y-auto {
+        overflow-y: auto;
+      }
+      .rounded-full {
+        border-radius: 9999px;
+      }
+      .rounded-md {
+        border-radius: 0.25rem;
+      }
+      .rounded-lg {
+        border-radius: 0.5rem;
+      }
+      .rounded-xl {
+        border-radius: 0.75rem;
+      }
+      .rounded-none {
+        border-radius: 0;
+      }
+      .rounded-\[min\(var\(--radius-md\)\,12px\)\] {
+        border-radius: 12px;
+      }
+      .border {
+        border: 1px solid var(--border);
+      }
+      .border-0 {
+        border: 0;
+      }
+      .border-2 {
+        border-width: 2px;
+      }
+      .border-4 {
+        border-width: 4px;
+      }
+      .border-t {
+        border-top: 1px solid var(--border);
+      }
+      .border-b {
+        border-bottom: 1px solid var(--border);
+      }
+      .border-l {
+        border-left: 1px solid var(--border);
+      }
+      .border-l-2 {
+        border-left-width: 2px;
+      }
+      .border-dashed {
+        border-style: dashed;
+      }
+      .border-\[var\(--lumi-accent\)\] {
+        border-color: var(--lumi-accent);
+      }
+      .border-\[var\(--lumi-accent-12\)\] {
+        border-color: var(--lumi-accent-12);
+      }
+      .border-\[var\(--lumi-accent-18\)\] {
+        border-color: var(--lumi-accent-18);
+      }
+      .border-\[var\(--lumi-accent-30\)\] {
+        border-color: var(--lumi-accent-30);
+      }
+      .border-\[var\(--lumi-accent-45\)\] {
+        border-color: var(--lumi-accent-45);
+      }
+      .border-white\/6 {
+        border-color: rgba(255, 255, 255, 0.06);
+      }
+      .border-white\/8 {
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+      .border-white\/10 {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .border-white\/12 {
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+      .border-white\/20 {
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      .border-white\/25 {
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+      .border-transparent {
+        border-color: transparent;
+      }
+      .bg-\[var\(--lumi-accent\)\] {
+        background-color: var(--lumi-accent);
+      }
+      .bg-\[var\(--lumi-accent-08\)\] {
+        background-color: var(--lumi-accent-08);
+      }
+      .bg-\[var\(--lumi-accent-12\)\] {
+        background-color: var(--lumi-accent-12);
+      }
+      .bg-\[var\(--lumi-accent-30\)\] {
+        background-color: var(--lumi-accent-30);
+      }
+      .bg-\[\#060914\] {
+        background-color: #060914;
+      }
+      .bg-\[\#070b18\]\/95 {
+        background-color: rgba(7, 11, 24, 0.95);
+      }
+      .bg-\[\#090d1f\] {
+        background-color: #090d1f;
+      }
+      .bg-\[\#0e1329\] {
+        background-color: #0e1329;
+      }
+      .bg-\[\#4ade80\] {
+        background-color: #4ade80;
+      }
+      .bg-black\/10 {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      .bg-black\/55 {
+        background-color: rgba(0, 0, 0, 0.55);
+      }
+      .bg-white\/10 {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      .bg-white\/\[0\.02\] {
+        background-color: rgba(255, 255, 255, 0.02);
+      }
+      .bg-white\/\[0\.03\] {
+        background-color: rgba(255, 255, 255, 0.03);
+      }
+      .bg-transparent {
+        background-color: transparent;
+      }
+      .bg-gradient-to-br {
+        background-image: linear-gradient(to bottom right, #e8c88a, #c99a4e);
+      }
+      .from-\[\#e8c88a\] {
+        --tw-gradient-from: #e8c88a;
+      }
+      .to-\[\#c99a4e\] {
+        --tw-gradient-to: #c99a4e;
+      }
+      .text-\[\#4ade80\] {
+        color: #4ade80;
+      }
+      .text-\[\#5a6488\] {
+        color: #5a6488;
+      }
+      .text-\[\#8f96b3\] {
+        color: #8f96b3;
+      }
+      .text-\[\#141005\] {
+        color: #141005;
+      }
+      .text-\[\#a7adc9\] {
+        color: #a7adc9;
+      }
+      .text-\[\#c6cbe4\] {
+        color: #c6cbe4;
+      }
+      .text-\[\#dfe3f3\] {
+        color: #dfe3f3;
+      }
+      .text-\[\#e6e9f7\] {
+        color: #e6e9f7;
+      }
+      .text-\[\#e9ecf9\] {
+        color: #e9ecf9;
+      }
+      .text-\[\#f5f6fa\] {
+        color: #f5f6fa;
+      }
+      .text-\[var\(--lumi-accent\)\] {
+        color: var(--lumi-accent);
+      }
+      .text-\[var\(--lumi-accent-45\)\] {
+        color: var(--lumi-accent-45);
+      }
+      .text-muted-foreground {
+        color: var(--muted-foreground);
+      }
+      .text-white {
+        color: #fff;
+      }
+      .text-primary {
+        color: var(--primary);
+      }
+      .text-primary-foreground {
+        color: var(--primary-foreground);
+      }
+      .opacity-0 {
+        opacity: 0;
+      }
+      .opacity-50 {
+        opacity: 0.5;
+      }
+      .opacity-60 {
+        opacity: 0.6;
+      }
+      .opacity-70 {
+        opacity: 0.7;
+      }
+      .outline-none {
+        outline: none;
+      }
+      .select-none {
+        user-select: none;
+      }
+      .pointer-events-none {
+        pointer-events: none;
+      }
+      .cursor-pointer {
+        cursor: pointer;
+      }
+      .cursor-default {
+        cursor: default;
+      }
+      .resize-none {
+        resize: none;
+      }
+      .size-2 {
+        width: 0.5rem;
+        height: 0.5rem;
+      }
+      .size-2\.5 {
+        width: 0.625rem;
+        height: 0.625rem;
+      }
+      .size-3 {
+        width: 0.75rem;
+        height: 0.75rem;
+      }
+      .size-3\.5 {
+        width: 0.875rem;
+        height: 0.875rem;
+      }
+      .size-4 {
+        width: 1rem;
+        height: 1rem;
+      }
+      .size-5 {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+      .size-6 {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .size-7 {
+        width: 1.75rem;
+        height: 1.75rem;
+      }
+      .size-8 {
+        width: 2rem;
+        height: 2rem;
+      }
+      .size-9 {
+        width: 2.25rem;
+        height: 2.25rem;
+      }
+      .size-10 {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+      .size-24 {
+        width: 6rem;
+        height: 6rem;
+      }
+      .h-0\.5 {
+        height: 0.125rem;
+      }
+      .h-1 {
+        height: 0.25rem;
+      }
+      .h-1\.5 {
+        height: 0.375rem;
+      }
+      .h-4 {
+        height: 1rem;
+      }
+      .h-5 {
+        height: 1.25rem;
+      }
+      .h-6 {
+        height: 1.5rem;
+      }
+      .h-7 {
+        height: 1.75rem;
+      }
+      .h-8 {
+        height: 2rem;
+      }
+      .h-9 {
+        height: 2.25rem;
+      }
+      .h-10 {
+        height: 2.5rem;
+      }
+      .h-\[170px\] {
+        height: 170px;
+      }
+      .h-auto {
+        height: auto;
+      }
+      .h-px {
+        height: 1px;
+      }
+      .w-2\/5 {
+        width: 40%;
+      }
+      .w-16 {
+        width: 4rem;
+      }
+      .w-40 {
+        width: 10rem;
+      }
+      .w-72 {
+        width: 18rem;
+      }
+      .w-auto {
+        width: auto;
+      }
+      .max-w-\[60ch\] {
+        max-width: 60ch;
+      }
+      .max-w-\[1280px\] {
+        max-width: 1280px;
+      }
+      .min-h-10 {
+        min-height: 2.5rem;
+      }
+      .min-h-16 {
+        min-height: 4rem;
+      }
+      .min-h-screen {
+        min-height: 100vh;
+      }
+      .min-w-36 {
+        min-width: 9rem;
+      }
+      .min-w-\[96px\] {
+        min-width: 96px;
+      }
+      .min-w-\[560px\] {
+        min-width: 560px;
+      }
+      .ring-1 {
+        box-shadow: 0 0 0 1px var(--ring);
+      }
+      .shadow-md {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .shadow-lg {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+      .backdrop-blur-md {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .backdrop-blur-sm {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .transition {
+        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .transition-all {
+        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .transition-colors {
+        transition:
+          color 0.15s,
+          background-color 0.15s,
+          border-color 0.15s;
+      }
+      .transition-transform {
+        transition: transform 0.15s;
+      }
+      .transition-opacity {
+        transition: opacity 0.15s;
+      }
+      .transition-\[width\] {
+        transition: width 0.15s;
+      }
+      .duration-100 {
+        transition-duration: 0.1s;
+      }
+      .duration-150 {
+        transition-duration: 0.15s;
+      }
+      .duration-200 {
+        transition-duration: 0.2s;
+      }
+      .duration-700 {
+        transition-duration: 0.7s;
+      }
+      .ease-out {
+        transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      }
+      .ease-in-out {
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Botões base */
+      button[data-slot="button"] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.375rem;
+        height: 2rem;
+        padding: 0 0.625rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        transition: all 0.15s;
+        user-select: none;
+      }
+      button[data-slot="button"]:disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+      button[data-slot="button"].bg-primary {
+        background: var(--primary);
+        color: var(--primary-foreground);
+      }
+      button[data-slot="button"].bg-primary:hover {
+        background: #d9b878;
+      }
+
+      /* Hovers */
+      @media (hover: hover) {
+        .hover\:translate-x-0\.5:hover {
+          transform: translateX(0.125rem);
+        }
+        .hover\:-translate-y-0\.5:hover {
+          transform: translateY(-0.125rem);
+        }
+        .hover\:scale-110:hover {
+          transform: scale(1.1);
+        }
+        .hover\:bg-\[var\(--lumi-accent-12\)\]:hover {
+          background: var(--lumi-accent-12);
+        }
+        .hover\:bg-\[var\(--lumi-accent-08\)\]:hover {
+          background: var(--lumi-accent-08);
+        }
+        .hover\:bg-\[var\(--lumi-accent\)\]:hover {
+          background: var(--lumi-accent);
+        }
+        .hover\:bg-white\/\[0\.04\]:hover {
+          background: rgba(255, 255, 255, 0.04);
+        }
+        .hover\:border-\[var\(--lumi-accent-30\)\]:hover {
+          border-color: var(--lumi-accent-30);
+        }
+        .hover\:border-\[var\(--lumi-accent-45\)\]:hover {
+          border-color: var(--lumi-accent-45);
+        }
+        .hover\:text-\[\#141005\]:hover {
+          color: #141005;
+        }
+        .hover\:text-\[\#f5f6fa\]:hover {
+          color: #f5f6fa;
+        }
+        .hover\:text-\[var\(--lumi-accent\)\]:hover {
+          color: var(--lumi-accent);
+        }
+      }
+      .group:hover .group-hover\:scale-110 {
+        transform: scale(1.1);
+      }
+      .focus-within\:border-\[var\(--lumi-accent-45\)\]:focus-within {
+        border-color: var(--lumi-accent-45);
+      }
+      .focus\:border-\[var\(--lumi-accent-45\)\]:focus {
+        border-color: var(--lumi-accent-45);
+      }
+      .placeholder\:text-muted-foreground::placeholder {
+        color: var(--muted-foreground);
+      }
+
+      /* Responsivo */
+      @media (min-width: 640px) {
+        .sm\:flex {
+          display: flex;
+        }
+        .sm\:block {
+          display: block;
+        }
+        .sm\:grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .sm\:grid-cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .sm\:flex-row {
+          flex-direction: row;
+        }
+        .sm\:justify-end {
+          justify-content: flex-end;
+        }
+        .sm\:text-center {
+          text-align: center;
+        }
+        .sm\:max-w-\[480px\] {
+          max-width: 480px;
+        }
+      }
+      @media (min-width: 768px) {
+        .md\:h-\[200px\] {
+          height: 200px;
+        }
+        .md\:w-52 {
+          width: 13rem;
+        }
+        .md\:flex-row {
+          flex-direction: row;
+        }
+        .md\:p-6 {
+          padding: 1.5rem;
+        }
+        .md\:px-4 {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+        .md\:px-6 {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:fixed {
+          position: fixed;
+        }
+        .lg\:inset-y-0 {
+          top: 0;
+          bottom: 0;
+        }
+        .lg\:left-0 {
+          left: 0;
+        }
+        .lg\:h-screen {
+          height: 100vh;
+        }
+        .lg\:w-\[260px\] {
+          width: 260px;
+        }
+        .lg\:w-\[280px\] {
+          width: 280px;
+        }
+        .lg\:shrink-0 {
+          flex-shrink: 0;
+        }
+        .lg\:grid-cols-12 {
+          grid-template-columns: repeat(12, minmax(0, 1fr));
+        }
+        .lg\:col-span-4 {
+          grid-column: span 4 / span 4;
+        }
+        .lg\:col-span-8 {
+          grid-column: span 8 / span 8;
+        }
+        .lg\:block {
+          display: block;
+        }
+        .lg\:flex-col {
+          flex-direction: column;
+        }
+        .lg\:flex-row {
+          flex-direction: row;
+        }
+        .lg\:gap-0\.5 {
+          gap: 0.125rem;
+        }
+        .lg\:overflow-visible {
+          overflow: visible;
+        }
+        .lg\:border-r {
+          border-right: 1px solid var(--border);
+        }
+        .lg\:border-b-0 {
+          border-bottom: 0;
+        }
+        .lg\:p-8 {
+          padding: 2rem;
+        }
+        .lg\:px-5 {
+          padding-left: 1.25rem;
+          padding-right: 1.25rem;
+        }
+        .lg\:pt-6 {
+          padding-top: 1.5rem;
+        }
+        .lg\:pl-\[260px\] {
+          padding-left: 260px;
+        }
+      }
+      @media (min-width: 1280px) {
+        .xl\:p-10 {
+          padding: 2.5rem;
+        }
+      }
+
+      /* ============================================================
+   Estilos dos modais e interações (portados da versão antiga)
+   ============================================================ */
+      .modal-backdrop,
+      .construction-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(2, 4, 10, 0.78);
+        backdrop-filter: blur(8px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        padding: 1rem;
+      }
+      .modal-backdrop.open,
+      .construction-backdrop.open {
+        display: flex;
+        animation: fadeIn 0.3s ease both;
+      }
+      .modal {
+        position: relative;
+        width: min(560px, 100%);
+        max-height: 90vh;
+        overflow-y: auto;
+        background: var(--lumi-card);
+        border: 1px solid var(--lumi-accent-18);
+        padding: 1.5rem;
+        animation: modalPop 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+      }
+      @keyframes modalPop {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .modal-close {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        background: none;
+        border: none;
+        color: var(--muted-foreground);
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition:
+          color 0.25s ease,
+          transform 0.25s ease;
+      }
+      .modal-close:hover {
+        color: var(--lumi-accent);
+        transform: rotate(90deg);
+      }
+      .modal h2 {
+        font-family: var(--font-heading);
+        font-weight: 500;
+        margin: 0.3rem 0 0.5rem;
+        font-size: 1.5rem;
+      }
+      .modal-intro {
+        color: var(--muted-foreground);
+        font-size: 0.85rem;
+        margin: 0 0 1.2rem;
+      }
+
+      #profileForm {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+      }
+      #profileForm label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        font-size: 0.8rem;
+        color: var(--muted-foreground);
+      }
+      #profileForm input:not([type="checkbox"]),
+      #profileForm textarea,
+      #profileForm select {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--lumi-accent-18);
+        padding: 0.55rem 0.75rem;
+        color: #f5f6fa;
+        font-family: inherit;
+        font-size: 0.88rem;
+        outline: none;
+        transition:
+          border-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      #profileForm input:focus,
+      #profileForm textarea:focus,
+      #profileForm select:focus {
+        border-color: var(--lumi-accent);
+        box-shadow: 0 0 0 3px var(--lumi-accent-12);
+      }
+      #profileForm input[type="color"] {
+        height: 40px;
+        padding: 0.2rem;
+        cursor: pointer;
+      }
+
+      .field-hint {
+        font-size: 0.7rem;
+        color: var(--muted-foreground);
+      }
+      .widget-options {
+        border: 1px solid var(--lumi-accent-18);
+        padding: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .widget-options legend {
+        font-size: 0.72rem;
+        color: var(--lumi-accent);
+        padding: 0 0.4rem;
+      }
+      .widget-options label {
+        flex-direction: row !important;
+        align-items: center;
+        gap: 0.5rem !important;
+        cursor: pointer;
+      }
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.6rem;
+        margin-top: 0.6rem;
+      }
+
+      .construction-card {
+        position: relative;
+        width: min(460px, 100%);
+        background: var(--lumi-card);
+        border: 1px solid var(--lumi-accent-18);
+        padding: 1.8rem 1.6rem;
+        text-align: center;
+        animation: modalPop 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+      }
+      .construction-close {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        background: none;
+        border: none;
+        color: var(--muted-foreground);
+        font-size: 1.4rem;
+        cursor: pointer;
+      }
+      .construction-close:hover {
+        color: var(--lumi-accent);
+      }
+      .construction-art {
+        position: relative;
+        height: 90px;
+        margin-bottom: 0.8rem;
+      }
+      .construction-orbit {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        border: 1px dashed var(--lumi-accent);
+        border-radius: 50%;
+        opacity: 0.5;
+        transform: translate(-50%, -50%);
+      }
+      .orbit-one {
+        width: 80px;
+        height: 80px;
+      }
+      .orbit-two {
+        width: 120px;
+        height: 120px;
+      }
+      .construction-star {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.6rem;
+        color: var(--lumi-accent);
+      }
+      .construction-spark {
+        position: absolute;
+        color: var(--lumi-accent);
+      }
+      .spark-one {
+        top: 10px;
+        right: 30%;
+      }
+      .spark-two {
+        bottom: 8px;
+        left: 28%;
+      }
+      .construction-card h2 {
+        font-family: var(--font-heading);
+        font-weight: 500;
+      }
+      .construction-card p {
+        color: var(--muted-foreground);
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+      .construction-progress {
+        height: 4px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        margin: 1rem 0 0.6rem;
+      }
+      .construction-progress span {
+        display: block;
+        height: 100%;
+        width: 40%;
+        background: var(--lumi-accent);
+      }
+      .construction-caption {
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        color: var(--muted-foreground);
+      }
+      .construction-caption span {
+        color: var(--lumi-accent);
+      }
+      .construction-ok {
+        margin-top: 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 2rem;
+        padding: 0 0.625rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        background: var(--lumi-accent);
+        color: #141005;
+        border: 1px solid transparent;
+        cursor: pointer;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--lumi-accent);
+        color: #111;
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.35s ease;
+        z-index: 200;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* Ajuste de bordas quadradas (mantido do design novo) */
+      /* cantos arredondados (identidade aero) */
+      .rounded-full,
+      #hero-avatar,
+      #sidebar-avatar,
+      #composer-avatar,
+      .avatar-edit,
+      .status-dot,
+      .online-dot,
+      .lumi-online-dot,
+      .construction-orbit {
+        border-radius: 50% !important;
+      }
+      #hero-avatar {
+        border-radius: 12px !important;
+      }
+    </style>
+      <link rel="stylesheet" href="luminova-aero.css?v=3.0.0" />
+  </head>
+
+  <body>
+    <div id="root">
+      <div class="relative min-h-screen">
+        <!-- ✦ Camadas de estrelas -->
+        <div aria-hidden="true" class="lumi-sky-layer lumi-stars-a"></div>
+        <div aria-hidden="true" class="lumi-sky-layer lumi-stars-b"></div>
+
+        
+
+        <!-- ═══════════════════════════════════════════════════════
+         MAIN
+         ═══════════════════════════════════════════════════════ -->
+        <main class="relative z-10 lg:pl-[260px]">
+          <div
+            class="mx-auto max-w-[1280px] space-y-6 p-4 md:p-6 lg:p-8 xl:p-10"
+          >
+            <!-- Header -->
+            <header class="flex flex-wrap items-center gap-3">
+              <p class="text-sm text-muted-foreground">
+                LumiNova
+                <span class="mx-1 text-[var(--lumi-accent)]">/</span> Meu perfil
+              </p>
+              <label
+                class="ml-auto hidden items-center gap-2 border border-white/10 bg-[#0c1024] px-3 py-2 transition-colors duration-200 focus-within:border-[var(--lumi-accent-45)] sm:flex"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="size-3.5 text-muted-foreground"
+                >
+                  <path d="m21 21-4.34-4.34" />
+                  <circle cx="11" cy="11" r="8" />
+                </svg>
+                <input
+                  id="profileSearch"
+                  data-testid="topbar-search-input"
+                  placeholder="Buscar pessoas, comunidades..."
+                  class="w-40 bg-transparent text-sm text-[#e9ecf9] outline-none placeholder:text-muted-foreground md:w-52"
+                />
+              </label>
+              <span
+                data-testid="topbar-xp-chip"
+                class="border border-[var(--lumi-accent-30)] bg-[var(--lumi-accent-12)] px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[var(--lumi-accent)]"
+                >✦ Nv <span id="chip-level">1</span> ·
+                <span id="chip-xp">0</span> XP</span
+              >
+            </header>
+
+            <!-- ═══════ HERO ═══════ -->
+            <section
+              data-testid="profile-hero"
+              class="anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] backdrop-blur-md"
+            >
+              <div
+                id="cover"
+                class="relative h-[170px] max-h-[220px] w-full overflow-hidden md:h-[200px]"
+                style="background: #2f9cf0"
+              >
+                <div
+                  class="lumi-cover-drift absolute inset-0"
+                  style="background: radial-gradient(ellipse 60% 30% at 20% 18%, rgba(255,255,255,.85), transparent 70%), radial-gradient(ellipse 50% 25% at 78% 28%, rgba(255,255,255,.7), transparent 70%), radial-gradient(ellipse 120% 40% at 30% 118%, #7fdc3e 0 50%, #3fae2a 66%, transparent 67%), linear-gradient(180deg, #2f9cf0, #7fcdfa 70%, #d6f0ff);"
+                ></div>
+                <div
+                  aria-hidden="true"
+                  class="lumi-cover-stars lumi-sky-layer"
+                ></div>
+                <div id="coverMessage" class="absolute left-6 top-6 z-[5] max-w-[70%] whitespace-pre-wrap break-words text-xl font-semibold tracking-wide text-white drop-shadow-lg md:text-2xl" style="pointer-events:none;">Minha jornada, minha evolução ✦</div>
+                <button
+                  id="coverEdit"
+                  data-testid="btn-edit-cover"
+                  class="absolute bottom-3 right-3 z-10 flex min-h-10 items-center gap-1.5 border border-white/25 bg-black/55 px-3 py-2 text-xs text-white backdrop-blur-sm transition-colors hover:bg-[var(--lumi-accent)] hover:text-[#141005]"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="size-3.5"
+                  >
+                    <path
+                      d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
+                    />
+                    <path d="m15 5 4 4" />
+                  </svg>
+                  Editar capa
+                </button>
+              </div>
+
+              <div class="px-5 pb-4 md:px-6">
+                <div
+                  class="flex flex-wrap items-start justify-between gap-x-6 gap-y-4"
+                >
+                  <div class="flex min-w-0 items-end gap-4">
+                    <div class="relative shrink-0">
+                      <span
+                        id="hero-avatar"
+                        class="flex items-center justify-center rounded-full bg-gradient-to-br font-semibold text-[#141005] ring-1 ring-[var(--lumi-accent-45)] size-24 border-4 text-2xl"
+                        style="border-color: #0c1024"
+                        >✦</span
+                      >
+                      <span
+                        class="absolute right-1 top-1 size-3.5 rounded-full border-2 bg-[#4ade80]"
+                        title="Online"
+                        style="border-color: #0c1024"
+                      ></span>
+                      <button
+                        id="avatarEdit"
+                        data-testid="btn-edit-avatar"
+                        aria-label="Alterar foto"
+                        class="absolute -bottom-1 -right-1 flex size-8 items-center justify-center rounded-full border-2 bg-[var(--lumi-accent)] text-[#141005] transition-transform duration-200 hover:scale-110"
+                        style="border-color: #0c1024"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="size-3.5"
+                        >
+                          <path
+                            d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"
+                          />
+                          <circle cx="12" cy="13" r="3" />
+                        </svg>
+                      </button>
+                      <input
+                        accept="image/*"
+                        hidden
+                        id="avatarFile"
+                        data-testid="avatar-file-input"
+                        type="file"
+                      />
+                    </div>
+
+                    <div class="min-w-0 pb-1">
+                      <div class="flex flex-wrap items-center gap-2">
+                        <h1
+                          id="hero-name"
+                          class="font-heading text-3xl tracking-tight text-[#f5f6fa]"
+                        >
+                          Carregando…
+                        </h1>
+                        <span
+                          class="text-sm text-[var(--lumi-accent)]"
+                          title="Perfil verificado"
+                          >✦</span
+                        >
+                        <span
+                          id="badge-level"
+                          data-testid="profile-level-badge"
+                          class="border border-[var(--lumi-accent-30)] bg-[var(--lumi-accent-08)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--lumi-accent)]"
+                          >Nível <span id="badge-level-value">1</span></span
+                        >
+                      </div>
+                      <p class="mt-0.5 text-sm text-muted-foreground">
+                        @<span id="hero-handle">seu-universo</span>
+                      </p>
+                      <p
+                        id="hero-bio"
+                        class="mt-1.5 max-w-[60ch] text-sm leading-relaxed italic text-muted-foreground"
+                      >
+                        Adicione uma bio para apresentar seu universo.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-wrap gap-2.5 pb-1">
+                    <button
+                      type="button"
+                      id="editProfile"
+                      data-testid="btn-customize-profile"
+                      class="inline-flex items-center gap-1.5 h-8 px-2.5 text-sm font-medium border border-[var(--lumi-accent-30)] bg-transparent transition-colors hover:bg-[var(--lumi-accent-12)] hover:text-[var(--lumi-accent)]"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="size-3.5"
+                      >
+                        <path
+                          d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
+                        />
+                        <path d="m15 5 4 4" />
+                      </svg>
+                      Editar perfil
+                    </button>
+                    <button
+                      type="button"
+                      id="shareProfile"
+                      data-testid="share-profile-button"
+                      class="inline-flex items-center gap-1.5 h-8 px-2.5 text-sm font-medium bg-[var(--lumi-accent)] text-[#141005] transition-colors hover:bg-[#d9b878]"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="size-3.5"
+                      >
+                        <circle cx="18" cy="5" r="3" />
+                        <circle cx="6" cy="12" r="3" />
+                        <circle cx="18" cy="19" r="3" />
+                        <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
+                        <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
+                      </svg>
+                      Compartilhar
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground"
+                >
+                  <span class="inline-flex items-center gap-1.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="size-3.5 text-[var(--lumi-accent)]"
+                    >
+                      <path
+                        d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                      />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span id="hero-location">Localização não informada</span>
+                  </span>
+                  <span class="inline-flex items-center gap-1.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="size-3.5 text-[var(--lumi-accent)]"
+                    >
+                      <path
+                        d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"
+                      />
+                      <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+                    </svg>
+                    <span id="hero-interests">Adicione seus interesses</span>
+                  </span>
+                </div>
+
+                <div
+                  class="mt-4 flex flex-wrap gap-x-8 gap-y-3 border-t border-white/6 pt-4"
+                >
+                  <div data-testid="profile-stat-conexoes">
+                    <p
+                      class="font-mono text-lg font-semibold text-[var(--lumi-accent)]"
+                      id="stat-connections"
+                    >
+                      0
+                    </p>
+                    <p
+                      class="text-[11px] uppercase tracking-widest text-muted-foreground"
+                    >
+                      Conexões
+                    </p>
+                  </div>
+                  <div data-testid="profile-stat-comunidades">
+                    <p
+                      class="font-mono text-lg font-semibold text-[var(--lumi-accent)]"
+                      id="stat-communities"
+                    >
+                      0
+                    </p>
+                    <p
+                      class="text-[11px] uppercase tracking-widest text-muted-foreground"
+                    >
+                      Comunidades
+                    </p>
+                  </div>
+                  <div data-testid="profile-total-xp">
+                    <p
+                      class="font-mono text-lg font-semibold text-[var(--lumi-accent)]"
+                    >
+                      <span id="stat-xp">0</span> XP
+                    </p>
+                    <p
+                      class="text-[11px] uppercase tracking-widest text-muted-foreground"
+                    >
+                      Experiência
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tabs -->
+              <div
+                class="flex overflow-x-auto border-t border-white/8 px-2 md:px-4"
+                role="tablist"
+              >
+                <button
+                  role="tab"
+                  aria-selected="true"
+                  data-tab="geral"
+                  data-testid="profile-tab-geral"
+                  class="tab relative shrink-0 px-4 py-3.5 text-sm transition-colors duration-200 text-[var(--lumi-accent)]"
+                >
+                  Geral
+                  <span
+                    class="anim-growline absolute inset-x-3 bottom-0 h-0.5 bg-[var(--lumi-accent)]"
+                  ></span>
+                </button>
+                <button
+                  role="tab"
+                  aria-selected="false"
+                  data-tab="comunidades"
+                  data-testid="profile-tab-comunidades"
+                  class="tab relative shrink-0 px-4 py-3.5 text-sm transition-colors duration-200 text-muted-foreground hover:text-[#f5f6fa]"
+                >
+                  Comunidades<span
+                    class="ml-1.5 font-mono text-[11px] text-muted-foreground"
+                    id="tab-count-communities"
+                    >0</span
+                  >
+                </button>
+                <button
+                  role="tab"
+                  aria-selected="false"
+                  data-tab="conquistas"
+                  data-testid="profile-tab-conquistas"
+                  class="tab relative shrink-0 px-4 py-3.5 text-sm transition-colors duration-200 text-muted-foreground hover:text-[#f5f6fa]"
+                >
+                  Conquistas<span
+                    class="ml-1.5 font-mono text-[11px] text-muted-foreground"
+                    id="tab-count-achievements"
+                    >0</span
+                  >
+                </button>
+                <button
+                  role="tab"
+                  aria-selected="false"
+                  data-tab="sobre"
+                  data-testid="profile-tab-sobre"
+                  class="tab relative shrink-0 px-4 py-3.5 text-sm transition-colors duration-200 text-muted-foreground hover:text-[#f5f6fa]"
+                >
+                  Sobre
+                </button>
+                <button
+                  role="tab"
+                  aria-selected="false"
+                  data-tab="atividade"
+                  data-testid="profile-tab-atividade"
+                  class="tab relative shrink-0 px-4 py-3.5 text-sm transition-colors duration-200 text-muted-foreground hover:text-[#f5f6fa]"
+                >
+                  Atividade
+                </button>
+                <button
+                  id="openSettings2"
+                  class="tab ml-auto shrink-0 px-4 py-3.5 text-sm text-[var(--lumi-accent)]"
+                >
+                  ＋ Personalizar
+                </button>
+              </div>
+            </section>
+
+            <!-- ═══════ GRID PRINCIPAL ═══════ -->
+            <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
+              <!-- Coluna esquerda -->
+              <div class="space-y-6 lg:col-span-8">
+                <!-- ─── Tab: Geral (feed) ─── -->
+                <section
+                  id="tab-geral"
+                  class="anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] p-5 backdrop-blur-md md:p-6"
+                >
+                  <div
+                    class="mb-5 flex flex-wrap items-end justify-between gap-3"
+                  >
+                    <div class="min-w-0">
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--lumi-accent)]"
+                        >LUMINOVA • ESPAÇO ABERTO</span
+                      >
+                      <h2
+                        class="mt-1 font-heading text-2xl tracking-tight text-[#f5f6fa]"
+                      >
+                        Geral
+                      </h2>
+                      <p class="mt-1 text-sm text-muted-foreground">
+                        / o que está acontecendo?
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Composer -->
+                  <div
+                    class="flex gap-3 border border-white/8 bg-white/[0.03] p-4 transition-colors duration-200 focus-within:border-[var(--lumi-accent-45)]"
+                  >
+                    <span
+                      id="composer-avatar"
+                      class="flex items-center justify-center rounded-full bg-gradient-to-br font-semibold text-[#141005] ring-1 ring-[var(--lumi-accent-45)] size-10 shrink-0 text-xs"
+                      >✦</span
+                    >
+                    <div class="min-w-0 flex-1">
+                      <form id="postForm">
+                        <textarea
+                          id="postInput"
+                          data-testid="feed-composer-input"
+                          maxlength="500"
+                          rows="3"
+                          placeholder="Compartilhe uma ideia, descoberta ou pergunta com todo mundo..."
+                          class="w-full resize-none bg-transparent text-[15px] leading-relaxed text-[#e9ecf9] outline-none placeholder:text-muted-foreground"
+                          required
+                        ></textarea>
+                        <div
+                          class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2"
+                        >
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-widest text-muted-foreground"
+                            >✦ Sua voz também faz parte do universo</span
+                          >
+                          <span
+                            class="font-mono text-[10px] text-muted-foreground"
+                            ><span id="composer-count">0</span>/500</span
+                          >
+                          <button
+                            type="submit"
+                            data-testid="feed-composer-submit"
+                            class="ml-auto inline-flex items-center gap-1 h-7 px-2.5 text-[0.8rem] font-medium bg-[var(--lumi-accent)] text-[#141005] transition-colors hover:bg-[#d9b878]"
+                          >
+                            Publicar ↗
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+                  <!-- Lista de posts -->
+                  <div
+                    class="mt-5 space-y-4"
+                    data-testid="posts-list"
+                    id="feed-list"
+                  >
+                    <p class="py-6 text-center text-sm text-muted-foreground">
+                      Nenhum post ainda.
+                      <span class="text-[var(--lumi-accent)]">✦</span> Comece
+                      publicando algo.
+                    </p>
+                  </div>
+                </section>
+
+                <!-- ─── Tab: Comunidades ─── -->
+                <section
+                  id="tab-comunidades"
+                  class="hidden anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] p-5 backdrop-blur-md md:p-6"
+                >
+                  <div
+                    class="mb-5 flex flex-wrap items-end justify-between gap-3"
+                  >
+                    <div class="min-w-0">
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--lumi-accent)]"
+                        >MEU ESPAÇO</span
+                      >
+                      <h2
+                        class="mt-1 font-heading text-2xl tracking-tight text-[#f5f6fa]"
+                      >
+                        Minhas comunidades
+                      </h2>
+                      <p
+                        class="mt-1 text-sm text-muted-foreground"
+                        id="communities-subtitle"
+                      >
+                        / 0 no seu mapa
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      id="addCommunity"
+                      data-testid="btn-join-community"
+                      class="inline-flex items-center gap-1 h-7 px-2.5 text-[0.8rem] font-medium bg-[var(--lumi-accent)] text-[#141005] transition-colors hover:bg-[#d9b878]"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="size-4"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                      </svg>
+                      Entrar em comunidade
+                    </button>
+                  </div>
+                  <div class="grid gap-3 sm:grid-cols-2" id="communities-list">
+                    <p
+                      class="col-span-full py-6 text-center text-sm text-muted-foreground"
+                    >
+                      Nenhuma comunidade ainda.
+                      <span class="text-[var(--lumi-accent)]">✦</span> Encontre
+                      seu primeiro espaço.
+                    </p>
+                  </div>
+                </section>
+
+                <!-- ─── Tab: Conquistas ─── -->
+                <section
+                  id="tab-conquistas"
+                  class="hidden anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] p-5 backdrop-blur-md md:p-6"
+                >
+                  <div class="mb-5">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--lumi-accent)]"
+                      >MINHAS CONQUISTAS</span
+                    >
+                    <h2
+                      class="mt-1 font-heading text-2xl tracking-tight text-[#f5f6fa]"
+                    >
+                      Suas conquistas aparecerão aqui.
+                    </h2>
+                  </div>
+                  <div id="tab-conquistas-body" class="grid gap-3 sm:grid-cols-2"><p class="text-sm text-muted-foreground">Carregando conquistas…</p></div>
+                </section>
+
+                <!-- ─── Tab: Sobre ─── -->
+                <section
+                  id="tab-sobre"
+                  class="hidden anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] p-5 backdrop-blur-md md:p-6"
+                >
+                  <div class="mb-5">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--lumi-accent)]"
+                      >UM POUCO SOBRE MIM</span
+                    >
+                    <h2
+                      class="mt-1 font-heading text-2xl tracking-tight text-[#f5f6fa]"
+                    >
+                      Seu espaço, sua história.
+                    </h2>
+                  </div>
+                  <p id="about-body" class="text-muted-foreground whitespace-pre-wrap">
+                    Adicione uma apresentação ao editar seu perfil.
+                  </p>
+                </section>
+
+                <!-- ─── Tab: Atividade ─── -->
+                <section
+                  id="tab-atividade"
+                  class="hidden anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] p-5 backdrop-blur-md md:p-6"
+                >
+                  <div class="mb-5">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--lumi-accent)]"
+                      >MEU CAMINHO</span
+                    >
+                    <h2
+                      class="mt-1 font-heading text-2xl tracking-tight text-[#f5f6fa]"
+                    >
+                      Uma jornada em construção
+                    </h2>
+                  </div>
+                  <div id="tab-atividade-body" class="space-y-3"><p class="text-sm text-muted-foreground">Carregando atividade…</p></div>
+                </section>
+
+                <!-- ─── SKILL TREE ─── -->
+                <section
+                  id="skillTreeSection"
+                  data-testid="skill-tree-section"
+                  class="anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] p-5 backdrop-blur-md md:p-6"
+                >
+                  <p class="text-sm text-muted-foreground">Carregando sua Skill Tree…</p>
+                </section>
+
+                <!-- ─── MURAL ─── -->
+                <section
+                  id="thanksSection"
+                  data-testid="mural-section"
+                  class="anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] p-5 backdrop-blur-md md:p-6"
+                >
+                  <div
+                    class="mb-5 flex flex-wrap items-end justify-between gap-3"
+                  >
+                    <div class="min-w-0">
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--lumi-accent)]"
+                        >PALAVRAS QUE FICAM</span
+                      >
+                      <h2
+                        class="mt-1 font-heading text-2xl tracking-tight text-[#f5f6fa]"
+                      >
+                        Mural de Agradecimentos
+                        <span class="text-[var(--lumi-accent)]">✧</span>
+                      </h2>
+                      <p class="mt-1 text-sm text-muted-foreground">
+                        Pequenas mensagens de quem cruzou seu caminho.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      id="addThanks"
+                      data-testid="btn-open-gratitude-modal"
+                      class="inline-flex items-center gap-1.5 h-8 px-2.5 text-sm font-medium bg-[var(--lumi-accent)] text-[#141005] transition-colors hover:bg-[#d9b878]"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="size-4"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                      </svg>
+                      Deixar mensagem
+                    </button>
+                  </div>
+                  <div class="mb-5 flex flex-wrap items-center gap-2">
+                    <button
+                      data-testid="mural-filter-todos"
+                      class="border px-2.5 py-1.5 text-xs transition-colors duration-200 border-[var(--lumi-accent-45)] bg-[var(--lumi-accent-12)] text-[var(--lumi-accent)]"
+                    >
+                      Todos
+                    </button>
+                    <button
+                      data-testid="mural-filter-c-digo-tech"
+                      class="border px-2.5 py-1.5 text-xs transition-colors duration-200 border-white/10 text-muted-foreground hover:border-[var(--lumi-accent-30)] hover:text-[var(--lumi-accent)]"
+                    >
+                      Código &amp; Tech
+                    </button>
+                    <button
+                      data-testid="mural-filter-inspira-o"
+                      class="border px-2.5 py-1.5 text-xs transition-colors duration-200 border-white/10 text-muted-foreground hover:border-[var(--lumi-accent-30)] hover:text-[var(--lumi-accent)]"
+                    >
+                      Inspiração
+                    </button>
+                    <button
+                      data-testid="mural-filter-comunidade"
+                      class="border px-2.5 py-1.5 text-xs transition-colors duration-200 border-white/10 text-muted-foreground hover:border-[var(--lumi-accent-30)] hover:text-[var(--lumi-accent)]"
+                    >
+                      Comunidade
+                    </button>
+                  </div>
+                  <div class="grid gap-5 sm:grid-cols-2" id="mural-list">
+                    <p
+                      class="col-span-full py-6 text-center text-sm text-muted-foreground"
+                    >
+                      Nenhuma mensagem ainda.
+                      <span class="text-[var(--lumi-accent)]">✦</span> Seja o
+                      primeiro a deixar uma palavra.
+                    </p>
+                  </div>
+                </section>
+              </div>
+
+              <!-- ═══════ Coluna direita ═══════ -->
+              <div class="space-y-6 lg:col-span-4">
+                <!-- Widget: Minha jornada -->
+                <section
+                  data-testid="journey-widget"
+                  data-widget="progress"
+                  class="anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] p-5 backdrop-blur-md md:p-6"
+                >
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--lumi-accent)]"
+                      >Minha jornada</span
+                    >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      class="size-4 text-[var(--lumi-accent)]"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M12 1.5 L13.6 10.4 L22.5 12 L13.6 13.6 L12 22.5 L10.4 13.6 L1.5 12 L10.4 10.4 Z"
+                      />
+                    </svg>
+                  </div>
+                  <div class="mt-3 flex flex-wrap items-baseline gap-x-2">
+                    <span
+                      class="font-heading text-4xl tracking-tight text-[#f5f6fa]"
+                      >Nível <span id="journey-level">1</span></span
+                    >
+                    <span
+                      data-testid="journey-xp-total"
+                      class="font-mono text-xs text-[var(--lumi-accent)]"
+                      ><span id="journey-xp">0</span> XP</span
+                    >
+                  </div>
+                  <div class="mt-3">
+                    <div
+                      class="h-1.5 w-full bg-white/10"
+                      data-testid="journey-xp-bar"
+                    >
+                      <div
+                        id="journey-xp-bar-fill"
+                        class="h-full transition-[width] duration-700 ease-out"
+                        style="width: 0%; background: var(--lumi-accent)"
+                      ></div>
+                    </div>
+                  </div>
+                  <p
+                    class="mt-2 text-xs text-muted-foreground"
+                    id="journey-need"
+                  >
+                    Faltam
+                    <span
+                      class="font-mono text-[var(--lumi-accent)]"
+                      id="journey-need-xp"
+                      >100</span
+                    >
+                    XP para o nível <span id="journey-next-level">2</span>
+                  </p>
+                  <div class="mt-4 border-t border-white/8 pt-3">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.24em] text-[#8f96b3]"
+                      >Próximo desbloqueio</span
+                    >
+                    <div class="mt-1.5 text-sm">
+                      <p class="inline-flex items-center gap-2 text-[#f5f6fa]">
+                        <span
+                          aria-hidden="true"
+                          class="inline-block size-2 rounded-full"
+                          style="background: #e8c88a"
+                        ></span>
+                        <span id="next-unlock-name">Centelha Primordial</span>
+                      </p>
+                      <p
+                        class="mt-0.5 text-xs text-muted-foreground"
+                        id="next-unlock-desc"
+                      >
+                        Publicar +20 · Comentar +15 · Comunidade +25 · Agradecer
+                        +30 · Personalizar +10
+                      </p>
+                    </div>
+                  </div>
+                  <p
+                    class="mt-4 font-mono text-[9px] uppercase leading-relaxed tracking-widest text-muted-foreground"
+                  >
+                    Publicar +20 · Comentar +15 · Comunidade +25 · Agradecer +30
+                    · Personalizar +10
+                  </p>
+                </section>
+
+                <!-- Widget: Conquistas -->
+                <section
+                  data-testid="achievements-widget"
+                  data-widget="conquistas"
+                  class="anim-fade-up border border-[var(--lumi-accent-18)] bg-[rgba(12,16,36,.9)] p-5 backdrop-blur-md md:p-6"
+                >
+                  <div class="flex items-center justify-between gap-2">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--lumi-accent)]"
+                      >Conquistas importantes</span
+                    >
+                    <button
+                      data-testid="achievements-see-all"
+                      class="shrink-0 font-mono text-[10px] uppercase tracking-widest text-[var(--lumi-accent)] transition-transform duration-200 hover:translate-x-0.5"
+                    >
+                      Ver todas ↗
+                    </button>
+                  </div>
+                  <div class="mt-3 space-y-3" id="achievements-list">
+                    <p class="py-4 text-center text-sm text-muted-foreground">
+                      Nenhuma conquista ainda.
+                      <span class="text-[var(--lumi-accent)]">✦</span>
+                    </p>
+                  </div>
+                  <p
+                    class="mt-3 font-mono text-[10px] uppercase tracking-widest text-[#4ade80]"
+                  >
+                    ✦ <span id="achievements-count">0</span> de
+                    <span id="achievements-total">0</span> desbloqueadas
+                  </p>
+                </section>
+
+                <p
+                  class="pt-2 text-center font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground"
+                >
+                  Feito de ideias &amp; boas conexões
+                  <span class="text-[var(--lumi-accent)]">✦</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- ═══════ MODAL PERSONALIZAR ═══════ -->
+    <div class="modal-backdrop" id="settingsModal" aria-hidden="true">
+      <section
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="settingsTitle"
+      >
+        <button class="modal-close" data-close aria-label="Fechar">×</button>
+        <span class="eyebrow">DO SEU JEITO</span>
+        <h2 id="settingsTitle">Personalizar perfil</h2>
+        <p class="modal-intro">
+          Seu perfil é seu universo. Mude as cores, a capa e o que você quer
+          mostrar.
+        </p>
+        <form id="profileForm">
+          <label
+            >Nome de exibição<input
+              id="nameInput"
+              maxlength="40"
+              value="Seu nome"
+          /></label>
+          <label
+            >Usuário<input id="handleInput" maxlength="32" value=""
+          /></label>
+          <label
+            >Bio<textarea
+              id="bioInput"
+              maxlength="180"
+              rows="3"
+              placeholder="Conte um pouco sobre você..."
+            ></textarea>
+          </label>
+          <label
+            >Cor de fundo do perfil<input
+              type="color"
+              id="pageBgInput"
+              value="#dff3ff"
+            /><small class="field-hint"
+              >Muda o fundo geral da página.</small
+            ></label
+          >
+          <label
+            >Cor de destaque<input
+              type="color"
+              id="accentInput"
+              value="#0d76c9"
+            /><small class="field-hint"
+              >Usada em títulos, botões e barras.</small
+            ></label
+          >
+          <label
+            >Cor dos cartões<input
+              type="color"
+              id="cardBgInput"
+              value="#ffffff"
+            /><small class="field-hint"
+              >Fundo dos cartões e sidebar.</small
+            ></label
+          >
+          <fieldset class="lumi-textcolor" id="textColorField">
+            <legend>Cor do texto do perfil</legend>
+            <div class="lumi-swatches" id="textSwatches" role="group" aria-label="Cores de texto sugeridas"></div>
+            <label class="lumi-textcolor-custom">Outra cor<input type="color" id="textColorInput" value="#0d3552" /></label>
+            <small class="field-hint" id="textContrastHint" role="status">Escolha uma cor com contraste suficiente para leitura.</small>
+            <div class="lumi-text-preview" id="textPreview" aria-label="Prévia do texto"><strong>Seu nome</strong><span>Assim seu texto aparece para quem visita seu perfil.</span></div>
+          </fieldset>
+          <fieldset class="widget-options">
+            <legend>Widgets da coluna direita</legend>
+            <label
+              ><input type="checkbox" data-widget-toggle="progress" checked />
+              Minha jornada</label
+            >
+            <label
+              ><input type="checkbox" data-widget-toggle="conquistas" checked />
+              Conquistas importantes</label
+            >
+          </fieldset>
+          <label
+            >Estilo da capa
+            <select id="coverStyle">
+              <option value="cosmic">Céu e grama</option>
+              <option value="ocean">Oceano aqua</option>
+              <option value="sunset">Pôr do sol</option>
+              <option value="forest">Campo verde</option>
+            </select>
+          </label>
+          <label
+            >Mensagem da capa
+            <textarea id="coverMessageInput" maxlength="100" rows="2" placeholder="Escreva uma frase para sua capa..."></textarea>
+            <small class="field-hint">Personalize a frase que aparece sobre a imagem.</small>
+          </label>
+          <label
+            >Posição da mensagem
+            <select id="coverMessagePosition">
+              <option value="top-left">Superior esquerda</option>
+              <option value="top-center">Superior centro</option>
+              <option value="top-right">Superior direita</option>
+              <option value="center-left">Centro esquerda</option>
+              <option value="center">Centro</option>
+              <option value="center-right">Centro direita</option>
+              <option value="bottom-left">Inferior esquerda</option>
+              <option value="bottom-center">Inferior centro</option>
+              <option value="bottom-right">Inferior direita</option>
+            </select>
+          </label>
+          <div class="modal-actions">
+            <button type="button" class="button-secondary" data-close>
+              Cancelar
+            </button>
+            <button class="button-primary" type="submit">
+              Salvar alterações
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- ═══════ MODAL CONSTRUÇÃO ═══════ -->
+    <div
+      class="construction-backdrop"
+      id="constructionModal"
+      aria-hidden="true"
+    >
+      <section
+        class="construction-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="constructionTitle"
+      >
+        <button
+          class="construction-close"
+          id="closeConstruction"
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+        <div class="construction-art">
+          <span class="construction-orbit orbit-one"></span>
+          <span class="construction-orbit orbit-two"></span>
+          <span class="construction-star">✦</span>
+          <span class="construction-spark spark-one">✧</span>
+          <span class="construction-spark spark-two">✦</span>
+        </div>
+        <span class="eyebrow">LUMINOVA • NOVO UNIVERSO</span>
+        <h2 id="constructionTitle">Estamos preparando algo especial</h2>
+        <p>
+          Esta área ainda está em construção. Estamos criando essa parte da
+          LumiNova com carinho — ela estará disponível em uma próxima etapa.
+        </p>
+        <div class="construction-progress"><span></span></div>
+        <small class="construction-caption"
+          >EM CONSTRUÇÃO <span>·</span> VOLTE EM BREVE</small
+        >
+        <button
+          class="construction-ok"
+          id="constructionOk"
+          type="button"
+        >
+          Entendi ✦
+        </button>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <input type="file" id="coverFile" accept="image/*" hidden />
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // ============================================================
+        // ELEMENTOS
+        // ============================================================
+        const modal = document.getElementById("settingsModal");
+        const openBtns = [
+          document.getElementById("openSettings"),
+          document.getElementById("openSettings2"),
+          document.getElementById("editProfile"),
+        ];
+        const closeBtns = modal?.querySelectorAll("[data-close]");
+        const form = document.getElementById("profileForm");
+        const toast = document.getElementById("toast");
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        const openModal = () => {
+          if (!modal) return;
+          modal.classList.add("open");
+          modal.setAttribute("aria-hidden", "false");
+        };
+        const closeModal = () => {
+          if (!modal) return;
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+        };
+        openBtns.forEach((btn) => btn?.addEventListener("click", openModal));
+        closeBtns?.forEach((btn) => btn.addEventListener("click", closeModal));
+        modal?.addEventListener("click", (e) => {
+          if (e.target === modal) closeModal();
+        });
+
+        const showToast = (msg) => {
+          if (!toast) return;
+          toast.textContent = msg;
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 2600);
+        };
+
+        function hexToRgba(hex, alpha) {
+          if (!hex) return `rgba(0,0,0,${alpha})`;
+          const c = hex.replace("#", "");
+          const r = parseInt(c.substring(0, 2), 16);
+          const g = parseInt(c.substring(2, 4), 16);
+          const b = parseInt(c.substring(4, 6), 16);
+          return `rgba(${r},${g},${b},${alpha})`;
+        }
+
+        function aplicarCores(pageBg, accent, cardBg) {
+          const root = document.documentElement;
+          root.style.setProperty("--lumi-page", pageBg);
+          root.style.setProperty("--lumi-accent", accent);
+          root.style.setProperty("--lumi-card", cardBg);
+          root.style.setProperty("--lumi-accent-08", hexToRgba(accent, 0.08));
+          root.style.setProperty("--lumi-accent-12", hexToRgba(accent, 0.12));
+          root.style.setProperty("--lumi-accent-18", hexToRgba(accent, 0.18));
+          root.style.setProperty("--lumi-accent-30", hexToRgba(accent, 0.3));
+          root.style.setProperty("--lumi-accent-45", hexToRgba(accent, 0.45));
+          root.style.setProperty("--primary", accent);
+          root.style.setProperty("--ring", accent);
+          document.body.style.background = pageBg;
+
+          // Atualiza os elementos que usam a cor de capa
+          const coverLayer = document.querySelector(".lumi-cover-drift");
+          if (coverLayer && coverLayer.style.background) {
+            // mantém, mas aplicamos a cor de destaque nos elementos internos
+          }
+        }
+
+        // ============================================================
+        // Personalização centralizada em supabase-perfil-design.js (Supabase como fonte única).
+
+        // COMPARTILHAR
+        // ============================================================
+        document
+          .getElementById("shareProfile")
+          ?.addEventListener("click", () => {
+            if (navigator.share) {
+              navigator
+                .share({
+                  title: "LumiNova",
+                  text: "Confira meu perfil!",
+                  url: location.href,
+                })
+                .catch(() => {});
+            } else {
+              navigator.clipboard?.writeText(location.href);
+              showToast("Link copiado ✦");
+            }
+          });
+
+        // ============================================================
+        // A posição e a mensagem da capa são controladas pelo perfil e salvas no Supabase.
+
+        // MODAL CONSTRUÇÃO
+        // ============================================================
+        const constructionModal = document.getElementById("constructionModal");
+        document.querySelectorAll("[data-construction]").forEach((el) => {
+          el.addEventListener("click", (e) => {
+            e.preventDefault();
+            const destination = (el.getAttribute("data-construction") || "").trim().toLowerCase();
+
+            // Áreas já existentes devem abrir a página real, não o aviso de construção.
+            const routes = {
+              "geral": "./geral.html",
+              "feed": "./geral.html",
+              "oportunidade": "./geral.html",
+              "oportunidades": "./geral.html",
+              "comunidades": "./comunidades.html",
+              "comunidade": "./comunidades.html",
+              "chats": "./chats.html"
+            };
+            if (routes[destination]) {
+              window.location.href = routes[destination];
+              return;
+            }
+
+            constructionModal?.classList.add("open");
+            constructionModal?.setAttribute("aria-hidden", "false");
+          });
+        });
+
+        // Links de oportunidades/conteúdo pronto não devem abrir o aviso genérico.
+        document.querySelectorAll("a, button").forEach((el) => {
+          const label = (el.innerText || el.getAttribute("aria-label") || "").trim().toLowerCase();
+          if (!label || el.hasAttribute("data-construction")) return;
+          if (/^(ver )?oportunidades?$/.test(label) || label.includes("explorar oportunidades")) {
+            el.addEventListener("click", (e) => {
+              e.preventDefault();
+              window.location.href = "./geral.html";
+            });
+          }
+        });
+
+        document
+          .getElementById("closeConstruction")
+          ?.addEventListener("click", () => {
+            constructionModal?.classList.remove("open");
+            constructionModal?.setAttribute("aria-hidden", "true");
+          });
+        document
+          .getElementById("constructionOk")
+          ?.addEventListener("click", () => {
+            constructionModal?.classList.remove("open");
+            constructionModal?.setAttribute("aria-hidden", "true");
+          });
+        constructionModal?.addEventListener("click", (e) => {
+          if (e.target === constructionModal) {
+            constructionModal.classList.remove("open");
+            constructionModal.setAttribute("aria-hidden", "true");
+          }
+        });
+
+        // ============================================================
+        // CONTADOR DO COMPOSER
+        // ============================================================
+        const postInput = document.getElementById("postInput");
+        const composerCount = document.getElementById("composer-count");
+        postInput?.addEventListener("input", () => {
+          if (composerCount) composerCount.textContent = postInput.value.length;
+        });
+
+        // ============================================================
+        // TABS
+        // ============================================================
+        const tabs = document.querySelectorAll(".tab[data-tab]");
+        const panels = {
+          geral: document.getElementById("tab-geral"),
+          comunidades: document.getElementById("tab-comunidades"),
+          conquistas: document.getElementById("tab-conquistas"),
+          sobre: document.getElementById("tab-sobre"),
+          atividade: document.getElementById("tab-atividade"),
+        };
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const target = tab.dataset.tab;
+            tabs.forEach((t) => {
+              t.classList.remove("text-[var(--lumi-accent)]");
+              t.classList.add("text-muted-foreground");
+              const underline = t.querySelector(".anim-growline");
+              if (underline) underline.remove();
+              t.setAttribute("aria-selected", "false");
+            });
+            tab.classList.remove("text-muted-foreground");
+            tab.classList.add("text-[var(--lumi-accent)]");
+            tab.setAttribute("aria-selected", "true");
+            const span = document.createElement("span");
+            span.className =
+              "anim-growline absolute inset-x-3 bottom-0 h-0.5 bg-[var(--lumi-accent)]";
+            tab.appendChild(span);
+
+            Object.entries(panels).forEach(([key, panel]) => {
+              if (panel) {
+                panel.classList.toggle("hidden", key !== target);
+              }
+            });
+          });
+        });
+
+        // Botão do mural: o handler real (rolar até o mural) fica em supabase-perfil-design.js.
+
+        // ============================================================
+        // BOTÃO DE COMUNIDADE (placeholder)
+        // ============================================================
+        document
+          .getElementById("addCommunity")
+          ?.addEventListener("click", () => {
+            showToast("Em breve: explore comunidades ✦");
+          });
+      });
+    </script>
+  
+</body>
+</html>
