@@ -153,7 +153,7 @@
 
     const css = document.createElement("link");
     css.rel = "stylesheet";
-    css.href = "luminova-sidebar.css?v=3.0.0";
+    css.href = "luminova-sidebar.css?v=3.1.0";
     document.head.append(css);
 
     const aside = document.createElement("aside");

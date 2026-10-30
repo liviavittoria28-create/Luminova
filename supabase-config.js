@@ -6,7 +6,7 @@ window.LUMINOVA_SUPABASE_CONFIG = {
   url: "https://eanncrvtpsxcjpnfbixb.supabase.co",
   anonKey: "sb_publishable_28jfVcSBZhj6fS569Feecw_iXrgGrxI",
 };
-window.LUMINOVA_VERSION = "3.0.0";
+window.LUMINOVA_VERSION = "3.1.0";
 
 /* "Lembrar de mim": com a opção marcada a sessão fica no localStorage (sobrevive ao fechar o navegador);
  * sem ela, no sessionStorage (some ao fechar a aba). Todas as páginas criam o cliente por aqui. */

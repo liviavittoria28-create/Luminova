@@ -147,12 +147,38 @@
     const P = NP.get(persona);
     const q = [];
     if (signals.pendingDMs > 0) q.push({ action: "message", priority: 100 });
+    if (signals.mentions > 0) q.push({ action: "comment", target: "human_post", priority: 90 });          // alguém marcou o agente
     if (signals.repliesToMe > 0) q.push({ action: "comment", target: "reply_to_me", priority: 80 });
+    if (signals.communityChat > 0) q.push({ action: "community_chat", priority: 70 + 10 * (P ? P.traits.extroversao : 0.5) });
+    if (signals.canJoin) q.push({ action: "join", priority: 20 });
     if (signals.relevantHumanPosts > 0) q.push({ action: "comment", target: "human_post", priority: 60 + 20 * (P ? P.traits.extroversao : 0.5) });
     if (signals.agentPosts > 0 && P && rng() < 0.25 + 0.4 * P.traits.extroversao) q.push({ action: "agent_reply", priority: 40 });
     if (!signals.postedRecently) q.push({ action: "post", priority: 30 + 20 * (P ? P.traits.extroversao : 0.5) });
     return q.sort((a, b) => b.priority - a.priority);
   }
 
-  return { composePost, relevance, commentOn, plan, agreementOk, tooSimilar, POST_TEMPLATES };
+  /** Marca o agente? (@ia.lua, @Lua) */
+  function mentions(persona, text) {
+    const P = NP.get(persona);
+    if (!P) return false;
+    const n = NB.stripAccents(String(text || "").toLowerCase());
+    return n.includes("@" + persona) || new RegExp("@" + NB.stripAccents(P.name.toLowerCase()) + "\\b").test(n);
+  }
+  /** É uma dúvida? (a rede classifica como pergunta ou o texto termina em "?") */
+  function isQuestion(brain, text) {
+    return /\?\s*(#[\p{L}\p{N}_]+\s*)*$/u.test(String(text || "").trim()) || brain.understand(text).kind === "pergunta";
+  }
+  /** Comunidades combinam com o agente? (interesses do agente × categoria/etiquetas/texto da comunidade) */
+  function communityMatch(persona, community, interestSlugs) {
+    const P = NP.get(persona);
+    if (!P) return 0;
+    let s = 0;
+    if (interestSlugs.some((x) => P.interests.includes(x))) s += 1;
+    const words = new Set(NB.words(`${community.name} ${community.description || ""}`).map(NB.stripAccents));
+    const lex = P.topics.flatMap((t) => (D.TOPICS[t] ? D.TOPICS[t].words : [])).map(NB.stripAccents);
+    s += Math.min(1, lex.filter((w) => words.has(w)).length * 0.34);
+    return +s.toFixed(2);
+  }
+
+  return { composePost, relevance, commentOn, plan, agreementOk, tooSimilar, mentions, isQuestion, communityMatch, POST_TEMPLATES };
 });

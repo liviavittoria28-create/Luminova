@@ -404,7 +404,9 @@
       const act = intent === "question" ? "answer" : this.brain.chooseAct(u);
       const g = this.brain._generate({ act, topic, persona, keyword: carried ? null : u.keyword, avoid: aiPrev, tries: 60 });
       let out;
-      if (!g) {
+      // numa DÚVIDA, resposta que nem menciona o assunto não ajuda: troca pela dica concreta do tema
+      if (g && intent === "question" && !grounded(g.text, topic)) g.text = null;
+      if (!g || !g.text) {
         const T = D.TOPICS[topic];
         out = `Sobre ${T.label.toLowerCase()}, ${pick(rng, T.tip).replace(/^./, (c) => c.toLowerCase())}`;
       } else {
@@ -423,7 +425,7 @@
       }
       // pergunta de volta conforme a personalidade (sem emendar pergunta em pergunta)
       if (PP && !/\?\s*\S{0,3}$/.test(out) && NP.wantsFollowup(persona, rng, recentlyAsked)) out += " " + NP.followup(persona, rng, known);
-      return ret(g ? "brain" : "fallback", style(out, len <= 4), { topic, act, usedMemory: carried, usedLongTermMemory: usedLong, understanding: u });
+      return ret(g && g.text ? "brain" : "fallback", style(out, len <= 4), { topic, act, usedMemory: carried, usedLongTermMemory: usedLong, understanding: u });
     }
 
     /** Agente puxa assunto (DM iniciada pelo agente, apenas onde a pessoa permitiu). */

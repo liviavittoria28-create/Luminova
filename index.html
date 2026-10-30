@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <script src="luminova-theme.js?v=3.0.0"></script>
+    <script src="luminova-theme.js?v=3.1.0"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LUMINOVA — rede social de interesses, fandoms e criatividade</title>
@@ -26,10 +26,11 @@
        "description":"Rede social que conecta pessoas por interesses, hobbies, fandoms e criatividade, com espaço para aprendizado colaborativo.",
        "potentialAction":{"@type":"SearchAction","target":"https://luminova.netlify.app/explorar.html?q={busca}","query-input":"required name=busca"}}
     </script>
-    <link rel="stylesheet" href="style.css?v=3.0.0" />
-    <link rel="stylesheet" href="luminova-aero.css?v=3.0.0" />
-    <link rel="stylesheet" href="luminova-3.css?v=3.0.0" />
-    <link rel="stylesheet" href="luminova-landing.css?v=3.0.0" />
+    <link rel="stylesheet" href="style.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-landing.css?v=3.1.0" />
+      <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
   </head>
   <body class="l3 lp">
     <a class="l3-skip" href="#auth">Ir para entrar ou criar conta</a>
@@ -64,7 +65,7 @@
         </div>
 
         <!-- ======================= PAINEL DE CONTA ======================= -->
-        <section id="auth" class="l3-win lp-auth l3-rise" aria-label="Entrar ou criar conta">
+        <div class="l3-chrome lp-auth l3-rise" id="auth"><section class="l3-win" aria-label="Entrar ou criar conta">
           <div class="l3-win-h"><span id="authTitle">Entrar</span></div>
           <div class="l3-win-b">
             <div class="lp-switch" role="tablist" aria-label="Escolha uma opção">
@@ -141,7 +142,7 @@
               <p class="l3-small lp-alt"><button type="button" class="l3-link" data-view="login">Voltar para entrar</button></p>
             </form>
           </div>
-        </section>
+        </section></div>
       </section>
 
       <section id="como" class="lp-band" aria-labelledby="comoT">
@@ -173,8 +174,8 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-    <script src="supabase-config.js?v=3.0.0"></script>
-    <script src="luminova-auth.js?v=3.0.0" defer></script>
-    <script src="index.js?v=3.0.0" defer></script>
+    <script src="supabase-config.js?v=3.1.0"></script>
+    <script src="luminova-auth.js?v=3.1.0" defer></script>
+    <script src="index.js?v=3.1.0" defer></script>
   </body>
 </html>
