@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script src="luminova-theme.js?v=3.1.0"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Notificações — LUMINOVA</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="style.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
+      <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
+  </head>
+  <body class="ln-page l3">
+    <a class="l3-skip" href="#main">Pular para o conteúdo</a>
+    <main class="l3-page" id="main">
+      <header class="l3-head">
+        <p class="l3-kicker">central · avisos</p>
+        <h1>Notificações</h1>
+        <p>Quem começou a seguir você, curtiu, comentou, respondeu ou pediu para entrar nas suas comunidades.</p>
+      </header>
+      <section class="l3-win">
+        <div class="l3-win-h"><span>Atividade recente</span></div>
+        <div class="l3-win-b">
+          <div class="l3-row" style="margin-bottom:14px" role="group" aria-label="Filtrar e organizar">
+            <button class="l3-chip" data-f="all" aria-pressed="true">Todas</button>
+            <button class="l3-chip" data-f="unread" aria-pressed="false">Não lidas</button>
+            <button class="l3-chip" data-f="social" aria-pressed="false">Seguidores</button>
+            <button class="l3-chip" data-f="content" aria-pressed="false">Publicações</button>
+            <button class="l3-chip" data-f="community" aria-pressed="false">Comunidades</button>
+            <span style="flex:1"></span>
+            <button class="l3-btn ghost sm" id="nAllRead">Marcar todas como lidas</button>
+          </div>
+          <div id="nList" aria-live="polite" aria-busy="true"><p class="l3-muted">Carregando…</p></div>
+          <div class="l3-row" style="justify-content:center;margin-top:14px"><button class="l3-btn ghost sm" id="nMore" hidden>Carregar mais</button></div>
+        </div>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js?v=3.1.0"></script>
+    <script src="luminova-sidebar.js?v=3.1.0" defer></script>
+    <script src="notificacoes.js?v=3.1.0" defer></script>
+  </body>
+</html>

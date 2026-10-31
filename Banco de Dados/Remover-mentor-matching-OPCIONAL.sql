@@ -1,0 +1,9 @@
+-- OPCIONAL e DESTRUTIVO. O app não usa mais Mentor Matching (telas e links foram removidos).
+-- As tabelas foram mantidas para não perder dados. Só execute se tiver certeza.
+-- Faça backup antes (Supabase > Database > Backups).
+-- begin;
+-- drop function if exists public.find_mentor_matches(uuid, integer);
+-- drop view if exists public.v_mentor_directory;
+-- drop table if exists public.mentor_reviews, public.mentor_sessions, public.mentor_requests,
+--                      public.mentor_skills, public.mentor_profiles cascade;
+-- commit;

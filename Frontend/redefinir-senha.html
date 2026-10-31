@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script src="luminova-theme.js?v=3.1.0"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redefinir senha — LUMINOVA</title>
+    <meta name="description" content="Crie uma nova senha para a sua conta LUMINOVA." />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-landing.css?v=3.1.0" />
+      <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
+  </head>
+  <body class="l3 lp">
+    <header class="lp-top">
+      <a class="lp-brand" href="index.html" aria-label="LUMINOVA, início"><span id="lpLogo"></span><span>LUMINOVA</span></a>
+    </header>
+    <main class="pub-main">
+      <section class="l3-win pub-narrow" aria-labelledby="rsTitle">
+        <div class="l3-win-h"><span>Recuperação de conta</span></div>
+        <div class="l3-win-b">
+          <h1 id="rsTitle" class="l3-h" style="margin:0 0 6px;font-size:26px">Criar nova senha</h1>
+          <p class="l3-muted" id="rsIntro" style="margin:0 0 16px;line-height:1.5">Verificando o seu link de recuperação…</p>
+          <div class="l3-alert" id="rsAlert" role="alert" hidden></div>
+          <form id="rsForm" novalidate hidden>
+            <div class="l3-field">
+              <label for="rsPass">Nova senha</label>
+              <div class="l3-pw"><input id="rsPass" type="password" autocomplete="new-password" required /><button type="button" data-toggle-pw="rsPass" aria-label="Mostrar senha">Mostrar</button></div>
+              <div class="l3-meter" aria-hidden="true"><i id="rsMeter"></i></div>
+              <span class="l3-hint" id="rsPassHint">Mínimo de 8 caracteres, com letras e números.</span>
+            </div>
+            <div class="l3-field">
+              <label for="rsPass2">Confirmar nova senha</label>
+              <input id="rsPass2" type="password" autocomplete="new-password" required />
+              <span class="l3-hint" id="rsPass2Hint"></span>
+            </div>
+            <button class="l3-btn full" type="submit">Salvar nova senha</button>
+          </form>
+          <div id="rsAgain" hidden>
+            <a class="l3-btn full" href="index.html?modo=recuperar">Pedir um novo link</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="l3-foot"><a href="termos.html">Termos de Uso</a><a href="privacidade.html">Política de Privacidade</a><span class="l3-ver">LUMINOVA 3.0.0</span></footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js?v=3.1.0"></script>
+    <script src="luminova-auth.js?v=3.1.0"></script>
+    <script>
+      (() => {
+        "use strict";
+        const A = window.LUMI_AUTH, $ = (s) => document.querySelector(s);
+        if (window.LUMI_THEME) $("#lpLogo").outerHTML = LUMI_THEME.logo(28, "rs");
+        const form = $("#rsForm"), alertBox = $("#rsAlert"), intro = $("#rsIntro");
+        const say = (t, k = "err") => { alertBox.className = "l3-alert " + k; alertBox.textContent = t; alertBox.hidden = !t; };
+        const invalid = (t) => { intro.textContent = "Não foi possível validar o link."; say(t); form.hidden = true; $("#rsAgain").hidden = false; };
+        // o link chega com #access_token=...&type=recovery; tiramos da barra de endereço assim que possível
+        const isRecoveryLink = /type=recovery/.test(location.hash);
+        const urlErr = A.urlError();
+        const sb = window.luminovaCreateClient();
+        if (!sb) return invalid("Não foi possível carregar o serviço de contas. Verifique sua conexão.");
+        if (urlErr) return invalid(A.friendly(urlErr));
+        let ready = false;
+        const enable = () => {
+          if (ready) return; ready = true;
+          history.replaceState(null, "", location.pathname);
+          intro.textContent = "Link confirmado. Escolha uma senha nova que você não use em outros sites.";
+          form.hidden = false; $("#rsPass").focus();
+        };
+        sb.auth.onAuthStateChange((ev, session) => { if (ev === "PASSWORD_RECOVERY" || (isRecoveryLink && session)) enable(); });
+        setTimeout(async () => {
+          if (ready) return;
+          const { data } = await sb.auth.getSession();
+          if (data?.session && isRecoveryLink) enable();
+          else invalid("Este link de recuperação é inválido, expirou ou já foi usado. Peça um novo link.");
+        }, 1500);
+
+        document.querySelectorAll("[data-toggle-pw]").forEach((b) => b.addEventListener("click", () => {
+          const i = document.getElementById(b.dataset.togglePw), v = i.type === "password";
+          i.type = v ? "text" : "password"; b.textContent = v ? "Ocultar" : "Mostrar";
+        }));
+        $("#rsPass").addEventListener("input", (e) => {
+          const s = A.passwordScore(e.target.value);
+          $("#rsMeter").style.width = (s / 4) * 100 + "%";
+          $("#rsMeter").style.background = ["#c2264d", "#c2264d", "#d98a00", "#2f8f1f", "#1f9a6e"][s];
+        });
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const p1 = $("#rsPass").value, p2 = $("#rsPass2").value;
+          const h1 = $("#rsPassHint"), h2 = $("#rsPass2Hint");
+          const prob = A.passwordProblem(p1);
+          h1.textContent = prob || ""; h1.className = "l3-hint" + (prob ? " err" : "");
+          const mism = !p2 ? "Repita a nova senha." : p1 !== p2 ? "As senhas não são iguais." : "";
+          h2.textContent = mism; h2.className = "l3-hint" + (mism ? " err" : "");
+          if (prob || mism) return;
+          const btn = form.querySelector("button[type=submit]"); btn.disabled = true; btn.textContent = "Salvando…";
+          const { error } = await sb.auth.updateUser({ password: p1 });
+          if (error) { say(A.friendly(error, "salvar a nova senha")); btn.disabled = false; btn.textContent = "Salvar nova senha"; return; }
+          await sb.auth.signOut();
+          location.replace("index.html?senha=redefinida");
+        });
+      })();
+    </script>
+  </body>
+</html>

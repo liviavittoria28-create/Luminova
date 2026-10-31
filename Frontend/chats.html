@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script src="luminova-theme.js?v=3.1.0"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#8fd3ff" />
+    <title>Chats — LumiNova</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="stylesheet" href="style.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=3.1.0" />
+      <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
+      <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
+    <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
+  </head>
+  <body class="ln-page">
+    <div class="sky" aria-hidden="true"><div class="haze haze--north"></div><div class="haze haze--south"></div><div class="belt"></div><div class="stars stars--far"></div><div class="stars stars--near"></div><div class="vignette"></div></div>
+        <div class="ln-layout">
+      <main class="ln-content chat-page" id="main">
+        <header class="ln-top"><div class="ln-crumb">LumiNova <span> / </span> Chats</div></header>
+        <h1 class="chat-title">Chats</h1>
+        <div id="chatNet" class="chat-net" role="status" hidden>Você está sem conexão. As mensagens só serão enviadas quando a internet voltar.</div>
+        <div id="chatNotice" role="status" class="chat-muted" aria-live="polite"></div>
+        <div class="chat-shell" id="chatShell">
+          <aside class="chat-list" aria-label="Lista de contatos">
+            <div class="chat-win-title"><span>Contatos</span><span class="chat-win-sub" id="chatCount"></span></div>
+            <label class="chat-search"><span class="sr-only" style="position:absolute;left:-9999px">Buscar contato</span><input id="chatSearch" type="search" placeholder="Buscar contato" autocomplete="off"></label>
+            <div id="chatList" class="chat-listbox"><p class="chat-state">Carregando contatos…</p></div>
+          </aside>
+          <section class="chat-main" aria-label="Conversa">
+            <div class="chat-win-title"><span id="chatWinTitle">Conversa</span></div>
+            <div class="chat-head">
+              <button type="button" class="chat-back ln-btn ghost" id="chatBack" aria-label="Voltar para os contatos"><svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+              <div id="chatHeader" class="chat-muted">Nenhuma conversa selecionada</div>
+            </div>
+            <div id="chatMessages" class="chat-messages" aria-live="polite"><div class="chat-empty-main"><strong>Nenhuma conversa selecionada</strong>Escolha um contato na lista para ver as mensagens.</div></div>
+            <form id="chatForm" class="chat-form">
+              <input id="chatInput" maxlength="4000" placeholder="Escreva uma mensagem…" autocomplete="off" aria-label="Mensagem" disabled>
+              <button id="chatSend" type="submit" disabled>Enviar</button>
+            </form>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js?v=3.1.0"></script>
+    <script src="luminova-sidebar.js?v=3.1.0" defer></script>
+    <script src="chats.js?v=3.1.0" defer></script>
+  </body>
+</html>

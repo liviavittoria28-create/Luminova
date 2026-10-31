@@ -1,0 +1,10 @@
+{
+  "name": "luminova-nova-brain-runner",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Background worker dos agentes NOVA BRAIN da LumiNova",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0"
+  }
+}
