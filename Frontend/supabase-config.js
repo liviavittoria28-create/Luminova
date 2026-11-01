@@ -6,7 +6,7 @@ window.LUMINOVA_SUPABASE_CONFIG = {
   url: "https://eanncrvtpsxcjpnfbixb.supabase.co",
   anonKey: "sb_publishable_28jfVcSBZhj6fS569Feecw_iXrgGrxI",
 };
-window.LUMINOVA_VERSION = "3.5.0";
+window.LUMINOVA_VERSION = "4.0.0";
 /* Somente para desenvolvimento: em localhost, localStorage "luminova-api-local" = URL de um banco de testes
  * (ex.: http://localhost:3400). Nunca tem efeito no site publicado. */
 try {

@@ -1,10 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;500;600;700;800&display=swap");
 
 /* ==========================================================================
-   LUMINOVA — MSN Messenger Y2K + Frutiger Aero
-   Janelas retangulares de vidro azul com barra de título em gradiente, céu com nuvens e
-   gramado ao fundo, botões com reflexo discreto. Cantos: 0 a 4 px (aqui, 2 px).
-   Carregado POR ÚLTIMO em todas as páginas. Tema claro/escuro = data-theme no <html>.
+   LUMINOVA — base Frutiger Aero + Y2K: tokens, janelas de vidro, botões, campos.
+   Tema claro/escuro = data-theme no <html>. Cantos retos (2 px).
    ========================================================================== */
 
 /* ---------- 1. TOKENS ---------- */
@@ -48,18 +46,10 @@ html[data-theme="light"] {
   --a-bubble-in: #ffffff;
   --a-bubble-out: #dcecfb;
   --a-scene:
-    radial-gradient(ellipse 55% 20% at 80% 5%, rgba(130, 255, 215, 0.2), transparent 70%),
-    radial-gradient(ellipse 125% 17% at 16% 109%, #98d85a 0 44%, #58a634 69%, transparent 70%),
-    radial-gradient(ellipse 105% 14% at 94% 111%, #82cb48 0 46%, #46902d 71%, transparent 72%),
-    radial-gradient(ellipse 150px 44px at 13% 15%, rgba(255, 255, 255, 0.92), transparent 72%),
-    radial-gradient(ellipse 210px 54px at 20% 17%, rgba(255, 255, 255, 0.85), transparent 72%),
-    radial-gradient(ellipse 130px 40px at 29% 14%, rgba(255, 255, 255, 0.8), transparent 72%),
-    radial-gradient(ellipse 190px 50px at 72% 24%, rgba(255, 255, 255, 0.78), transparent 72%),
-    radial-gradient(ellipse 120px 36px at 80% 22%, rgba(255, 255, 255, 0.7), transparent 72%),
-    radial-gradient(ellipse 260px 60px at 48% 46%, rgba(255, 255, 255, 0.4), transparent 72%),
-    linear-gradient(180deg, #3f8fe0 0%, #6db3ee 26%, #a9d5f6 52%, #d8edfb 78%, #eaf6fd 100%);
+    radial-gradient(ellipse 85% 45% at 50% -12%, rgba(150, 220, 255, 0.38), transparent 70%),
+    linear-gradient(180deg, #1666bd 0%, #0e529f 48%, #0a417f 100%);
 
-  --lumi-page: #cfe6f9;
+  --lumi-page: #0e529f;
   --lumi-accent: #1f6fc5;
   --lumi-card: #f2f8fe;
   --lumi-text: #12324f;
@@ -100,13 +90,8 @@ html[data-theme="dark"] {
   --a-bubble-in: #123560;
   --a-bubble-out: #1c4f8c;
   --a-scene:
-    radial-gradient(ellipse 60% 24% at 78% 6%, rgba(90, 255, 200, 0.2), transparent 70%),
-    radial-gradient(ellipse 50% 14% at 30% 12%, rgba(120, 160, 255, 0.14), transparent 70%),
-    radial-gradient(ellipse 125% 17% at 16% 109%, #1f7a58 0 44%, #0f4d3c 69%, transparent 70%),
-    radial-gradient(ellipse 105% 14% at 94% 111%, #17695a 0 46%, #0b3d44 71%, transparent 72%),
-    radial-gradient(ellipse 190px 46px at 15% 17%, rgba(150, 190, 255, 0.18), transparent 72%),
-    radial-gradient(ellipse 210px 50px at 72% 26%, rgba(150, 190, 255, 0.14), transparent 72%),
-    linear-gradient(180deg, #040d1e 0%, #0a2145 38%, #11386a 70%, #17497f 100%);
+    radial-gradient(ellipse 85% 45% at 50% -12%, rgba(50, 160, 245, 0.24), transparent 70%),
+    linear-gradient(180deg, #0a2b5e 0%, #071f46 50%, #051733 100%);
 
   --lumi-page: #071a33;
   --lumi-accent: #4aa8f0;
@@ -173,22 +158,13 @@ html[data-theme] {
   --lumi-sidebar-gold: var(--lumi-accent);
 }
 
-/* ---------- 2. CENÁRIO: céu, nuvens, gramado ---------- */
+/* ---------- 2. FUNDO AZUL ---------- */
 html[data-theme] body {
   font-family: var(--a-font);
   color: var(--a-ink);
   background: var(--a-scene);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
-}
-html[data-theme] .sky {
-  background: none !important;
-}
-html[data-theme] .sky > *,
-html[data-theme] .lumi-sky-layer,
-html[data-theme] .lumi-stars-a,
-html[data-theme] .lumi-stars-b {
-  display: none !important;
 }
 html[data-theme] body.ln-page {
   background: var(--a-scene);

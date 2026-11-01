@@ -1,4 +1,4 @@
-/* LUMINOVA 3.x — ações sociais compartilhadas: denunciar, bloquear/desbloquear e diálogos de confirmação.
+/* LUMINOVA — ações sociais compartilhadas: denunciar, bloquear/desbloquear e diálogos de confirmação.
  * Depende de luminova-sidebar.js (window.LUMI). Tudo grava direto no Supabase e respeita as regras RLS. */
 (() => {
   "use strict";

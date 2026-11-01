@@ -1,4 +1,4 @@
-/* LUMINOVA 3.x — Geral: feed real (paginado), "Para você", salvos, edição/exclusão, denúncias, tópico do dia,
+/* LUMINOVA — Geral: feed real (paginado), "Para você", salvos, edição/exclusão, denúncias, tópico do dia,
    assuntos do momento e recomendações por interesses. Tudo vem do Supabase; nada é inventado. */
 (() => {
   "use strict";
@@ -10,7 +10,7 @@
   const focusPost = qs.get("post");
   const savedMode = qs.has("salvos");
   let sb, me;
-  let sort = "recent", activeTag = null, offset = 0, hideAi = false;
+  let sort = "recent", activeTag = null, offset = 0;
   let posts = [];
   let myLikes = new Set(), mySaved = new Set();
 
@@ -57,7 +57,7 @@
     if (sort === "foryou" && me) {
       const r = await sb.rpc("luminova_recommend_posts", { result_limit: PAGE, result_offset: offset });
       if (!r.error) return { rows: r.data || [], more: (r.data || []).length === PAGE };
-      sort = "recent"; // banco sem a Migração 4: volta para recentes
+      sort = "recent";
     }
     if (sort === "popular") {
       const since = new Date(Date.now() - 7 * 864e5).toISOString();
@@ -67,16 +67,8 @@
       return { rows: rows.slice(offset, offset + PAGE), more: rows.length > offset + PAGE };
     }
     // feed geral: nunca mostra publicações feitas dentro de comunidades
-    let q = sb.from("v_feed_posts").select("*").is("community_id", null).order("created_at", { ascending: false }).range(offset, offset + PAGE - 1);
-    if (hideAi) q = q.eq("is_ai", false);
-    let r = await q;
-    if (r.error && /community_id/.test(r.error.message || "")) {
-      // banco ainda sem a Migração 6: carrega sem o filtro (a migração é que garante a separação)
-      console.warn("Rode a Migracao-6-LUMINOVA-posts-de-comunidade.sql para separar posts de comunidade do feed.");
-      let q2 = sb.from("v_feed_posts").select("*").order("created_at", { ascending: false }).range(offset, offset + PAGE - 1);
-      if (hideAi) q2 = q2.eq("is_ai", false);
-      r = await q2;
-    }
+    const q = sb.from("v_feed_posts").select("*").is("community_id", null).order("created_at", { ascending: false }).range(offset, offset + PAGE - 1);
+    const r = await q;
     if (r.error) throw r.error;
     return { rows: r.data || [], more: (r.data || []).length === PAGE };
   }
@@ -100,12 +92,12 @@
         : `<a href="${esc(u)}" target="_blank" rel="noopener"><img src="${esc(u)}" alt="Imagem enviada por ${esc(p.display_name || "autor")}" loading="lazy" class="g-media"></a>`))
       .join("");
     const liked = myLikes.has(p.post_id);
-    const prof = { display_name: p.display_name, username: p.username, avatar_url: p.avatar_url, is_ai: p.is_ai };
+    const prof = { display_name: p.display_name, username: p.username, avatar_url: p.avatar_url };
     const name = esc(p.display_name || p.username || "Pessoa");
     const edited = p.updated_at && p.created_at && new Date(p.updated_at) - new Date(p.created_at) > 60e3 && p._edited !== false;
     return `<article class="ln-post" data-post="${esc(p.post_id)}">
       <a class="tw-av" href="${LUMI.profileUrl(p.author_id)}" aria-label="Abrir perfil de ${name}">${LUMI.avatar(prof, "ln-avatar-img", 44)}</a>
-      <div class="tw-meta" style="display:flex;gap:6px;align-items:flex-start"><div style="min-width:0"><a class="ln-author" href="${LUMI.profileUrl(p.author_id)}">${name}${LUMI.aiBadge(p)}</a>
+      <div class="tw-meta" style="display:flex;gap:6px;align-items:flex-start"><div style="min-width:0"><a class="ln-author" href="${LUMI.profileUrl(p.author_id)}">${name}</a>
         <span class="ln-handle">${p.username ? "@" + esc(p.username) + " · " : ""}<time datetime="${esc(p.created_at)}">${esc(LUMI.time(p.created_at))}</time>${edited ? ' · <span class="l3-edited">editado</span>' : ""}</span></div>${postMenu(p)}</div>
       <p class="g-text">${hashtagify(p.content)}</p>${media}
       <div class="ln-post-actions">
@@ -166,13 +158,13 @@
     box.innerHTML = '<p class="ln-muted">Carregando comentários…</p>';
     const { data, error } = await sb
       .from("comments")
-      .select("id,content,created_at,parent_comment_id,author_id,author:profiles!comments_author_id_fkey(id,username,display_name,avatar_url,is_ai)")
+      .select("id,content,created_at,parent_comment_id,author_id,author:profiles!comments_author_id_fkey(id,username,display_name,avatar_url)")
       .eq("post_id", postId).is("deleted_at", null).order("created_at", { ascending: true });
     if (error) { box.innerHTML = `<p class="ln-muted">Não foi possível carregar os comentários.</p>`; return; }
     const byParent = {};
     (data || []).forEach((c) => (byParent[c.parent_comment_id || "root"] ||= []).push(c));
     const one = (c, depth) => `<div class="ln-comment" style="margin-left:${Math.min(depth, 3) * 18}px">
-      <div class="ln-post-head">${LUMI.avatar(c.author, "ln-avatar-img", 30)}<div><a class="ln-author" href="${LUMI.profileUrl(c.author_id)}">${esc(c.author?.display_name || c.author?.username || "Membro")}${LUMI.aiBadge(c.author)}</a><div class="ln-handle">${esc(LUMI.time(c.created_at))}</div></div></div>
+      <div class="ln-post-head">${LUMI.avatar(c.author, "ln-avatar-img", 30)}<div><a class="ln-author" href="${LUMI.profileUrl(c.author_id)}">${esc(c.author?.display_name || c.author?.username || "Membro")}</a><div class="ln-handle">${esc(LUMI.time(c.created_at))}</div></div></div>
       <p>${esc(c.content)}</p>
       ${me ? `<div class="l3-row" style="gap:4px"><button class="ln-action" data-reply="${esc(c.id)}" data-post="${esc(postId)}">Responder</button>
         ${c.author_id === me.id ? `<button class="ln-action" data-cdel="${esc(c.id)}" data-post="${esc(postId)}">Apagar</button>` : `<button class="ln-action" data-report="comment" data-id="${esc(c.id)}">Denunciar</button>`}</div>` : ""}</div>
@@ -437,8 +429,7 @@
     if (!sb) { $("#generalFeed").innerHTML = '<div class="l3-alert err">Não foi possível conectar ao servidor.</div>'; return; }
     if (savedMode && !(await LUMI.requireLogin())) return;
     if (me) {
-      const { data } = await sb.from("user_preferences").select("show_ai_content,personalization").eq("user_id", me.id).maybeSingle();
-      hideAi = data ? data.show_ai_content === false : false;
+      const { data } = await sb.from("user_preferences").select("personalization").eq("user_id", me.id).maybeSingle();
       if (!data || data.personalization !== false) { const fy = $('[data-sort="foryou"]'); fy.hidden = false; }
     }
     bindCompose();

@@ -1,5 +1,5 @@
-/* LUMINOVA 3.x — landing / autenticação / páginas públicas. Composição própria: hero assimétrico,
-   painel de conta como janela de vidro, faixa de recursos em grade e vitrine dos agentes. */
+/* LUMINOVA — landing / autenticação / páginas públicas. Composição própria: hero assimétrico,
+   painel de conta como janela de vidro e faixa de recursos em grade. */
 body.lp { min-height: 100vh; overflow-x: hidden; }
 .lp-top { display: flex; align-items: center; gap: 18px; max-width: 1180px; margin: 0 auto; padding: 16px clamp(16px, 3vw, 28px); }
 .lp-brand { display: flex; align-items: center; gap: 10px; color: var(--l3-ink); text-decoration: none; font: 700 19px var(--l3-display); letter-spacing: 0.06em; }

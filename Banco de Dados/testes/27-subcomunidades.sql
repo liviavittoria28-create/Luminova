@@ -49,8 +49,8 @@ insert into _res (teste, ok, detalhe)
 select 'S3 post da comunidade principal NÃO aparece na sub sozinho', count(*) = 0, ''
 from public.community_posts where subcommunity_id = :'s_fan' and post_id = :'p_main';
 insert into _res (teste, ok, detalhe)
-select 'S4 feed da comunidade principal mostra os posts das subs (com etiqueta)', count(*) = 2, count(*) || ' post(s)'
-from public.community_posts where community_id = :'c1';
+select 'S4 feed da comunidade principal traz só os posts dela (sem os das subs)', count(*) = 1 and bool_and(post_id = :'p_main'), count(*) || ' post(s)'
+from public.community_posts where community_id = :'c1' and subcommunity_id is null;
 
 -- encaminhar: membro manda o post principal para a sub Fanarts
 insert into public.community_post_forwards (post_id, subcommunity_id, forwarded_by) values (:'p_main', :'s_fan', auth.uid());

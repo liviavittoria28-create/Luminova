@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <script src="luminova-theme.js?v=3.5.0"></script>
-  <link rel="stylesheet" href="style.css?v=3.5.0">
-  <link rel="stylesheet" href="luminova-pages.css?v=3.5.0">
+    <script src="luminova-theme.js?v=4.0.0"></script>
+  <link rel="stylesheet" href="style.css?v=4.0.0">
+  <link rel="stylesheet" href="luminova-pages.css?v=4.0.0">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#8fd3ff" />
@@ -39,10 +39,10 @@
 
     <!-- ✦ Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-    <script src="./supabase-config.js?v=3.5.0"></script>
-    <script src="./luminova-sidebar.js?v=3.5.0" defer></script>
-    <script src="./luminova-colorwheel.js?v=3.5.0" defer></script>
-    <script src="./supabase-perfil-design.js?v=3.5.0" defer></script>
+    <script src="./supabase-config.js?v=4.0.0"></script>
+    <script src="./luminova-sidebar.js?v=4.0.0" defer></script>
+    <script src="./luminova-colorwheel.js?v=4.0.0" defer></script>
+    <script src="./supabase-perfil-design.js?v=4.0.0" defer></script>
 
     <style>
       /* ============================================================
@@ -172,137 +172,12 @@
       /* ============================================================
    Camadas de céu estrelado
    ============================================================ */
-      .lumi-sky-layer {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-      }
-      .lumi-stars-a {
-        background-image:
-          radial-gradient(
-            1px 1px at 25px 35px,
-            rgba(255, 255, 255, 0.55) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1.5px 1.5px at 150px 180px,
-            rgba(255, 255, 255, 0.3) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 300px 80px,
-            rgba(232, 200, 138, 0.45) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 380px 260px,
-            rgba(255, 255, 255, 0.35) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1.5px 1.5px at 90px 320px,
-            rgba(255, 255, 255, 0.25) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 240px 380px,
-            rgba(232, 200, 138, 0.3) 50%,
-            transparent 51%
-          );
-        background-size: 460px 460px;
-        animation: twinkle 5.5s ease-in-out infinite;
-      }
-      .lumi-stars-b {
-        background-image:
-          radial-gradient(
-            1px 1px at 60px 110px,
-            rgba(255, 255, 255, 0.4) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1.5px 1.5px at 200px 30px,
-            rgba(232, 200, 138, 0.4) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 330px 200px,
-            rgba(255, 255, 255, 0.3) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 120px 260px,
-            rgba(255, 255, 255, 0.28) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1.5px 1.5px at 400px 330px,
-            rgba(232, 200, 138, 0.25) 50%,
-            transparent 51%
-          );
-        background-size: 640px 640px;
-        animation: twinkle 8s ease-in-out 1.8s infinite;
-      }
-      .lumi-cover-stars {
-        background-image:
-          radial-gradient(
-            1px 1px at 60px 40px,
-            rgba(255, 255, 255, 0.7) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1.5px 1.5px at 220px 90px,
-            rgba(255, 255, 255, 0.4) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 380px 30px,
-            rgba(255, 255, 255, 0.5) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 500px 110px,
-            rgba(232, 200, 138, 0.6) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1.5px 1.5px at 160px 140px,
-            rgba(255, 255, 255, 0.3) 50%,
-            transparent 51%
-          );
-        background-size: 620px 200px;
-      }
-      @keyframes twinkle {
-        0%,
-        100% {
-          opacity: 0.9;
-        }
-        50% {
-          opacity: 0.35;
-        }
-      }
       @keyframes growLine {
         from {
           transform: scaleX(0);
         }
         to {
           transform: scaleX(1);
-        }
-      }
-      @keyframes drift {
-        from {
-          transform: translate3d(0, 0, 0) scale(1.08);
-        }
-        to {
-          transform: translate3d(-1.5%, -2%, 0) scale(1.14);
-        }
-      }
-      @keyframes nodePulse {
-        0%,
-        100% {
-          opacity: 0.55;
-        }
-        50% {
-          opacity: 0.12;
         }
       }
       @keyframes fadeUp {
@@ -313,17 +188,6 @@
         to {
           opacity: 1;
           transform: none;
-        }
-      }
-      @keyframes pulseDot {
-        0% {
-          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.55);
-        }
-        70% {
-          box-shadow: 0 0 0 8px rgba(74, 222, 128, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
         }
       }
       @keyframes spin {
@@ -337,15 +201,6 @@
       }
       .anim-fade-up {
         animation: fadeUp 0.5s ease both;
-      }
-      .lumi-cover-drift {
-        animation: drift 24s ease-in-out infinite alternate;
-      }
-      .lumi-node-halo {
-        animation: nodePulse 2.4s ease-in-out infinite;
-      }
-      .lumi-online-dot {
-        animation: pulseDot 2.2s infinite;
       }
 
       /* ============================================================
@@ -1718,18 +1573,16 @@
         border-radius: 12px !important;
       }
     </style>
-      <link rel="stylesheet" href="luminova-aero.css?v=3.5.0" />
-      <link rel="stylesheet" href="luminova-3.css?v=3.5.0" />
-    <link rel="stylesheet" href="luminova-aero-max.css?v=3.5.0" />
-    <link rel="stylesheet" href="luminova-azul.css?v=3.5.0" />
+      <link rel="stylesheet" href="luminova-aero.css?v=4.0.0" />
+      <link rel="stylesheet" href="luminova-3.css?v=4.0.0" />
+    <link rel="stylesheet" href="luminova-aero-max.css?v=4.0.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=4.0.0" />
   </head>
 
   <body>
     <div id="root">
       <div class="relative min-h-screen">
         <!-- ✦ Camadas de estrelas -->
-        <div aria-hidden="true" class="lumi-sky-layer lumi-stars-a"></div>
-        <div aria-hidden="true" class="lumi-sky-layer lumi-stars-b"></div>
 
         
 
@@ -1792,10 +1645,6 @@
                 <div
                   class="lumi-cover-drift absolute inset-0"
                   style="background: radial-gradient(ellipse 60% 30% at 20% 18%, rgba(255,255,255,.85), transparent 70%), radial-gradient(ellipse 50% 25% at 78% 28%, rgba(255,255,255,.7), transparent 70%), radial-gradient(ellipse 120% 40% at 30% 118%, #0f63bf 0 50%, #0b4a96 66%, transparent 67%), linear-gradient(180deg, #2f9cf0, #7fcdfa 70%, #d6f0ff);"
-                ></div>
-                <div
-                  aria-hidden="true"
-                  class="lumi-cover-stars lumi-sky-layer"
                 ></div>
                 <button
                   id="coverEdit"

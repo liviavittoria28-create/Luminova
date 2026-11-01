@@ -1,4 +1,4 @@
-/* LUMINOVA 3.x — central de configurações e privacidade. Tudo lido e gravado no Supabase com RLS. */
+/* LUMINOVA — central de configurações e privacidade. Tudo lido e gravado no Supabase com RLS. */
 (() => {
   "use strict";
   const $ = (s) => document.querySelector(s);
@@ -33,7 +33,7 @@
       const ins = await sb.from("user_preferences").insert({ user_id: me.id }).select("*").single();
       data = ins.data;
     }
-    prefs = data || { dm_policy: "everyone", discoverable: true, allow_ai_memory: false, allow_ai_dm: true, show_ai_content: true, personalization: true };
+    prefs = data || { dm_policy: "everyone", discoverable: true, personalization: true };
     document.querySelectorAll("[data-pref]").forEach((i) => (i.checked = !!prefs[i.dataset.pref]));
     $("#pDm").value = prefs.dm_policy || "everyone";
     $("#pPrivate").checked = LUMI.profile?.account_visibility === "private";
@@ -87,7 +87,7 @@
   // ---------------------------------------------------------------- bloqueios
   async function loadBlocks() {
     const host = $("#blkList");
-    const { data, error } = await sb.from("blocks").select("blocked_id,created_at,who:profiles!blocks_blocked_id_fkey(id,display_name,username,avatar_url,is_ai)").eq("blocker_id", me.id).order("created_at", { ascending: false });
+    const { data, error } = await sb.from("blocks").select("blocked_id,created_at,who:profiles!blocks_blocked_id_fkey(id,display_name,username,avatar_url)").eq("blocker_id", me.id).order("created_at", { ascending: false });
     if (error) { host.innerHTML = '<p class="l3-small">Não foi possível carregar.</p>'; return; }
     if (!data.length) { host.innerHTML = '<p class="l3-small">Você não bloqueou ninguém.</p>'; return; }
     host.innerHTML = `<ul class="l3-list">${data.map((b) => `<li><span class="l3-row">${LUMI.avatar(b.who || {}, "blk-av", 34)}<span><strong>${esc(b.who?.display_name || "Perfil")}</strong><br><span class="l3-small">${b.who?.username ? "@" + esc(b.who.username) : ""} · desde ${esc(LUMI.time(b.created_at))}</span></span></span><button class="l3-btn ghost sm" data-unblock="${esc(b.blocked_id)}">Desbloquear</button></li>`).join("")}</ul>`;
@@ -103,7 +103,7 @@
     const title = { terms: "Termos de Uso", privacy: "Política de Privacidade" };
     $("#docList").innerHTML = mine.data?.length
       ? `<ul class="l3-list">${mine.data.map((c) => `<li><span><strong>${title[c.doc_key] || c.doc_key}</strong> · versão ${esc(c.version)}<br><span class="l3-small">Aceito em ${esc(LUMI.time(c.accepted_at))} (${c.source === "signup" ? "no cadastro" : "atualização"})</span></span></li>`).join("")}</ul>`
-      : '<p class="l3-small">Nenhum aceite registrado (contas criadas antes da LUMINOVA 3.x). Aceite a versão atual abaixo.</p>';
+      : '<p class="l3-small">Nenhum aceite registrado (contas antigas). Aceite a versão atual abaixo.</p>';
     const p = pend.data || [];
     $("#docPending").innerHTML = p.length ? `<div class="l3-alert">Há ${p.length === 1 ? "um documento atualizado" : "documentos atualizados"}: ${p.map((d) => `<a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.title)} (${esc(d.version)})</a>`).join(" e ")}.
       <div class="l3-row" style="margin-top:10px"><button class="l3-btn sm" id="acceptDocs">Li e aceito</button></div></div>` : "";

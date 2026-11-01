@@ -49,7 +49,6 @@
   LUMI.hhmm = (iso) => {
     try { return new Date(iso).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }); } catch { return ""; }
   };
-  LUMI.aiBadge = () => "";
   // Selo de perfil certificado (certified vem de profile_progress.certified).
   LUMI.certBadge = (certified) => (certified ? ' <span class="ln-cert" title="Perfil certificado LUMINOVA" aria-label="Perfil certificado" style="display:inline-block;font-size:12px;line-height:1;color:#fff;background:linear-gradient(180deg,#6fc2f5,#2a72c4);box-shadow:inset 0 1px 0 #fff8;border-radius:2px;padding:3px 5px;vertical-align:middle;margin-left:4px"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span>' : "");
   LUMI.profileUrl = (id) => (LUMI.user && LUMI.user.id === id ? "perfil.html" : `perfil-publico.html?id=${encodeURIComponent(id)}`);
@@ -150,7 +149,7 @@
 
     const css = document.createElement("link");
     css.rel = "stylesheet";
-    css.href = "luminova-sidebar.css?v=3.5.0";
+    css.href = "luminova-sidebar.css?v=4.0.0";
     document.head.append(css);
 
     const aside = document.createElement("aside");
@@ -164,16 +163,18 @@
       <nav class="lsb-nav" id="lsbNav">${ITEMS.map(linkHtml).join("")}</nav>
       <div class="lsb-bottom">
         <span id="lsbThemeSlot"></span>
-        <a class="lsb-me" href="perfil.html" data-testid="sidebar-mini-profile" aria-label="Abrir meu perfil">
-          <span class="lsb-avatar" id="sidebar-avatar"></span>
-          <span class="lsb-me-txt"><strong id="sidebar-name">—</strong><small>Seu espaço</small></span>
-        </a>
+        <div class="lsb-me-row">
+          <a class="lsb-me" href="perfil.html" data-testid="sidebar-mini-profile" aria-label="Abrir meu perfil">
+            <span class="lsb-avatar" id="sidebar-avatar"></span>
+            <span class="lsb-me-txt"><strong id="sidebar-name">—</strong></span>
+          </a>
+          <button type="button" class="lsb-icon" id="lsbLogout" aria-label="Sair da conta" title="Sair">${ICON.sair}</button>
+        </div>
         <div class="lsb-pair">
           <a class="lsb-btn" href="configuracoes.html" data-nav="configuracoes"${activeKey === "configuracoes" ? ' aria-current="page"' : ""}>${ICON.configuracoes}Configurações</a>
-          <button type="button" class="lsb-btn" id="lsbLogout" aria-label="Sair da conta">${ICON.sair}Sair</button>
+          <button type="button" class="lsb-btn" id="openSettings" data-testid="sidebar-customize-button">${ICON.cog}Personalizar</button>
         </div>
-        <button type="button" class="lsb-btn" id="openSettings" data-testid="sidebar-customize-button">${ICON.cog}Personalizar perfil</button>
-        <p class="lsb-legal"><a href="termos.html">Termos</a> · <a href="privacidade.html">Privacidade</a> · <span>v${window.LUMINOVA_VERSION || "3"}</span></p>
+        <p class="lsb-legal"><a href="termos.html">Termos</a> · <a href="privacidade.html">Privacidade</a></p>
       </div>`;
     const back = document.createElement("button");
     back.type = "button";
@@ -188,6 +189,14 @@
     document.body.prepend(back);
     document.body.prepend(top);
     document.body.classList.add("lsb-on");
+    if (!["admin.html", "chats.html", "configuracoes.html"].includes(page)) {
+      const ads = document.createElement("aside");
+      ads.className = "lsb-ads";
+      ads.setAttribute("aria-label", "Publicidade");
+      ads.innerHTML = `<p class="lsb-ads-label">Publicidade</p><div class="lsb-ads-slot" data-ad-slot="lateral-direita"></div>`;
+      document.body.append(ads);
+      document.body.classList.add("lsb-ads-on");
+    }
     // Páginas Tailwind (perfil/comunidade) já reservam 260px no <main>; as demais recebem o deslocamento.
     if (!document.querySelector('main[class*="pl-[260px]"]')) document.body.classList.add("lsb-shift");
 
@@ -238,10 +247,10 @@
   }
 
   // Presença REAL: Supabase Realtime Presence (efêmera, nada é gravado no banco). Quem está com o
-  // LumiNova aberto aparece como online; ao fechar a aba a presença some sozinha. Perfis de IA nunca entram.
+  // LumiNova aberto aparece como online; ao fechar a aba a presença some sozinha.
   LUMI.presence = { online: new Set(), ready: false, listeners: new Set(), onChange(fn) { this.listeners.add(fn); } };
   function startPresence() {
-    if (!LUMI.user || !LUMI.sb || LUMI.profile?.is_ai) return;
+    if (!LUMI.user || !LUMI.sb) return;
     try {
       const ch = LUMI.sb.channel("luminova-presence", { config: { presence: { key: LUMI.user.id } } });
       ch.on("presence", { event: "sync" }, () => {
@@ -318,7 +327,8 @@
       document.getElementById("lsbNav")?.insertAdjacentHTML("beforeend", linkHtml(["admin", "admin.html", "Administração"]));
     }
     if (!LUMI.user) {
-      document.querySelector(".lsb-pair")?.remove();
+      document.querySelector('.lsb-pair [data-nav="configuracoes"]')?.remove();
+      document.getElementById("lsbLogout")?.remove();
       document.querySelectorAll('[data-nav="notificacoes"],[data-nav="salvos"],[data-nav="atividades"],[data-nav="conquistas"]').forEach((a) => a.remove());
       const btn = document.getElementById("openSettings");
       if (btn) { btn.textContent = "Entrar ou criar conta"; btn.onclick = () => (location.href = "index.html"); }

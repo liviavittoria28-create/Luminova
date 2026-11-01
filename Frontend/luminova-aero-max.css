@@ -141,7 +141,7 @@ html[data-theme="dark"] .lsb-btn, html[data-theme="dark"] .lsb-theme { backgroun
 html[data-theme] .ln-post { border-radius: 2px; border: 1px solid #fff; background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(232,247,255,.85)); box-shadow: 0 0 0 1px rgba(18,95,180,.35), 0 8px 18px -12px rgba(0,50,120,.6); }
 html[data-theme="dark"] .ln-post { border-color: rgba(140,230,255,.45); background: linear-gradient(180deg, rgba(18,52,108,.9), rgba(8,30,70,.9)); }
 
-/* ---------- painéis das páginas antigas com o mesmo vidro das janelas 3.x ---------- */
+/* ---------- painéis das páginas antigas com o mesmo vidro das janelas ---------- */
 html[data-theme] .ln-page .ln-panel,
 html[data-theme] .ln-page .ln-community-card,
 html[data-theme] .ln-page .ln-real-card,

@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <script src="luminova-theme.js?v=3.5.0"></script>
-  <link rel="stylesheet" href="style.css?v=3.5.0">
+    <script src="luminova-theme.js?v=4.0.0"></script>
+  <link rel="stylesheet" href="style.css?v=4.0.0">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#8fd3ff" />
@@ -26,10 +26,10 @@
     />
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-    <script src="./supabase-config.js?v=3.5.0"></script>
-    <link rel="stylesheet" href="luminova-pages.css?v=3.5.0" />
-    <script src="./luminova-sidebar.js?v=3.5.0" defer></script>
-    <script src="./luminova-colorwheel.js?v=3.5.0" defer></script>
+    <script src="./supabase-config.js?v=4.0.0"></script>
+    <link rel="stylesheet" href="luminova-pages.css?v=4.0.0" />
+    <script src="./luminova-sidebar.js?v=4.0.0" defer></script>
+    <script src="./luminova-colorwheel.js?v=4.0.0" defer></script>
 
     <style>
       /* ═══════════ BASE ═══════════ */
@@ -121,105 +121,12 @@
         --font-mono: "JetBrains Mono", ui-monospace, monospace;
       }
 
-      /* ═══════════ CÉU ═══════════ */
-      .lumi-sky-layer {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-      }
-      .lumi-stars-a {
-        background-image:
-          radial-gradient(
-            1px 1px at 25px 35px,
-            rgba(255, 255, 255, 0.55) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1.5px 1.5px at 150px 180px,
-            rgba(255, 255, 255, 0.3) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 300px 80px,
-            rgba(232, 200, 138, 0.45) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 380px 260px,
-            rgba(255, 255, 255, 0.35) 50%,
-            transparent 51%
-          );
-        background-size: 460px 460px;
-        animation: twinkle 5.5s ease-in-out infinite;
-      }
-      .lumi-stars-b {
-        background-image:
-          radial-gradient(
-            1px 1px at 60px 110px,
-            rgba(255, 255, 255, 0.4) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1.5px 1.5px at 200px 30px,
-            rgba(232, 200, 138, 0.4) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 330px 200px,
-            rgba(255, 255, 255, 0.3) 50%,
-            transparent 51%
-          );
-        background-size: 640px 640px;
-        animation: twinkle 8s ease-in-out 1.8s infinite;
-      }
-      .lumi-cover-stars {
-        background-image:
-          radial-gradient(
-            1px 1px at 60px 40px,
-            rgba(255, 255, 255, 0.7) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1.5px 1.5px at 220px 90px,
-            rgba(255, 255, 255, 0.4) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 380px 30px,
-            rgba(255, 255, 255, 0.5) 50%,
-            transparent 51%
-          ),
-          radial-gradient(
-            1px 1px at 500px 110px,
-            rgba(232, 200, 138, 0.6) 50%,
-            transparent 51%
-          );
-        background-size: 620px 200px;
-      }
-
-      @keyframes twinkle {
-        0%,
-        100% {
-          opacity: 0.9;
-        }
-        50% {
-          opacity: 0.35;
-        }
-      }
       @keyframes growLine {
         from {
           transform: scaleX(0);
         }
         to {
           transform: scaleX(1);
-        }
-      }
-      @keyframes drift {
-        from {
-          transform: translate3d(0, 0, 0) scale(1.08);
-        }
-        to {
-          transform: translate3d(-1.5%, -2%, 0) scale(1.14);
         }
       }
       @keyframes fadeUp {
@@ -230,17 +137,6 @@
         to {
           opacity: 1;
           transform: none;
-        }
-      }
-      @keyframes pulseDot {
-        0% {
-          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.55);
-        }
-        70% {
-          box-shadow: 0 0 0 8px rgba(74, 222, 128, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
         }
       }
       @keyframes typing {
@@ -295,12 +191,6 @@
       }
       .anim-fade-up {
         animation: fadeUp 0.5s ease both;
-      }
-      .lumi-cover-drift {
-        animation: drift 24s ease-in-out infinite alternate;
-      }
-      .lumi-online-dot {
-        animation: pulseDot 2.2s infinite;
       }
 
       /* ═══════════ UTILITÁRIOS ═══════════ */
@@ -1192,7 +1082,6 @@
           transparent 45%
         );
         pointer-events: none;
-        animation: drift 30s ease-in-out infinite alternate;
       }
       .topic-badge {
         display: inline-flex;
@@ -1698,17 +1587,15 @@
   
     
 
-      <link rel="stylesheet" href="luminova-aero.css?v=3.5.0" />
-      <link rel="stylesheet" href="luminova-3.css?v=3.5.0" />
-    <link rel="stylesheet" href="luminova-aero-max.css?v=3.5.0" />
-    <link rel="stylesheet" href="luminova-azul.css?v=3.5.0" />
+      <link rel="stylesheet" href="luminova-aero.css?v=4.0.0" />
+      <link rel="stylesheet" href="luminova-3.css?v=4.0.0" />
+    <link rel="stylesheet" href="luminova-aero-max.css?v=4.0.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=4.0.0" />
   </head>
 
   <body>
     <div id="root">
       <div class="relative min-h-screen">
-        <div aria-hidden="true" class="lumi-sky-layer lumi-stars-a"></div>
-        <div aria-hidden="true" class="lumi-sky-layer lumi-stars-b"></div>
 
         
 
@@ -1798,10 +1685,6 @@
                           rgba(8, 5, 26, 0.98)
                         );
                     "
-                  ></div>
-                  <div
-                    aria-hidden="true"
-                    class="lumi-cover-stars lumi-sky-layer"
                   ></div>
                   <div
                     id="coverMessage"
@@ -2803,6 +2686,8 @@
           myRole: null,
           canManageRoles: false,
           postsById: {},
+          subs: [],
+          forwardsByPost: {},
           chatChannel: null,
         };
         // Cargos: Dono > Administrador > Moderador > Membro.
@@ -2899,43 +2784,39 @@
             av.textContent = state.settings.icon || "◈";
           }
 
-          // Capa da comunidade: usa a imagem salva no banco quando existir.
-          const cover = $("cover");
-          const gradient = $("coverGradient");
-          const coverUrl = community.cover_url || state.settings.cover_url || state.settings.cover_image_url || "";
-          let coverImage = $("community-cover-image");
-          if (coverUrl) {
-            // Fundo direto no contêiner como fallback visual enquanto a imagem carrega.
-            const safeCoverUrl = String(coverUrl).replace(/["\\]/g, "\\$&");
-            cover.style.backgroundImage = `linear-gradient(180deg, rgba(5,8,18,.12), rgba(5,8,18,.52)), url("${safeCoverUrl}")`;
-            cover.style.backgroundSize = "cover";
-            cover.style.backgroundPosition = "center";
-            if (!coverImage) {
-              coverImage = document.createElement("img");
-              coverImage.id = "community-cover-image";
-              coverImage.alt = "Capa da comunidade";
-              coverImage.decoding = "async";
-              coverImage.loading = "eager";
-              coverImage.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;";
-              cover.insertBefore(coverImage, cover.firstChild);
+          applyCover(state.subId ? "" : community.cover_url || state.settings.cover_url || state.settings.cover_image_url || "");
+          $("coverMessage").textContent = state.subId ? "" : state.settings.cover_message || community.welcome_text || "Bem-vindo ao nosso espaço ✦";
+          function applyCover(coverUrl) {
+            const cover = $("cover");
+            const gradient = $("coverGradient");
+            let coverImage = $("community-cover-image");
+            if (coverUrl) {
+              const safeCoverUrl = String(coverUrl).replace(/["\\]/g, "\\$&");
+              cover.style.backgroundImage = `linear-gradient(180deg, rgba(5,8,18,.12), rgba(5,8,18,.52)), url("${safeCoverUrl}")`;
+              cover.style.backgroundSize = "cover";
+              cover.style.backgroundPosition = "center";
+              if (!coverImage) {
+                coverImage = document.createElement("img");
+                coverImage.id = "community-cover-image";
+                coverImage.alt = "Capa da comunidade";
+                coverImage.decoding = "async";
+                coverImage.loading = "eager";
+                coverImage.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;";
+                cover.insertBefore(coverImage, cover.firstChild);
+              }
+              coverImage.src = coverUrl;
+              coverImage.onerror = () => { coverImage.style.display = "none"; };
+              if (gradient) {
+                gradient.style.opacity = "0.42";
+                gradient.style.zIndex = "1";
+              }
+            } else {
+              if (coverImage) coverImage.remove();
+              cover.style.backgroundImage = "none";
+              if (gradient) { gradient.style.opacity = "1"; gradient.style.zIndex = ""; }
             }
-            coverImage.src = coverUrl;
-            coverImage.onerror = () => { coverImage.style.display = "none"; };
-            if (gradient) {
-              gradient.style.opacity = "0.42";
-              gradient.style.zIndex = "1";
-            }
-          } else {
-            if (coverImage) coverImage.remove();
-            cover.style.backgroundImage = "none";
-            if (gradient) { gradient.style.opacity = "1"; gradient.style.zIndex = ""; }
           }
-
-          // Mensagem da capa
-          $("coverMessage").textContent =
-            state.settings.cover_message ||
-            community.welcome_text ||
-            "Bem-vindo ao nosso espaço ✦";
+          state.applyCover = applyCover;
 
           // Badges
           const vis = community.visibility || "public";
@@ -3045,8 +2926,15 @@
               const sb2 = $("subBanner");
               sb2.classList.remove("hidden");
               const srules = Array.isArray(sc.rules) && sc.rules.length ? `<ol class="mt-2 list-decimal pl-5">${sc.rules.map((r) => `<li>${escapeHtml(r)}</li>`).join("")}</ol>` : "";
-              sb2.innerHTML = `<strong>Subcomunidade: ${escapeHtml(sc.name)}</strong> · parte de <a class="underline" href="./comunidade-detalhe.html?id=${encodeURIComponent(community.id)}">${escapeHtml(community.name)}</a><p class="mt-1 text-muted-foreground">${escapeHtml(sc.description || "")}</p>${srules}<p class="mt-1 text-xs text-muted-foreground">O feed e o chat abaixo são desta subcomunidade; posts da comunidade principal só aparecem aqui se alguém encaminhar. Os membros são os da comunidade principal.</p>`;
+              sb2.innerHTML = `<strong>◈ Subcomunidade de <a class="underline" href="./comunidade-detalhe.html?id=${encodeURIComponent(community.id)}">${escapeHtml(community.name)}</a></strong>${srules}<p class="mt-1 text-xs text-muted-foreground">Feed, capa e chat próprios. O que é publicado aqui fica só aqui; posts da comunidade principal só aparecem se alguém encaminhar. Os membros são os da comunidade principal.</p>`;
               $("crumb-name").textContent = `${community.name} / ${sc.name}`;
+              $("hero-name").textContent = sc.name;
+              $("hero-bio").textContent = sc.description || "";
+              $("hero-handle").textContent = `${community.slug} / ${sc.name}`;
+              if (sc.avatar_url) $("hero-avatar").innerHTML = `<img src="${escapeHtml(sc.avatar_url)}" alt="" style="width:100%;height:100%;object-fit:cover;" />`;
+              else $("hero-avatar").textContent = "◈";
+              state.applyCover?.(sc.cover_url || "");
+              document.title = `${sc.name} — ${community.name} — LumiNova`;
             }
           } catch (e) { console.warn("sub:", e); }
         }
@@ -3261,42 +3149,60 @@
           const av = author.avatar_url
             ? `<span class="post-avatar"><img src="${escapeHtml(author.avatar_url)}" alt="" /></span>`
             : `<span class="post-avatar">${initials(author.display_name || author.username)}</span>`;
+          const subUrl = (id) => `./comunidade-detalhe.html?id=${encodeURIComponent(community.id)}&sub=${encodeURIComponent(id)}`;
+          const media = (post.media_urls || []).map((u) => /\.(mp4|webm|mov)(\?|$)/i.test(u)
+            ? `<video controls playsinline preload="metadata" src="${escapeHtml(u)}"></video>`
+            : `<a href="${escapeHtml(u)}" target="_blank" rel="noopener"><img src="${escapeHtml(u)}" alt="Imagem da publicação" loading="lazy" /></a>`).join("");
+          const forwardedTo = !state.subId ? (state.forwardsByPost[post.id] || []) : [];
+
+          const original = `
+            <div class="flex gap-3">
+              ${av}
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                  <a class="post-author text-sm" href="${escapeHtml(author.id ? (state.user?.id === author.id ? "perfil.html" : "perfil-publico.html?id=" + encodeURIComponent(author.id)) : "#")}">${escapeHtml(author.display_name || author.username || "Anônimo")}</a>
+                  <span class="post-meta text-xs">@${escapeHtml(author.username || "user")} · ${timeAgo(post.created_at)}</span>
+                  ${post.post_type === "question" ? '<span class="post-kind">✦ Pergunta</span>' : ""}
+                </div>
+                ${forwardedTo.map((f) => `<a class="post-sub-tag" href="${subUrl(f.subId)}">↪ encaminhado para ◈ ${escapeHtml(f.subName)}</a>`).join("")}
+                <p class="post-body"></p>
+                ${post.link_url ? `<a href="${escapeHtml(post.link_url)}" target="_blank" rel="noopener" class="post-link">${escapeHtml(post.link_url)}</a>` : ""}
+                ${media ? `<div class="post-media">${media}</div>` : ""}
+              </div>
+            </div>`;
 
           const el = document.createElement("article");
           el.className = "post-card";
           el.dataset.postId = post.id;
           el.innerHTML = `
-            <div class="flex gap-3">
-              ${av}
-              <div class="min-w-0 flex-1">
-                <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span class="text-sm font-medium text-[#f5f6fa]">${escapeHtml(author.display_name || author.username || "Anônimo")}</span>
-                  <span class="font-mono text-[10px] text-muted-foreground">@${escapeHtml(author.username || "user")}</span>
-                  <span class="font-mono text-[10px] text-muted-foreground">· ${timeAgo(post.created_at)}</span>
-                  ${post.post_type === "question" ? '<span class="text-[10px] text-[var(--lumi-accent)]">✦ Pergunta</span>' : ""}
-                </div>
-                ${extra.subName && !state.subId ? `<a class="post-sub-tag" href="./comunidade-detalhe.html?id=${encodeURIComponent(community.id)}&sub=${encodeURIComponent(extra.subId)}">em ◈ ${escapeHtml(extra.subName)}</a>` : ""}
-                ${extra.forwardedBy ? `<span class="post-sub-tag">↪ encaminhado por ${escapeHtml(extra.forwardedBy)}</span>` : ""}
-                <p class="mt-2 text-sm leading-relaxed text-[#dfe3f3] whitespace-pre-wrap"></p>
-                ${post.link_url ? `<a href="${escapeHtml(post.link_url)}" target="_blank" rel="noopener" class="mt-2 inline-block text-xs text-[var(--lumi-accent)] underline break-all">${escapeHtml(post.link_url)}</a>` : ""}
-                <div class="post-actions">
-                  <button class="post-action-btn upvote-btn" data-post-id="${post.id}">▲ <span class="vote-count">0</span></button>
-                  <button class="post-action-btn toggle-comments" data-post-id="${post.id}">💬 <span>0 comentário(s)</span></button>
-                  ${!state.subId && state.user && (state.isMember || state.isAdmin) ? `<button class="post-action-btn forward-btn" data-post-id="${post.id}" aria-label="Encaminhar para uma subcomunidade">↪ Encaminhar</button>` : ""}
-                </div>
-                <div class="forward-box hidden" data-forward-for="${post.id}"></div>
-                <div class="comments-thread hidden" data-comments-for="${post.id}">
-                  <div class="lumi-loading-box" style="padding:1rem;"><span class="lumi-spinner"></span></div>
-                </div>
-              </div>
+            ${extra.forward ? `<div class="post-repost-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg><span><strong>${escapeHtml(extra.forward.by)}</strong> encaminhou da comunidade principal</span><time>${timeAgo(extra.forward.at)}</time></div>` : ""}
+            ${extra.forward ? `<div class="post-quote">${original}</div>` : original}
+            <div class="post-actions">
+              <button class="post-action-btn upvote-btn" data-post-id="${post.id}" aria-label="Curtir">▲ <span class="vote-count">0</span></button>
+              <button class="post-action-btn toggle-comments" data-post-id="${post.id}">💬 <span>0 comentário(s)</span></button>
+              ${!state.subId && state.user && (state.isMember || state.isAdmin) && (state.subs || []).length ? `<button class="post-action-btn forward-btn" data-post-id="${post.id}" aria-label="Encaminhar para uma subcomunidade">↪ Encaminhar</button>` : ""}
+            </div>
+            <div class="forward-box hidden" data-forward-for="${post.id}"></div>
+            <div class="comments-thread hidden" data-comments-for="${post.id}">
+              <div class="lumi-loading-box" style="padding:1rem;"><span class="lumi-spinner"></span></div>
             </div>
           `;
-          el.querySelector("p").textContent = post.content || "";
+          el.querySelector(".post-body").textContent = post.content || "";
           feedList.appendChild(el);
           state.postsById[post.id] = post;
         };
 
-        // Buscar posts da comunidade
+        try {
+          const { data } = await supabase
+            .from("community_subcommunities")
+            .select("*")
+            .eq("community_id", community.id)
+            .order("created_at", { ascending: false });
+          state.subs = data || [];
+        } catch (e) {
+          console.warn("subs:", e);
+        }
+
         let posts = [];
         try {
           let q = supabase
@@ -3304,7 +3210,6 @@
             .select(
               `
               post_id, created_at, subcommunity_id,
-              sub:community_subcommunities ( id, name ),
               post:posts!inner (
                 id, content, post_type, link_url, media_urls, visibility, is_pinned, created_at, deleted_at,
                 author:profiles!posts_author_id_fkey (id, username, display_name, avatar_url)
@@ -3314,12 +3219,24 @@
             .eq("community_id", community.id)
             .order("created_at", { ascending: false })
             .limit(50);
-          // na subcomunidade: só os posts feitos nela (o que é da comunidade principal só entra se for encaminhado)
-          if (state.subId) q = q.eq("subcommunity_id", state.subId);
+          // cada feed é independente: a principal mostra só os posts dela; a sub, só os dela e os encaminhados
+          q = state.subId ? q.eq("subcommunity_id", state.subId) : q.is("subcommunity_id", null);
           const { data } = await q;
           posts = (data || [])
             .filter((r) => r.post && !r.post.deleted_at)
-            .map((r) => ({ post: r.post, at: r.created_at, extra: { subId: r.subcommunity_id, subName: r.sub?.name } }));
+            .map((r) => ({ post: r.post, at: r.created_at, extra: {} }));
+          state.forwardsByPost = {};
+          if (!state.subId && posts.length && (state.subs || []).length) {
+            const { data: fwAll } = await supabase
+              .from("community_post_forwards")
+              .select("post_id, subcommunity_id")
+              .eq("community_id", community.id);
+            const subName = Object.fromEntries((state.subs || []).map((s) => [s.id, s.name]));
+            (fwAll || []).forEach((f) => {
+              if (!subName[f.subcommunity_id]) return;
+              (state.forwardsByPost[f.post_id] ||= []).push({ subId: f.subcommunity_id, subName: subName[f.subcommunity_id] });
+            });
+          }
           if (state.subId) {
             const { data: fw } = await supabase
               .from("community_post_forwards")
@@ -3335,7 +3252,7 @@
               .order("created_at", { ascending: false })
               .limit(50);
             (fw || []).filter((r) => r.post && !r.post.deleted_at).forEach((r) =>
-              posts.push({ post: r.post, at: r.created_at, extra: { forwardedBy: r.quem?.display_name || r.quem?.username || "um membro" } }));
+              posts.push({ post: r.post, at: r.created_at, extra: { forward: { by: r.quem?.display_name || r.quem?.username || "Um membro", at: r.created_at } } }));
             posts.sort((a, b) => new Date(b.at) - new Date(a.at));
           }
         } catch (e) {
@@ -3431,18 +3348,7 @@
         }
 
         // ─── 10. Subcomunidades ───
-        let subs = [];
-        try {
-          const { data } = await supabase
-            .from("community_subcommunities")
-            .select("*")
-            .eq("community_id", community.id)
-            .order("created_at", { ascending: false });
-          subs = data || [];
-          state.subs = subs;
-        } catch (e) {
-          console.warn("subs:", e);
-        }
+        const subs = state.subs;
 
         $("stat-subs").textContent = subs.length;
         $("tab-count-subs").textContent = subs.length;
@@ -3456,10 +3362,10 @@
               .map(
                 (s) => `
               <a href="./comunidade-detalhe.html?slug=${encodeURIComponent(community.slug)}&sub=${encodeURIComponent(s.id)}" class="subcommunity-card">
-                <span class="subcommunity-icon">◈</span>
+                <span class="subcommunity-icon"${s.cover_url || s.avatar_url ? ` style="background:url('${escapeHtml(s.avatar_url || s.cover_url)}') center/cover"` : ""}>${s.cover_url || s.avatar_url ? "" : "◈"}</span>
                 <div class="min-w-0 flex-1">
                   <div class="flex items-baseline justify-between gap-2">
-                    <h3 class="text-sm font-medium text-[#f5f6fa] truncate">${escapeHtml(s.name)}</h3>
+                    <h3 class="post-author text-sm truncate">${escapeHtml(s.name)}</h3>
                   </div>
                   <p class="mt-1 text-xs leading-relaxed text-muted-foreground line-clamp-2">${escapeHtml(s.description || "")}</p>
                 </div>
@@ -3675,10 +3581,11 @@
             const box = document.querySelector(`.forward-box[data-forward-for="${fwd.dataset.postId}"]`);
             if (!box) return;
             if (!box.classList.contains("hidden")) { box.classList.add("hidden"); return; }
-            const lista = state.subs || [];
+            const jaFoi = new Set((state.forwardsByPost[fwd.dataset.postId] || []).map((f) => f.subId));
+            const lista = (state.subs || []).filter((x) => !jaFoi.has(x.id));
             box.innerHTML = lista.length
               ? `<label class="text-xs">Encaminhar para <select class="forward-sub">${lista.map((x) => `<option value="${escapeHtml(x.id)}">◈ ${escapeHtml(x.name)}</option>`).join("")}</select></label> <button type="button" class="post-action-btn forward-ok" data-post-id="${fwd.dataset.postId}">Encaminhar</button>`
-              : '<p class="text-xs">Esta comunidade ainda não tem subcomunidades.</p>';
+              : '<p class="text-xs">Este post já está em todas as subcomunidades.</p>';
             box.classList.remove("hidden");
             return;
           }
@@ -3690,6 +3597,9 @@
             ok.disabled = false;
             if (error) { toast(error.code === "23505" ? "Esse post já foi encaminhado para essa subcomunidade ✦" : (error.message || "Não deu para encaminhar")); return; }
             const nome = (state.subs || []).find((x) => x.id === subId)?.name || "subcomunidade";
+            (state.forwardsByPost[ok.dataset.postId] ||= []).push({ subId, subName: nome });
+            box.closest(".post-card")?.querySelector(".post-body")?.insertAdjacentHTML("beforebegin",
+              `<a class="post-sub-tag" href="./comunidade-detalhe.html?id=${encodeURIComponent(community.id)}&sub=${encodeURIComponent(subId)}">↪ encaminhado para ◈ ${escapeHtml(nome)}</a>`);
             box.innerHTML = `<p class="text-xs">↪ Encaminhado para ◈ ${escapeHtml(nome)}.</p>`;
             toast("Encaminhado ✦");
             return;
@@ -3981,9 +3891,23 @@
         const modal = $("settingsModal");
         const openModal = () => {
           if (!state.isAdmin) return;
-          // Preencher
-          $("nameInput").value = community.name || "";
-          $("bioInput").value = community.description || "";
+          const subMode = !!state.sub;
+          ["aboutInput", "coverMessageInput", "pageBgInput", "accentInput", "cardBgInput", "themeInput", "goalMembersInput"].forEach((id) => {
+            const l = $(id)?.closest("label");
+            if (l) l.style.display = subMode ? "none" : "";
+          });
+          $$("#communityForm fieldset").forEach((f) => (f.style.display = subMode ? "none" : ""));
+          $("settingsTitle").textContent = subMode ? "Personalizar subcomunidade" : "Personalizar espaço";
+          $("nameInput").value = (subMode ? state.sub.name : community.name) || "";
+          $("bioInput").value = (subMode ? state.sub.description : community.description) || "";
+          $("rulesInput").value = ((subMode ? state.sub.rules : community.rules) || []).join("\n");
+          $("coverFileInput").value = ""; $("avatarFileInput").value = "";
+          $("settingsPreview").hidden = true;
+          if (subMode) {
+            modal.classList.add("open");
+            modal.setAttribute("aria-hidden", "false");
+            return;
+          }
           $("aboutInput").value = community.welcome_text || "";
           $("coverMessageInput").value = state.settings.cover_message || "";
           $("pageBgInput").value = state.settings.page_color || (window.LUMI_THEME ? window.LUMI_THEME.defaults() : { page: "#dff3ff", accent: "#0d76c9", card: "#ffffff" }).page;
@@ -3991,9 +3915,6 @@
           $("cardBgInput").value = state.settings.card_color || (window.LUMI_THEME ? window.LUMI_THEME.defaults() : { page: "#dff3ff", accent: "#0d76c9", card: "#ffffff" }).card;
           $("goalMembersInput").value = state.settings.goal_members || 100;
           $("themeInput").value = state.settings.theme || "";
-          $("rulesInput").value = (Array.isArray(community.rules) ? community.rules : []).join("\n");
-          $("coverFileInput").value = ""; $("avatarFileInput").value = "";
-          $("settingsPreview").hidden = true;
 
           const topic = state.settings.topic || {};
           const radio = document.querySelector(
@@ -4060,6 +3981,28 @@
           e.preventDefault();
           if (!state.isAdmin) {
             toast("Só admins podem salvar ✦");
+            return;
+          }
+          if (state.sub) {
+            const subPatch = {
+              name: $("nameInput").value.trim(),
+              description: $("bioInput").value.trim(),
+              rules: $("rulesInput").value.split("\n").map((r) => r.trim()).filter(Boolean).slice(0, 30),
+            };
+            if (subPatch.name.length < 2) { toast("O nome precisa ter ao menos 2 caracteres."); return; }
+            try {
+              const cf = $("coverFileInput").files?.[0], af = $("avatarFileInput").files?.[0];
+              if (cf) subPatch.cover_url = await uploadImg(cf, `sub-${state.sub.id}/cover`);
+              if (af) subPatch.avatar_url = await uploadImg(af, `sub-${state.sub.id}/avatar`);
+            } catch (upErr) {
+              toast("Falha ao enviar a imagem: " + upErr.message);
+              return;
+            }
+            const { error } = await supabase.from("community_subcommunities").update(subPatch).eq("id", state.sub.id);
+            if (error) { toast("Erro ao salvar: " + error.message); return; }
+            toast("Subcomunidade atualizada ✦");
+            closeModal();
+            setTimeout(() => location.reload(), 600);
             return;
           }
 

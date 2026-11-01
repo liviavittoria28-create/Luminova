@@ -1,4 +1,4 @@
-/* LUMINOVA 3.x — landing: entrar, criar conta (com verificação de nome de usuário) e recuperar senha. */
+/* LUMINOVA — landing: entrar, criar conta (com verificação de nome de usuário) e recuperar senha. */
 (() => {
   "use strict";
   const A = window.LUMI_AUTH;

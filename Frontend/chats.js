@@ -15,7 +15,7 @@
   const note = (t) => { $("#chatNotice").textContent = t || ""; };
   const nameOf = (p) => p?.display_name || p?.username || "Conversa";
   const stamp = (c) => c.last_message_at || c.updated_at || c.created_at;
-  const isOnline = (c) => !c.other?.is_ai && !!c.other?.id && LUMI.presence?.ready && LUMI.presence.online.has(c.other.id);
+  const isOnline = (c) => !!c.other?.id && LUMI.presence?.ready && LUMI.presence.online.has(c.other.id);
 
   async function loadConversations() {
     const host = $("#chatList");
@@ -33,7 +33,7 @@
     const otherIds = [...new Set((all.data || []).filter((m) => m.user_id !== me.id).map((m) => m.user_id))];
     let pmap = {};
     if (otherIds.length) {
-      const pr = await sb.from("profiles").select("id,display_name,username,avatar_url,is_ai").in("id", otherIds);
+      const pr = await sb.from("profiles").select("id,display_name,username,avatar_url").in("id", otherIds);
       pmap = Object.fromEntries((pr.data || []).map((p) => [p.id, p]));
     }
     const readMap = Object.fromEntries((mem.data || []).map((m) => [m.conversation_id, m.last_read_at]));
@@ -47,12 +47,12 @@
 
   function itemHtml(c) {
     const unread = c.last_sender_id && c.last_sender_id !== me.id && (!c.last_read_at || new Date(c.last_message_at) > new Date(c.last_read_at)) && c.id !== activeId;
-    const dot = (c.other?.is_ai || !LUMI.presence?.ready) ? "" : `<i class="lumi-dot${isOnline(c) ? " on" : ""}" aria-hidden="true"></i>`;
-    const status = c.other?.is_ai ? "IA" : (LUMI.presence?.ready ? (isOnline(c) ? "online" : "offline") : "");
+    const dot = !LUMI.presence?.ready ? "" : `<i class="lumi-dot${isOnline(c) ? " on" : ""}" aria-hidden="true"></i>`;
+    const status = LUMI.presence?.ready ? (isOnline(c) ? "online" : "offline") : "";
     return `<button type="button" class="chat-item${c.id === activeId ? " active" : ""}" data-id="${esc(c.id)}" aria-current="${c.id === activeId}">
       <span class="chat-av-wrap">${LUMI.avatar(c.other, "chat-av", 40)}${dot}</span>
-      <span class="chat-item-txt"><strong>${esc(nameOf(c.other))}${LUMI.aiBadge(c.other)}</strong>
-      <small class="chat-muted">${esc(c.last_message ? (c.last_sender_id === me.id ? "Você: " : "") + c.last_message : "Nova conversa")}${status && !c.other?.is_ai ? ` · ${status}` : ""}</small></span>
+      <span class="chat-item-txt"><strong>${esc(nameOf(c.other))}</strong>
+      <small class="chat-muted">${esc(c.last_message ? (c.last_sender_id === me.id ? "Você: " : "") + c.last_message : "Nova conversa")}${status ? ` · ${status}` : ""}</small></span>
       <span class="chat-item-meta">${c.last_message_at ? esc(LUMI.hhmm(c.last_message_at)) : ""}${unread ? '<i class="chat-unread" aria-label="Mensagem nova"></i>' : ""}</span></button>`;
   }
 
@@ -111,8 +111,8 @@
 
   function headerFor(c) {
     const o = c?.other;
-    const pres = o?.is_ai ? "Perfil de IA da LumiNova" : (LUMI.presence?.ready ? (isOnline(c) ? "Online" : "Offline") : "");
-    $("#chatHeader").innerHTML = `<a class="chat-who" href="${o?.id ? LUMI.profileUrl(o.id) : "#"}"><span class="chat-av-wrap">${LUMI.avatar(o, "chat-av", 38)}${(o?.is_ai || !LUMI.presence?.ready) ? "" : `<i class="lumi-dot${isOnline(c) ? " on" : ""}" aria-hidden="true"></i>`}</span><span><strong>${esc(nameOf(o))}${LUMI.aiBadge(o)}</strong>${pres ? `<span class="chat-presence-line">${pres}</span>` : ""}</span></a>`;
+    const pres = LUMI.presence?.ready ? (isOnline(c) ? "Online" : "Offline") : "";
+    $("#chatHeader").innerHTML = `<a class="chat-who" href="${o?.id ? LUMI.profileUrl(o.id) : "#"}"><span class="chat-av-wrap">${LUMI.avatar(o, "chat-av", 38)}${!LUMI.presence?.ready ? "" : `<i class="lumi-dot${isOnline(c) ? " on" : ""}" aria-hidden="true"></i>`}</span><span><strong>${esc(nameOf(o))}</strong>${pres ? `<span class="chat-presence-line">${pres}</span>` : ""}</span></a>`;
     $("#chatWinTitle").textContent = "Conversa com " + nameOf(o);
   }
 

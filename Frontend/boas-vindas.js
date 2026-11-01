@@ -1,4 +1,4 @@
-/* LUMINOVA 3.x — onboarding: interesses → comunidades sugeridas. */
+/* LUMINOVA — onboarding: interesses → comunidades sugeridas. */
 (() => {
   "use strict";
   const $ = (s) => document.querySelector(s);

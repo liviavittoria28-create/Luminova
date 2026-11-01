@@ -1,4 +1,4 @@
-/* LUMINOVA 3.x — central de notificações (dados reais de public.notifications, geradas por gatilhos no banco). */
+/* LUMINOVA — central de notificações (dados reais de public.notifications, geradas por gatilhos no banco). */
 (() => {
   "use strict";
   const $ = (s) => document.querySelector(s);
@@ -21,7 +21,7 @@
       <span class="n-ico" aria-hidden="true">${ICON[n.notification_type] || "•"}</span>
       ${actor ? LUMI.avatar(actor, "n-av", 40) : ""}
       <div class="n-txt">
-        <p><strong>${LUMI.esc(name)}</strong>${LUMI.aiBadge(actor)} ${LUMI.esc(n.message)}</p>
+        <p><strong>${LUMI.esc(name)}</strong> ${LUMI.esc(n.message)}</p>
         <time datetime="${LUMI.esc(n.created_at)}">${LUMI.esc(LUMI.time(n.created_at))}</time>
       </div>
       <div class="n-act">
@@ -45,7 +45,7 @@
   async function load(more = false) {
     if (!more) { offset = 0; rows = []; }
     const { data, error } = await sb.from("notifications")
-      .select("id,actor_id,notification_type,entity_type,entity_id,message,read_at,created_at,actor:profiles!notifications_actor_id_fkey(id,username,display_name,avatar_url,is_ai)")
+      .select("id,actor_id,notification_type,entity_type,entity_id,message,read_at,created_at,actor:profiles!notifications_actor_id_fkey(id,username,display_name,avatar_url)")
       .eq("recipient_id", me.id).order("created_at", { ascending: false }).range(offset, offset + PAGE - 1);
     if (error) { $("#nList").innerHTML = `<div class="l3-alert err">Não foi possível carregar as notificações. Tente recarregar a página.</div>`; return; }
     rows = rows.concat(data || []);

@@ -71,8 +71,8 @@
     if (r.error) { list.innerHTML = `<p class="ln-muted">${esc(r.error.message)}</p>`; return; }
     const ids = (r.data || []).map((x) => x[col]);
     if (!ids.length) { list.innerHTML = '<p class="ln-muted">Ninguém por aqui ainda.</p>'; return; }
-    const pr = await sb.from("profiles").select("id,display_name,username,avatar_url,is_ai").in("id", ids);
-    list.innerHTML = (pr.data || []).map((p) => `<a class="pp-person" href="${LUMI.profileUrl(p.id)}">${LUMI.avatar(p, "x-av", 38)}<span><strong>${esc(p.display_name || p.username || "Membro")}${LUMI.aiBadge(p)}</strong><br><small class="ln-muted">${p.username ? "@" + esc(p.username) : ""}</small></span></a>`).join("") || '<p class="ln-muted">Nenhum perfil visível.</p>';
+    const pr = await sb.from("profiles").select("id,display_name,username,avatar_url").in("id", ids);
+    list.innerHTML = (pr.data || []).map((p) => `<a class="pp-person" href="${LUMI.profileUrl(p.id)}">${LUMI.avatar(p, "x-av", 38)}<span><strong>${esc(p.display_name || p.username || "Membro")}</strong><br><small class="ln-muted">${p.username ? "@" + esc(p.username) : ""}</small></span></a>`).join("") || '<p class="ln-muted">Nenhum perfil visível.</p>';
   }
 
   // ---- Conquistas: progresso calculado no banco ----
@@ -127,7 +127,7 @@
   async function renderMural() {
     const host = $("#ppMural");
     const { data, error } = await sb.from("gratitudes")
-      .select("id,message,created_at,post_id,giver:profiles!gratitudes_giver_id_fkey(id,username,display_name,avatar_url,is_ai)")
+      .select("id,message,created_at,post_id,giver:profiles!gratitudes_giver_id_fkey(id,username,display_name,avatar_url)")
       .eq("recipient_id", target.id).order("created_at", { ascending: false }).limit(24);
     if (error) { host.innerHTML = '<p class="pp-empty">Não foi possível carregar o mural.</p>'; return; }
     $("#ppThanksCount").textContent = `${data.length} agradecimento${data.length === 1 ? "" : "s"}`;
@@ -182,7 +182,7 @@
       const isMine = mine.has(post.id);
       return `<article class="pp-post" data-post="${esc(post.id)}">
         <div class="pp-post-top"><img src="${esc(target.avatar_url || fallback)}" alt="">
-          <div><strong>${nameOf(target)}${LUMI.certBadge(progress.certified)}${LUMI.aiBadge(target)}</strong>
+          <div><strong>${nameOf(target)}${LUMI.certBadge(progress.certified)}</strong>
             <span class="pp-meta">${target.username ? "@" + esc(target.username) : ""}<time>· ${esc(LUMI.time(post.created_at))}</time></span></div></div>
         <div class="pp-post-content">${esc(post.content || "")}</div>${media ? `<div class="pp-media">${media}</div>` : ""}
         <div class="pp-act-row" role="group" aria-label="Interações da publicação">
@@ -230,7 +230,7 @@
   async function refreshCertification() {
     const { data } = await sb.from("profile_progress").select("xp,level,certified").eq("user_id", target.id).maybeSingle();
     if (data) progress = data;
-    $("#ppName").innerHTML = nameOf(target) + LUMI.certBadge(progress.certified) + LUMI.aiBadge(target);
+    $("#ppName").innerHTML = nameOf(target) + LUMI.certBadge(progress.certified);
   }
 
   async function init() {
@@ -243,7 +243,7 @@
     const id = new URLSearchParams(location.search).get("id");
     if (!id) { $("#ppName").textContent = "Perfil não encontrado"; $("#ppPosts").innerHTML = '<div class="pp-state">Este link não contém um perfil válido. <a href="explorar.html?type=profiles">Pesquisar pessoas</a></div>'; return; }
     if (id === me.id) { location.replace("perfil.html"); return; }
-    const { data: p, error } = await sb.from("profiles").select("id,username,display_name,bio,avatar_url,cover_url,account_visibility,created_at,profile_settings,is_ai").eq("id", id).maybeSingle();
+    const { data: p, error } = await sb.from("profiles").select("id,username,display_name,bio,avatar_url,cover_url,account_visibility,created_at,profile_settings").eq("id", id).maybeSingle();
     if (error) throw error;
     if (!p) {
       $("#ppName").textContent = "Perfil indisponível";
@@ -264,7 +264,7 @@
     ]);
     if (progRes.data) progress = progRes.data;
     following = (f.count || 0) > 0;
-    $("#ppName").innerHTML = nameOf(p) + LUMI.certBadge(progress.certified) + LUMI.aiBadge(p);
+    $("#ppName").innerHTML = nameOf(p) + LUMI.certBadge(progress.certified);
     actions();
     applyOwnerTheme(p.profile_settings || {});
     $("#ppFollowersBtn").addEventListener("click", () => showPeople("followers"));

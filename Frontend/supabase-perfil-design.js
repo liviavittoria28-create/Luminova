@@ -19,7 +19,7 @@
     clearTimeout(toast.timer); toast.timer = setTimeout(() => el.classList.remove("show"), 3200);
   };
   // Valores-padrão do tema cósmico antigo (fundo/cartão quase pretos, destaque dourado) que ficaram gravados no
-  // perfil de quem salvou antes da 3.x. Não são escolhas da pessoa: são ignorados para o perfil seguir o padrão Aero.
+  // perfis antigos. Não são escolhas da pessoa: são ignorados para o perfil seguir o padrão Aero.
   const LEGACY = new Set(["#04060f", "#0c1024", "#090d1f", "#060914", "#e8c88a", "#f5f6fa", "#141005"]);
   const settings = () => {
     const st = { ...(profile?.profile_settings || {}) };

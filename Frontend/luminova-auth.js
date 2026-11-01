@@ -1,4 +1,4 @@
-/* LUMINOVA 3.x — utilidades de autenticação compartilhadas (index.html e redefinir-senha.html).
+/* LUMINOVA — utilidades de autenticação compartilhadas (index.html e redefinir-senha.html).
  * Traduz erros do Supabase para mensagens claras, valida campos e expõe as versões dos documentos legais. */
 (() => {
   "use strict";

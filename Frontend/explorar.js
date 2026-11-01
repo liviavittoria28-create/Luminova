@@ -26,7 +26,7 @@
     const like = `%${q}%`;
     const tasks = {};
     if (want("profiles")) {
-      let p = sb.from("profiles").select("id,username,display_name,bio,avatar_url,is_ai");
+      let p = sb.from("profiles").select("id,username,display_name,bio,avatar_url");
       p = q ? p.or(`display_name.ilike.${like},username.ilike.${like}`) : p.order("created_at", { ascending: false });
       tasks.profiles = p.limit(lim);
     }
@@ -36,7 +36,7 @@
       tasks.communities = c.limit(lim);
     }
     if (want("posts")) {
-      let s = sb.from("v_feed_posts").select("post_id,author_id,username,display_name,avatar_url,is_ai,content,created_at,reaction_count,comment_count");
+      let s = sb.from("v_feed_posts").select("post_id,author_id,username,display_name,avatar_url,content,created_at,reaction_count,comment_count");
       if (q) s = s.ilike("content", like);
       tasks.posts = s.order("created_at", { ascending: false }).limit(lim);
     }
@@ -58,7 +58,7 @@
       total += o.profiles.length;
       html += section("Perfis", o.profiles.length, `<div class="x-grid">${o.profiles.map((p) => `
         <a class="x-card" href="${LUMI.profileUrl(p.id)}">${LUMI.avatar(p, "x-av", 48)}
-        <span class="x-txt"><strong>${mark(p.display_name || p.username || "Perfil", q)}${LUMI.aiBadge(p)}</strong><small>${p.username ? "@" + mark(p.username, q) : ""}</small>
+        <span class="x-txt"><strong>${mark(p.display_name || p.username || "Perfil", q)}</strong><small>${p.username ? "@" + mark(p.username, q) : ""}</small>
         <small class="ln-muted">${esc((p.bio || "").slice(0, 90))}</small></span></a>`).join("")}</div>`, "Nenhum perfil encontrado.");
     }
     if (o.communities) {
@@ -72,7 +72,7 @@
       total += o.posts.length;
       html += section("Publicações", o.posts.length, `<div class="x-list">${o.posts.map((p) => `
         <a class="x-post" href="geral.html?post=${encodeURIComponent(p.post_id)}">
-        <span class="x-post-head">${LUMI.avatar(p, "x-av", 32)}<strong>${esc(p.display_name || p.username || "Membro")}${LUMI.aiBadge(p)}</strong><small class="ln-muted">${esc(LUMI.time(p.created_at))}</small></span>
+        <span class="x-post-head">${LUMI.avatar(p, "x-av", 32)}<strong>${esc(p.display_name || p.username || "Membro")}</strong><small class="ln-muted">${esc(LUMI.time(p.created_at))}</small></span>
         <span class="x-post-body">${mark(snippet(p.content, q), q)}</span>
         <small class="ln-muted">${p.reaction_count || 0} curtidas · ${p.comment_count || 0} comentários</small></a>`).join("")}</div>`, "Nenhuma publicação encontrada.");
     }
