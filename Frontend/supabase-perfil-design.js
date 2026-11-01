@@ -18,7 +18,14 @@
     el.textContent = msg; el.classList.add("show");
     clearTimeout(toast.timer); toast.timer = setTimeout(() => el.classList.remove("show"), 3200);
   };
-  const settings = () => profile?.profile_settings || {};
+  // Valores-padrão do tema cósmico antigo (fundo/cartão quase pretos, destaque dourado) que ficaram gravados no
+  // perfil de quem salvou antes da 3.x. Não são escolhas da pessoa: são ignorados para o perfil seguir o padrão Aero.
+  const LEGACY = new Set(["#04060f", "#0c1024", "#090d1f", "#060914", "#e8c88a", "#f5f6fa", "#141005"]);
+  const settings = () => {
+    const st = { ...(profile?.profile_settings || {}) };
+    ["background", "accent", "card", "textColor"].forEach((k) => { if (st[k] && LEGACY.has(String(st[k]).toLowerCase())) delete st[k]; });
+    return st;
+  };
   // devolve a cor só se a pessoa mudou em relação ao padrão do tema
   const custom = (sel, key) => { const v = document.querySelector(sel)?.value; return v && v.toLowerCase() !== TD()[key].toLowerCase() ? v : null; };
   const showModal = (open) => {
@@ -47,7 +54,7 @@
     $$("[class]").filter(el => [...el.classList].some(c => c.includes("rgba(12,16,36,.9)"))).forEach(el => { el.style.backgroundColor = st.card || ""; });
     const style=st.coverStyle || "cosmic";
     const covers={
-      cosmic:"radial-gradient(ellipse 60% 30% at 20% 18%,rgba(255,255,255,.85),transparent 70%),radial-gradient(ellipse 50% 25% at 78% 28%,rgba(255,255,255,.7),transparent 70%),radial-gradient(ellipse 120% 40% at 30% 118%,#7fdc3e 0 50%,#3fae2a 66%,transparent 67%),linear-gradient(180deg,#2f9cf0,#7fcdfa 70%,#d6f0ff)",
+      cosmic:"radial-gradient(ellipse 60% 30% at 20% 18%,rgba(255,255,255,.85),transparent 70%),radial-gradient(ellipse 50% 25% at 78% 28%,rgba(255,255,255,.7),transparent 70%),radial-gradient(ellipse 120% 40% at 30% 118%,#0f63bf 0 50%,#0b4a96 66%,transparent 67%),linear-gradient(180deg,#2f9cf0,#7fcdfa 70%,#d6f0ff)",
       ocean:"radial-gradient(circle at 25% 30%,rgba(255,255,255,.55),transparent 40%),radial-gradient(circle at 75% 70%,rgba(80,240,220,.55),transparent 50%),linear-gradient(160deg,#4fd8ff,#1479d8 55%,#0a3f94)",
       sunset:"radial-gradient(circle at 70% 30%,rgba(255,255,255,.8),transparent 28%),linear-gradient(170deg,#ffd27a,#ff8fb4 55%,#8f7bff)",
       forest:"radial-gradient(circle at 78% 22%,rgba(255,255,255,.75),transparent 28%),radial-gradient(ellipse 120% 45% at 30% 120%,#2f9d3a 0 50%,transparent 51%),linear-gradient(180deg,#b9f06a,#4cd0a0 60%,#19a9c6)",
@@ -55,8 +62,8 @@
     const layer=$(".lumi-cover-drift");
     if (layer && !profile?.cover_url) layer.style.background=covers[style] || covers.cosmic;
   };
-  function applyCoverMessage(message, position="top-left") {
-    const el=$("#coverMessage");
+  function applyCoverMessage() {
+    const el=$("#coverMessage"); if (el) el.remove(); return;
     if(!el)return;
     const positions={
       "top-left":{left:"24px",right:"auto",top:"20px",bottom:"auto",transform:"none",textAlign:"left"},
@@ -166,7 +173,7 @@
     const r=await query; if(r.error) { console.warn("LumiNova metrics:",r.error.message); return 0; }
     return r.count||0;
   }
-  const BRANCH = {origem:["ORIGEM","#e8c88a"],criacao:["CRIAÇÃO","#c084fc"],colaboracao:["COLABORAÇÃO","#60a5fa"],comunidade:["COMUNIDADE","#4ade80"],exploracao:["EXPLORAÇÃO","#f472b6"]};
+  const BRANCH = {origem:["ORIGEM","#1ea2ec"],criacao:["CRIAÇÃO","#ec4f9d"],colaboracao:["COLABORAÇÃO","#0a8fb8"],comunidade:["COMUNIDADE","#4fbf1f"],exploracao:["EXPLORAÇÃO","#f5a300"]};
   const METRIC_LABEL = {posts:"publicações",comments:"comentários",communities_joined:"comunidades",communities_created:"comunidades criadas",following:"pessoas seguidas",followers:"seguidores",profile_complete:"perfil completo",none:""};
   let skillState = {nodes:[],unlocked:new Set(),xp:0,metrics:{},selected:"centelha"};
   async function metricsFor(){
@@ -189,39 +196,40 @@
     if(xp>=n.xp_required&&metricOk)return "available";
     return "progress";
   }
-  const STATUS_UI={done:["Concluído","#4ade80"],available:["Disponível","#e8c88a"],progress:["Em progresso","#60a5fa"],locked:["Bloqueado","#5a6488"]};
+  const STATUS_UI={done:["Concluído","#19b6ec"],available:["Disponível","#3c9be6"],progress:["Em progresso","#1e7fd8"],locked:["Bloqueado","#7f97b0"]};
   function drawSkillTree(){
     const host=$("#skillTreeSection");if(!host)return;
     const {nodes,xp,metrics}=skillState;
     const level=Math.floor(xp/100)+1;
     const byKey=Object.fromEntries(nodes.map(n=>[n.node_key,n]));
     const sel=byKey[skillState.selected]||nodes[0];
-    const edges=nodes.flatMap(n=>(n.requires||[]).map(r=>byKey[r]?`<line x1="${byKey[r].pos_x}" y1="${byKey[r].pos_y}" x2="${n.pos_x}" y2="${n.pos_y}" stroke="${skillState.unlocked.has(r)?"#4ade8088":"#333d59"}" stroke-width="1.5" stroke-dasharray="${skillState.unlocked.has(r)?"0":"4 5"}"/>`:""));
-    const svgNodes=nodes.map(n=>{const st=nodeStatus(n),col=STATUS_UI[st][1];
-      return `<g class="cursor-pointer" tabindex="0" role="button" data-skill-node="${esc(n.node_key)}" aria-label="${esc(n.name)} — ${STATUS_UI[st][0]}" style="outline:none">
-        <circle cx="${n.pos_x}" cy="${n.pos_y}" r="${n.node_key===skillState.selected?34:30}" fill="#0c1024" stroke="${col}" stroke-width="${n.node_key===skillState.selected?3:2}" ${st==="locked"?'stroke-dasharray="4 4"':""}/>
-        <text x="${n.pos_x}" y="${n.pos_y+5}" text-anchor="middle" font-size="15" fill="${col}">${st==="done"?"✓":"✦"}</text>
-        <text x="${n.pos_x}" y="${n.pos_y+52}" text-anchor="middle" font-size="11" fill="${st==="locked"?"#5a6488":"#dfe3f3"}" stroke="#060914" stroke-width="3" paint-order="stroke" class="font-mono">${esc(n.name)}</text></g>`}).join("");
-    const labels=[["CRIAÇÃO",145,40],["COLABORAÇÃO",615,40],["COMUNIDADE",145,590],["EXPLORAÇÃO",615,590]].map(([t,x,y])=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="10" letter-spacing="3" fill="#5a6488" opacity="0.7" class="font-mono">${t}</text>`).join("");
+    const edges=nodes.flatMap(n=>(n.requires||[]).map(r=>byKey[r]?`<line class="lt-edge${skillState.unlocked.has(r)?" on":""}" x1="${byKey[r].pos_x}" y1="${byKey[r].pos_y}" x2="${n.pos_x}" y2="${n.pos_y}"/>`:""));
+    const svgNodes=nodes.map(n=>{const st=nodeStatus(n),big=n.node_key===skillState.selected,h=big?34:28;
+      return `<g class="lt-node lt-${st}${big?" sel":""}" tabindex="0" role="button" data-skill-node="${esc(n.node_key)}" aria-label="${esc(n.name)} — ${STATUS_UI[st][0]}">
+        <rect class="lt-box" x="${n.pos_x-h}" y="${n.pos_y-h}" width="${h*2}" height="${h*2}"/>
+        <rect class="lt-gloss" x="${n.pos_x-h+2}" y="${n.pos_y-h+2}" width="${h*2-4}" height="${h-2}"/>
+        <text class="lt-ico" x="${n.pos_x}" y="${n.pos_y+6}" text-anchor="middle">${st==="done"?"✓":st==="locked"?"·":"✦"}</text>
+        <text class="lt-label" x="${n.pos_x}" y="${n.pos_y+h+18}" text-anchor="middle">${esc(n.name)}</text></g>`}).join("");
+    const labels=[["CRIAÇÃO",145,40],["COLABORAÇÃO",615,40],["COMUNIDADE",145,590],["EXPLORAÇÃO",615,590]].map(([t,x,y])=>`<text class="lt-branch" x="${x}" y="${y}" text-anchor="middle">${t}</text>`).join("");
     const st=sel?nodeStatus(sel):"locked",[stLabel,stColor]=STATUS_UI[st];
     const have=sel&&sel.metric!=="none"?(metrics[sel.metric]||0):0;
     const reqs=sel?[...(sel.xp_required>0?[`XP: ${Math.min(xp,sel.xp_required)}/${sel.xp_required}`]:[]),...(sel.metric!=="none"?[`${METRIC_LABEL[sel.metric]}: ${Math.min(have,sel.metric_min)}/${sel.metric_min}`]:[]),...((sel.requires||[]).map(r=>`${skillState.unlocked.has(r)?"✓":"○"} ${byKey[r]?.name||r}`))]:[];
     host.innerHTML=`
       <div class="mb-5 flex flex-wrap items-end justify-between gap-3"><div class="min-w-0">
         <span class="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--lumi-accent)]">MEU DESENVOLVIMENTO</span>
-        <h2 class="mt-1 font-heading text-2xl tracking-tight text-[#f5f6fa]">Skill Tree <span class="text-[var(--lumi-accent)]">✦</span></h2>
+        <h2 class="mt-1 font-heading text-2xl tracking-tight">Skill Tree</h2>
         <p class="mt-1 text-sm text-muted-foreground">Sua constelação · <span id="tree-xp-label">${xp} XP · Nível ${level}</span> · ${skillState.unlocked.size}/${nodes.length} acesas</p></div></div>
-      <div class="mb-4 flex flex-wrap items-center gap-x-5 gap-y-2">${Object.values(STATUS_UI).map(([l,c])=>`<span class="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground"><span aria-hidden="true" class="inline-block size-2 rounded-full" style="background:${c}"></span>${l}</span>`).join("")}</div>
+      <div class="mb-4 flex flex-wrap items-center gap-x-5 gap-y-2">${Object.values(STATUS_UI).map(([l,c])=>`<span class="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground"><span aria-hidden="true" class="inline-block size-2.5" style="background:${c}"></span>${l}</span>`).join("")}</div>
       <div class="flex flex-col gap-5">
-        <div class="min-w-0 flex-1 overflow-x-auto border border-white/8 bg-[#060914] p-2" data-testid="skill-tree-container">
+        <div class="lt-tree min-w-0 flex-1 overflow-x-auto p-2" data-testid="skill-tree-container">
           <svg viewBox="0 0 760 620" class="h-auto w-full" style="min-width:520px" role="group" aria-label="Mapa da Skill Tree">${labels}${edges.join("")}${svgNodes}</svg></div>
-        <aside data-testid="skill-node-detail" class="border border-white/8 bg-[#090d1f] p-5" aria-live="polite">
+        <aside data-testid="skill-node-detail" class="lt-detail p-5" aria-live="polite">
           ${sel?`<span class="inline-block border px-2 py-0.5 font-mono text-[9px] uppercase tracking-widest" style="color:${stColor};border-color:${stColor}">${stLabel}</span>
-          <h3 class="mt-2 font-heading text-xl tracking-tight text-[#f5f6fa]">${esc(sel.name)}</h3>
-          <p class="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground"><span aria-hidden="true" class="inline-block size-2 rounded-full" style="background:${(BRANCH[sel.branch]||[])[1]||"#e8c88a"}"></span>${(BRANCH[sel.branch]||[sel.branch])[0]}</p>
+          <h3 class="mt-2 font-heading text-xl tracking-tight">${esc(sel.name)}</h3>
+          <p class="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground"><span aria-hidden="true" class="inline-block size-2.5" style="background:${(BRANCH[sel.branch]||[])[1]||"#1ea2ec"}"></span>${(BRANCH[sel.branch]||[sel.branch])[0]}</p>
           <p class="mt-2 text-sm leading-relaxed text-muted-foreground">${esc(sel.description)}</p>
-          <ul class="mt-3 space-y-1 text-xs text-[#dfe3f3]">${reqs.map(r=>`<li>${esc(r)}</li>`).join("")}</ul>
-          <button type="button" id="claimSkill" data-skill-claim="${esc(sel.node_key)}" ${st==="available"?"":"disabled"} class="mt-4 w-full inline-flex items-center justify-center h-9 px-2.5 text-sm font-medium bg-[var(--lumi-accent)] text-[#141005] ${st==="available"?"":"opacity-50 cursor-not-allowed"}">${st==="done"?"Já resgatada ✓":st==="available"?`Resgatar +${sel.xp_reward} XP ✦`:"Requisitos pendentes"}</button>
+          <ul class="mt-3 space-y-1 text-xs">${reqs.map(r=>`<li>${esc(r)}</li>`).join("")}</ul>
+          <button type="button" id="claimSkill" data-skill-claim="${esc(sel.node_key)}" ${st==="available"?"":"disabled"} class="l3-btn go full mt-4">${st==="done"?"Já resgatada ✓":st==="available"?`Resgatar +${sel.xp_reward} XP ✦`:"Requisitos pendentes"}</button>
           <p class="mt-4 font-mono text-[9px] uppercase leading-relaxed tracking-widest text-muted-foreground">+10 XP por publicação · +3 XP por comentário</p>`:"<p class='text-sm text-muted-foreground'>Sem habilidades cadastradas. Execute a Migracao-2-LUMINOVA.sql.</p>"}
         </aside></div>`;
     host.querySelectorAll("[data-skill-node]").forEach(g=>{
@@ -249,7 +257,7 @@
     const {posts,comments,communities_joined:joined,followers,following}=metrics;
     const set=(id,val)=>{const el=$(id);if(el)el.textContent=String(val);};
     set("#stat-communities",joined);set("#stat-connections",followers);set("#stat-xp",xp);
-    set("#badge-level-value",level);set("#journey-level",level);set("#journey-xp",xp);
+    set("#badge-level-value",level);{const c=$("#hero-cert");if(c)sb.from("profile_progress").select("certified").eq("user_id",user.id).maybeSingle().then(({data})=>{c.innerHTML=window.LUMI?LUMI.certBadge(!!data?.certified):"";});}set("#journey-level",level);set("#journey-xp",xp);
     set("#journey-need-xp",100-progress);set("#journey-next-level",level+1);set("#chip-level",level);set("#chip-xp",xp);
     const bar=$("#journey-xp-bar-fill");if(bar)bar.style.width=`${progress}%`;
     drawSkillTree();
@@ -259,10 +267,10 @@
     const achList=achRes.data||[];
     const earnedCount=achList.filter(a=>a.earned).length;
     const doneCount=earnedCount;
-    const html=achList.map(a=>{const pct=Math.round(Math.min(a.progress,a.target)*100/a.target);return `<article class="border p-3 ${a.earned?"border-[var(--lumi-accent-45)]":"border-white/10"}"><div class="flex items-center justify-between gap-2"><strong>${esc(a.icon)} ${esc(a.name)}</strong><span>${a.earned?"✦":"◇"}</span></div><p class="mt-1 text-sm text-muted-foreground">${esc(a.description)}</p><div class="mt-2 h-1 bg-white/10" aria-hidden="true"><div class="h-1 bg-[var(--lumi-accent)]" style="width:${pct}%"></div></div><small class="font-mono text-[10px] text-muted-foreground">${Math.min(a.progress,a.target)}/${a.target}</small></article>`;}).join("");
+    const html=achList.map(a=>{const pct=Math.round(Math.min(a.progress,a.target)*100/a.target);return `<article class="lt-card lt-ach${a.earned?" on":""}"><span class="lt-medal" aria-hidden="true">${esc(a.icon)}</span><div class="lt-ach-body"><div class="flex items-center justify-between gap-2"><strong>${esc(a.name)}</strong><span class="lt-ach-estado">${a.earned?"Desbloqueada":"Bloqueada"}</span></div><p class="mt-1 text-sm text-muted-foreground">${esc(a.description)}</p><div class="lt-bar" aria-hidden="true"><i style="width:${pct}%"></i></div><small class="font-mono text-[10px] text-muted-foreground">${Math.min(a.progress,a.target)}/${a.target}</small></div></article>`;}).join("");
     const ac=$("#achievements-list");if(ac)ac.innerHTML=html;
     const tb=$("#tab-conquistas-body");
-    if(tb)tb.innerHTML=html+skillState.nodes.filter(n=>skillState.unlocked.has(n.node_key)).map(n=>`<article class="border border-[var(--lumi-accent-45)] p-3"><div class="flex items-center justify-between gap-2"><strong>${esc(n.name)}</strong><span>✓</span></div><p class="mt-1 text-sm text-muted-foreground">Skill Tree · ${esc(n.description)}</p></article>`).join("");
+    if(tb)tb.innerHTML=html+skillState.nodes.filter(n=>skillState.unlocked.has(n.node_key)).map(n=>`<article class="lt-card on"><div class="flex items-center justify-between gap-2"><strong>${esc(n.name)}</strong><span>✓</span></div><p class="mt-1 text-sm text-muted-foreground">Skill Tree · ${esc(n.description)}</p></article>`).join("");
     set("#achievements-count",doneCount);set("#achievements-total",achList.length+skillState.nodes.length);
     set("#tab-count-achievements",doneCount);set("#tab-count-communities",joined);
     set("#communities-subtitle",`${joined} comunidade(s) de que você participa`);
@@ -277,7 +285,7 @@
       sb.from("comments").select("id,content,created_at,post_id").eq("author_id",user.id).is("deleted_at",null).order("created_at",{ascending:false}).limit(10)
     ]);
     const items=[...(posts.data||[]).map(x=>({...x,k:"Publicou",icon:"✎"})),...(comments.data||[]).map(x=>({...x,k:"Comentou",icon:"↳"}))].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,15);
-    host.innerHTML=items.length?items.map(x=>`<article class="border border-white/10 p-3"><div class="flex items-center justify-between gap-3 text-xs text-muted-foreground"><span>${x.icon} ${x.k}</span><time>${new Date(x.created_at).toLocaleString("pt-BR")}</time></div><p class="mt-2 text-sm whitespace-pre-wrap">${esc(x.content)}</p></article>`).join(""):'<p class="text-sm text-muted-foreground">Nenhuma atividade registrada ainda. Publique ou comente para começar sua jornada.</p>';
+    host.innerHTML=items.length?items.map(x=>`<article class="lt-card"><div class="flex items-center justify-between gap-3 text-xs text-muted-foreground"><span>${x.icon} ${x.k}</span><time>${new Date(x.created_at).toLocaleString("pt-BR")}</time></div><p class="mt-2 text-sm whitespace-pre-wrap">${esc(x.content)}</p></article>`).join(""):'<p class="text-sm text-muted-foreground">Nenhuma atividade registrada ainda. Publique ou comente para começar sua jornada.</p>';
   }
   // ---- cor do texto: sugestões, contraste e prévia ----
   function bindTextColor(){
@@ -307,21 +315,21 @@
     if(!ids.length){host.innerHTML='<p class="col-span-full py-6 text-center text-sm text-muted-foreground">Você ainda não participa de comunidades. <a class="text-[var(--lumi-accent)] underline" href="./comunidades.html">Explore as comunidades ✦</a></p>';return;}
     const {data:rows,error}=await sb.from("communities").select("id,name,description,cover_url,avatar_url,owner_id").in("id",ids);
     if(error){host.innerHTML='<p class="col-span-full py-6 text-sm text-muted-foreground">Erro ao carregar comunidades. Verifique o acesso no Supabase.</p>';return;}
-    host.innerHTML=(rows||[]).map(c=>`<a href="./comunidade-detalhe.html?id=${encodeURIComponent(c.id)}" class="block border border-[var(--lumi-accent-18)] bg-white/[0.02] hover:border-[var(--lumi-accent-45)]"><div class="h-[100px] border-b border-white/10" style="${c.cover_url?`background-image:linear-gradient(#090a1844,#090a18aa),url('${esc(c.cover_url)}');background-size:cover;background-position:center`:"background:linear-gradient(135deg,#16152e,#080b18)"}"></div><div class="p-4"><strong>${esc(c.name)}</strong><p class="mt-1 text-sm text-muted-foreground">${esc(c.description||"Uma comunidade LumiNova")}</p><span class="mt-3 inline-block font-mono text-[10px] uppercase tracking-widest text-[var(--lumi-accent)]">${c.owner_id===user.id?"CRIADORA":"MEMBRO"}</span></div></a>`).join("");
+    host.innerHTML=(rows||[]).map(c=>`<a href="./comunidade-detalhe.html?id=${encodeURIComponent(c.id)}" class="lt-card lt-comm"><div class="lt-comm-cover" style="${c.cover_url?`background-image:url('${esc(c.cover_url)}')`:""}"></div><div class="p-4"><strong>${esc(c.name)}</strong><p class="mt-1 text-sm text-muted-foreground">${esc(c.description||"Uma comunidade LumiNova")}</p><span class="mt-3 inline-block font-mono text-[10px] uppercase tracking-widest text-[var(--lumi-accent)]">${c.owner_id===user.id?"VOCÊ CRIOU":"MEMBRO"}</span></div></a>`).join("");
   }
   async function renderFeed(){
     const host=$("#feed-list");if(!host)return;
     const {data,error}=await sb.from("posts").select("id,author_id,content,created_at,post_type").eq("author_id",user.id).is("deleted_at",null).order("created_at",{ascending:false}).limit(12);
     if(error){host.innerHTML='<p class="py-5 text-sm text-muted-foreground">Não foi possível carregar publicações. Confira as políticas RLS.</p>';return;}
     if(!data?.length){host.innerHTML='<p class="py-5 text-sm text-muted-foreground">Suas publicações aparecerão aqui. Compartilhe sua primeira ideia acima.</p>';return;}
-    host.innerHTML=data.map(p=>`<article class="border border-white/10 p-4"><div class="flex items-center justify-between gap-3"><strong>${esc(profile.display_name||"Você")}</strong><time class="text-xs text-muted-foreground">${new Date(p.created_at).toLocaleString("pt-BR")}</time></div><p class="mt-3 whitespace-pre-wrap text-sm leading-relaxed">${esc(p.content)}</p></article>`).join("");
+    host.innerHTML=data.map(p=>`<article class="lt-post"><div class="lt-post-h">${window.LUMI?LUMI.avatar(profile,"lt-av",36):""}<strong>${esc(profile.display_name||"Você")}</strong><time>${new Date(p.created_at).toLocaleString("pt-BR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</time></div><p class="lt-post-t">${esc(p.content)}</p></article>`).join("");
   }
   async function renderThanks(){
     const host=$("#mural-list");if(!host)return;
     const {data,error}=await sb.from("gratitudes").select("id,message,created_at,giver:profiles!gratitudes_giver_id_fkey(username,display_name)").eq("recipient_id",user.id).order("created_at",{ascending:false}).limit(24);
     if(error){host.innerHTML='<p class="col-span-full py-5 text-sm text-muted-foreground">O mural não pôde ser carregado. Confira a migração 3 (tabela gratitudes).</p>';return;}
     if(!data?.length){host.innerHTML='<p class="col-span-full py-5 text-sm text-muted-foreground">Seu mural de agradecimentos aparecerá aqui quando alguém agradecer uma de suas publicações.</p>';return;}
-    host.innerHTML=data.map(x=>`<article class="border border-[var(--lumi-accent-18)] p-4"><span class="text-[var(--lumi-accent)]">✦ ${esc(x.giver?.display_name||x.giver?.username||"Alguém")}</span><p class="mt-2 text-sm">${esc(x.message||"Agradeceu sua publicação.")}</p><time class="mt-2 block text-xs text-muted-foreground">${new Date(x.created_at).toLocaleDateString("pt-BR")}</time></article>`).join("");
+    host.innerHTML=data.map(x=>`<article class="lt-card"><strong class="lt-accent">✦ ${esc(x.giver?.display_name||x.giver?.username||"Alguém")}</strong><p class="mt-2 text-sm">${esc(x.message||"Agradeceu sua publicação.")}</p><time class="mt-2 block text-xs text-muted-foreground">${new Date(x.created_at).toLocaleDateString("pt-BR")}</time></article>`).join("");
   }
   function bindUI(){
     ["#openSettings","#openSettings2","#editProfile"].forEach(sel=>$(sel)?.addEventListener("click",()=>showModal(true)));
@@ -336,7 +344,7 @@
         if(window.LUMI && LUMI.contrast(tc,cc)<MIN_CONTRAST)throw Error("A cor do texto não tem contraste suficiente com a cor dos cartões. Escolha outra.");
         await saveProfile({display_name:$("#nameInput")?.value.trim()||"Novo usuário",username,bio:$("#bioInput")?.value.trim()||""},{
           background:custom("#pageBgInput","page"),accent:custom("#accentInput","accent"),card:custom("#cardBgInput","card"),textColor:custom("#textColorInput","text"),coverStyle:$("#coverStyle")?.value||"cosmic",
-          coverMessage:$("#coverMessageInput")?.value??"Minha jornada, minha evolução ✦",coverMessagePosition:$("#coverMessagePosition")?.value||"top-left",
+          coverMessage:"",
           hiddenWidgets:$$('[data-widget-toggle]').filter(x=>!x.checked).map(x=>x.dataset.widgetToggle)
         });
         showModal(false);toast("Perfil salvo no Supabase.");await renderSkillTree();

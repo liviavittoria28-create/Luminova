@@ -6,7 +6,13 @@ window.LUMINOVA_SUPABASE_CONFIG = {
   url: "https://eanncrvtpsxcjpnfbixb.supabase.co",
   anonKey: "sb_publishable_28jfVcSBZhj6fS569Feecw_iXrgGrxI",
 };
-window.LUMINOVA_VERSION = "3.1.0";
+window.LUMINOVA_VERSION = "3.5.0";
+/* Somente para desenvolvimento: em localhost, localStorage "luminova-api-local" = URL de um banco de testes
+ * (ex.: http://localhost:3400). Nunca tem efeito no site publicado. */
+try {
+  const dev = (location.hostname === "localhost" || location.hostname === "127.0.0.1") && localStorage.getItem("luminova-api-local");
+  if (dev) window.LUMINOVA_SUPABASE_CONFIG = { url: dev, anonKey: localStorage.getItem("luminova-api-local-key") || "" };
+} catch (_) {}
 
 /* "Lembrar de mim": com a opção marcada a sessão fica no localStorage (sobrevive ao fechar o navegador);
  * sem ela, no sessionStorage (some ao fechar a aba). Todas as páginas criam o cliente por aqui. */

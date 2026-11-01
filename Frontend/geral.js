@@ -34,6 +34,9 @@
     if (focusPost) {
       const r = await sb.from("v_feed_posts").select("*").eq("post_id", focusPost);
       if (r.error) throw r.error;
+      // publicação de comunidade abre dentro da comunidade, nunca no feed geral
+      const cid = r.data?.[0]?.community_id;
+      if (cid) { location.replace(`comunidade-detalhe.html?id=${encodeURIComponent(cid)}&post=${encodeURIComponent(focusPost)}`); return { rows: [], more: false }; }
       return { rows: r.data || [], more: false };
     }
     if (savedMode) {
@@ -58,14 +61,22 @@
     }
     if (sort === "popular") {
       const since = new Date(Date.now() - 7 * 864e5).toISOString();
-      const r = await sb.from("v_feed_posts").select("*").gte("created_at", since).order("created_at", { ascending: false }).limit(150);
+      const r = await sb.from("v_feed_posts").select("*").is("community_id", null).gte("created_at", since).order("created_at", { ascending: false }).limit(150);
       if (r.error) throw r.error;
       const rows = (r.data || []).sort((a, b) => (b.reaction_count + b.comment_count) - (a.reaction_count + a.comment_count) || new Date(b.created_at) - new Date(a.created_at));
       return { rows: rows.slice(offset, offset + PAGE), more: rows.length > offset + PAGE };
     }
-    let q = sb.from("v_feed_posts").select("*").order("created_at", { ascending: false }).range(offset, offset + PAGE - 1);
+    // feed geral: nunca mostra publicações feitas dentro de comunidades
+    let q = sb.from("v_feed_posts").select("*").is("community_id", null).order("created_at", { ascending: false }).range(offset, offset + PAGE - 1);
     if (hideAi) q = q.eq("is_ai", false);
-    const r = await q;
+    let r = await q;
+    if (r.error && /community_id/.test(r.error.message || "")) {
+      // banco ainda sem a Migração 6: carrega sem o filtro (a migração é que garante a separação)
+      console.warn("Rode a Migracao-6-LUMINOVA-posts-de-comunidade.sql para separar posts de comunidade do feed.");
+      let q2 = sb.from("v_feed_posts").select("*").order("created_at", { ascending: false }).range(offset, offset + PAGE - 1);
+      if (hideAi) q2 = q2.eq("is_ai", false);
+      r = await q2;
+    }
     if (r.error) throw r.error;
     return { rows: r.data || [], more: (r.data || []).length === PAGE };
   }

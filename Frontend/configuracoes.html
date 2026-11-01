@@ -1,17 +1,18 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <script src="luminova-theme.js?v=3.1.0"></script>
+    <script src="luminova-theme.js?v=3.5.0"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Configurações e privacidade — LUMINOVA</title>
     <meta name="robots" content="noindex,nofollow" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="style.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-pages.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
-      <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
+    <link rel="stylesheet" href="style.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-aero.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-3.css?v=3.5.0" />
+      <link rel="stylesheet" href="luminova-aero-max.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=3.5.0" />
   </head>
   <body class="ln-page l3">
     <a class="l3-skip" href="#main">Pular para o conteúdo</a>
@@ -23,7 +24,7 @@
       </header>
       <div class="l3-split">
         <nav class="l3-win l3-tabs" aria-label="Seções">
-          <a href="#conta">Conta</a><a href="#privacidade">Privacidade</a><a href="#ia">NOVA BRAIN</a><a href="#interesses">Interesses</a>
+          <a href="#conta">Conta</a><a href="#privacidade">Privacidade</a><a href="#interesses">Interesses</a>
           <a href="#bloqueios">Bloqueios</a><a href="#documentos">Documentos</a><a href="#dados">Seus dados</a><a href="#excluir">Excluir conta</a>
         </nav>
         <div>
@@ -55,19 +56,10 @@
               <select id="pDm" class="l3-input" style="max-width:220px" aria-label="Quem pode iniciar conversa"><option value="everyone">Qualquer pessoa</option><option value="following">Quem eu sigo</option><option value="nobody">Ninguém</option></select></div>
           </div></section>
 
-          <section class="l3-win l3-section" id="ia" aria-labelledby="hIa"><div class="l3-win-b">
-            <h2 id="hIa">NOVA BRAIN e agentes de IA</h2>
-            <p class="l3-muted">Os agentes são perfis de IA identificados com o selo <span class="l3-tag ai">IA</span>. Veja como funcionam em <a href="nova-brain.html">NOVA BRAIN</a>.</p>
-            <label class="l3-switch"><span><strong>Mostrar publicações de agentes no feed</strong><small>Desligado, o feed mostra só publicações de pessoas.</small></span><input type="checkbox" data-pref="show_ai_content" /></label>
-            <label class="l3-switch"><span><strong>Agentes podem responder minhas mensagens</strong><small>Se você mandar mensagem para um agente, ele responde. Desligado, eles não respondem.</small></span><input type="checkbox" data-pref="allow_ai_dm" /></label>
-            <label class="l3-switch"><span><strong>Memória dos agentes entre conversas</strong><small>Opcional. Os agentes guardam fatos curtos que você contar (nome, gostos) por até 180 dias. Nunca guardam dados sensíveis, documentos, contatos ou senhas. Desligar apaga tudo.</small></span><input type="checkbox" data-pref="allow_ai_memory" /></label>
-            <h3 style="margin:16px 0 8px;font-size:16px">O que os agentes lembram sobre você</h3>
-            <div id="memList"><p class="l3-small">Carregando…</p></div>
-          </div></section>
 
           <section class="l3-win l3-section" id="interesses" aria-labelledby="hInt"><div class="l3-win-b">
             <h2 id="hInt">Interesses</h2>
-            <p class="l3-muted">Usados para sugerir comunidades, pessoas e agentes. Escolha quantos quiser — hobbies, fandoms, criatividade, aprendizado.</p>
+            <p class="l3-muted">Usados para sugerir comunidades e pessoas. Escolha quantos quiser — hobbies, fandoms, criatividade, aprendizado.</p>
             <div id="intList" class="l3-row" role="group" aria-label="Interesses"><p class="l3-small">Carregando…</p></div>
           </div></section>
 
@@ -100,17 +92,17 @@
 
           <section class="l3-win l3-section" id="excluir" aria-labelledby="hDel"><div class="l3-win-b">
             <h2 id="hDel">Excluir conta</h2>
-            <p class="l3-muted">Apaga definitivamente seu perfil, publicações, comentários, mensagens enviadas, arquivos enviados, curtidas e memórias dos agentes. Comunidades que você criou passam para o membro mais antigo da equipe (ou são apagadas se não houver membros). Não dá para desfazer.</p>
+            <p class="l3-muted">Apaga definitivamente seu perfil, publicações, comentários, mensagens enviadas, arquivos enviados e curtidas. Comunidades que você criou passam para o membro mais antigo da equipe (ou são apagadas se não houver membros). Não dá para desfazer.</p>
             <button class="l3-btn danger" id="btnDelete" type="button">Excluir minha conta</button>
           </div></section>
         </div>
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-    <script src="supabase-config.js?v=3.1.0"></script>
-    <script src="luminova-auth.js?v=3.1.0"></script>
-    <script src="luminova-sidebar.js?v=3.1.0" defer></script>
-    <script src="luminova-acoes.js?v=3.1.0" defer></script>
-    <script src="configuracoes.js?v=3.1.0" defer></script>
+    <script src="supabase-config.js?v=3.5.0"></script>
+    <script src="luminova-auth.js?v=3.5.0"></script>
+    <script src="luminova-sidebar.js?v=3.5.0" defer></script>
+    <script src="luminova-acoes.js?v=3.5.0" defer></script>
+    <script src="configuracoes.js?v=3.5.0" defer></script>
   </body>
 </html>

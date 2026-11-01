@@ -5,7 +5,7 @@
   "use strict";
   const { esc } = window.LUMI;
   const $ = (s) => document.querySelector(s);
-  const fallback = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><rect width="120" height="120" rx="60" fill="#29213e"/><text x="60" y="75" font-size="52" text-anchor="middle" fill="#e8c88a">✦</text></svg>');
+  const fallback = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><rect width="120" height="120" rx="60" fill="#0b4a96"/><text x="60" y="75" font-size="52" text-anchor="middle" fill="#1f9fe8">✦</text></svg>');
   const ROLE_NAMES = { owner: "Dono", admin: "Administrador", moderator: "Moderador", member: "Membro" };
   const BRANCH_NAMES = { origem: "Origem", criacao: "Criação", colaboracao: "Colaboração", comunidade: "Comunidade", exploracao: "Exploração" };
   let sb, me, target, following = false, progress = { xp: 0, level: 1, certified: false };
@@ -13,8 +13,9 @@
 
   function applyOwnerTheme(st = {}) {
     const wrap = $("#ppWrap");
-    const card = st.card || "#100d22";
-    const text = st.textColor && LUMI.contrast(st.textColor, card) >= 4.5 ? st.textColor : "#f5f6fa";
+    // sem cores escolhidas pela pessoa: vidro azul do tema, com texto escuro
+    const card = st.card || null;
+    const text = !card ? "var(--az-tinta)" : st.textColor && LUMI.contrast(st.textColor, card) >= 4.5 ? st.textColor : "#f5f6fa";
     wrap.style.setProperty("--pp-text", text);
     if (st.accent) wrap.style.setProperty("--pp-accent", st.accent);
     if (st.card) wrap.style.setProperty("--pp-card", st.card);
@@ -34,6 +35,7 @@
     $("#ppLevel").textContent = String(progress.level);
     $("#ppXp").textContent = String(progress.xp);
   }
+
 
   function actions() {
     const host = $("#ppActions");
@@ -84,7 +86,7 @@
       const pct = Math.round((Math.min(a.progress, a.target) * 100) / a.target);
       return `<article class="pp-ach ${a.earned ? "is-earned" : ""}">
         <span class="pp-ach-icon" aria-hidden="true">${esc(a.icon)}</span>
-        <div style="min-width:0;flex:1"><strong>${esc(a.name)}</strong>${a.earned ? ' <span style="color:#e8c88a;font-size:11px">✦ conquistada</span>' : ""}
+        <div style="min-width:0;flex:1"><strong>${esc(a.name)}</strong>${a.earned ? ' <span style="color:#1f9fe8;font-size:11px">✦ conquistada</span>' : ""}
           <p>${esc(a.description)}</p>
           <div class="pp-bar" aria-hidden="true"><span style="width:${pct}%"></span></div>
           <small>${Math.min(a.progress, a.target)}/${a.target}</small></div></article>`;

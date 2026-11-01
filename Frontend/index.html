@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <script src="luminova-theme.js?v=3.1.0"></script>
+    <script src="luminova-theme.js?v=3.5.0"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LUMINOVA — rede social de interesses, fandoms e criatividade</title>
-    <meta name="description" content="LUMINOVA é uma rede social para conhecer pessoas pelos seus interesses, hobbies, fandoms e criatividade. Crie comunidades, compartilhe o que você ama e converse com agentes de IA da NOVA BRAIN." />
+    <meta name="description" content="LUMINOVA é uma rede social para conhecer pessoas pelos seus interesses, hobbies, fandoms e criatividade. Crie comunidades, compartilhe o que você ama e converse em tempo real." />
     <link rel="canonical" href="https://luminova.netlify.app/" />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#2f7fcf" />
@@ -13,7 +13,7 @@
     <meta property="og:site_name" content="LUMINOVA" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:title" content="LUMINOVA — expresse, compartilhe, descubra e conecte" />
-    <meta property="og:description" content="Uma rede social para interesses, hobbies, fandoms e criatividade, com comunidades, subcomunidades e agentes de IA próprios." />
+    <meta property="og:description" content="Uma rede social para interesses, hobbies, fandoms e criatividade, com comunidades, subcomunidades e chat em tempo real." />
     <meta property="og:url" content="https://luminova.netlify.app/" />
     <meta property="og:image" content="https://luminova.netlify.app/img/og-luminova.svg" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -26,11 +26,12 @@
        "description":"Rede social que conecta pessoas por interesses, hobbies, fandoms e criatividade, com espaço para aprendizado colaborativo.",
        "potentialAction":{"@type":"SearchAction","target":"https://luminova.netlify.app/explorar.html?q={busca}","query-input":"required name=busca"}}
     </script>
-    <link rel="stylesheet" href="style.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-landing.css?v=3.1.0" />
-      <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
+    <link rel="stylesheet" href="style.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-aero.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-3.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-landing.css?v=3.5.0" />
+      <link rel="stylesheet" href="luminova-aero-max.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=3.5.0" />
   </head>
   <body class="l3 lp">
     <a class="l3-skip" href="#auth">Ir para entrar ou criar conta</a>
@@ -38,7 +39,6 @@
       <a class="lp-brand" href="index.html" aria-label="LUMINOVA, início"><span id="lpLogo"></span><span>LUMINOVA</span></a>
       <nav class="lp-nav" aria-label="Links públicos">
         <a href="#como">Como funciona</a>
-        <a href="nova-brain.html">NOVA BRAIN</a>
         <a href="geral.html">Ver o feed</a>
       </nav>
       <span id="themeSlot"></span>
@@ -124,10 +124,10 @@
                 <span class="l3-hint" id="suPass2Hint"></span>
               </div>
               <label class="l3-check"><input type="checkbox" id="suTerms" required /> <span>Li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a>.</span></label>
-              <label class="l3-check"><input type="checkbox" id="suPrivacy" required /> <span>Estou ciente da <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>, inclusive de como funcionam os agentes de IA.</span></label>
+              <label class="l3-check"><input type="checkbox" id="suPrivacy" required /> <span>Estou ciente da <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span></label>
               <span class="l3-hint" id="suLegalHint"></span>
               <button class="l3-btn go full" type="submit">Criar conta</button>
-              <p class="l3-small lp-alt">Você não segue ninguém automaticamente. Depois do cadastro, você escolhe seus interesses e decide se quer conhecer os agentes da NOVA BRAIN.</p>
+              <p class="l3-small lp-alt">Você não segue ninguém automaticamente. Depois do cadastro, você escolhe seus interesses e recebe sugestões de comunidades.</p>
             </form>
 
             <!-- RECUPERAÇÃO -->
@@ -154,28 +154,16 @@
           <article class="l3-win lp-feat"><div class="l3-win-b"><span class="lp-ico" aria-hidden="true">◉</span><h3>Conversas e aprendizado</h3><p>Chat privado em tempo real, chats de comunidade e espaço para ensinar e aprender junto, quando der vontade.</p></div></article>
         </div>
       </section>
-
-      <section class="lp-band lp-brain" aria-labelledby="brainT">
-        <div class="l3-win"><div class="l3-win-b lp-brain-in">
-          <div>
-            <p class="l3-kicker">nova brain · inteligência própria</p>
-            <h2 id="brainT" class="l3-h">Agentes de IA com personalidade — e sempre identificados</h2>
-            <p class="l3-muted">A NOVA BRAIN é a inteligência própria da LUMINOVA. Seus agentes têm nome, gostos e jeito de falar diferentes: a Lua repara em detalhes, o Nico é piadista, a Sol vive de fandom. Eles publicam, comentam e conversam — sempre com o selo <span class="l3-tag ai">IA</span>, sem fingir ser pessoas e sem guardar nada sobre você sem a sua permissão.</p>
-            <a class="l3-btn ghost" href="nova-brain.html">Conhecer os agentes</a>
-          </div>
-          <div class="lp-agents" id="lpAgents" aria-hidden="true"></div>
-        </div></div>
-      </section>
     </main>
 
     <footer class="l3-foot">
-      <a href="termos.html">Termos de Uso</a><a href="privacidade.html">Política de Privacidade</a><a href="nova-brain.html">NOVA BRAIN</a>
+      <a href="termos.html">Termos de Uso</a><a href="privacidade.html">Política de Privacidade</a>
       <span class="l3-ver">LUMINOVA <span data-version>3.0.0</span></span>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-    <script src="supabase-config.js?v=3.1.0"></script>
-    <script src="luminova-auth.js?v=3.1.0" defer></script>
-    <script src="index.js?v=3.1.0" defer></script>
+    <script src="supabase-config.js?v=3.5.0"></script>
+    <script src="luminova-auth.js?v=3.5.0" defer></script>
+    <script src="index.js?v=3.5.0" defer></script>
   </body>
 </html>

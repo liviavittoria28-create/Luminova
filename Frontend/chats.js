@@ -1,5 +1,5 @@
 /* LUMINOVA — Chats (estilo MSN): conversas reais no Supabase, tempo real, presença real via Realtime Presence.
-   Nada aqui é inventado: sem contatos de exemplo, sem "digitando…", sem "visto". Perfis de IA aparecem como IA, nunca como online. */
+   Nada aqui é inventado: sem contatos de exemplo, sem "digitando…", sem "visto". */
 (() => {
   "use strict";
   const { esc } = window.LUMI;
@@ -71,12 +71,11 @@
     let groups;
     if (LUMI.presence?.ready) {
       groups = [
-        ["Online", list.filter((c) => !c.other?.is_ai && isOnline(c))],
-        ["Offline", list.filter((c) => !c.other?.is_ai && !isOnline(c))],
-        ["IA", list.filter((c) => c.other?.is_ai)],
+        ["Online", list.filter((c) => isOnline(c))],
+        ["Offline", list.filter((c) => !isOnline(c))],
       ];
     } else {
-      groups = [["Conversas", list.filter((c) => !c.other?.is_ai)], ["IA", list.filter((c) => c.other?.is_ai)]];
+      groups = [["Conversas", list]];
     }
     host.innerHTML = groups.filter(([, l]) => l.length).map(([g, l]) => `
       <button type="button" class="chat-group-h" data-group="${esc(g)}" aria-expanded="${!collapsed.has(g)}">${ICO.chev}<span>${esc(g)} (${l.length})</span></button>

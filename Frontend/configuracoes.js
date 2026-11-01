@@ -5,7 +5,6 @@
   let sb, me, prefs = null;
   const esc = (v) => LUMI.esc(v);
   const flash = (t, k = "ok") => { const a = $("#cfgAlert"); a.className = "l3-alert " + k; a.textContent = t; a.hidden = !t; if (t) a.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
-  const KIND = { name: "Nome", likes: "Gosta de", dislikes: "Não curte", location: "Mora em", fact: "Fato", topic: "Assunto", summary: "Resumo" };
   const REQ = { access: "Acesso", correction: "Correção", information: "Informação", revoke_consent: "Revogação", portability: "Portabilidade", deletion: "Exclusão", export: "Exportação", other: "Outro" };
   const STATUS = { open: "Aberta", in_progress: "Em andamento", done: "Concluída", rejected: "Recusada" };
 
@@ -45,16 +44,13 @@
     if (el) el.disabled = false;
     if (error) { flash("Não foi possível salvar. Tente de novo.", "err"); return false; }
     Object.assign(prefs, patch);
-    try { if ("show_ai_content" in patch) localStorage.setItem("luminova-hide-ai", patch.show_ai_content ? "0" : "1"); } catch (_) {}
     flash("Preferência salva.");
     return true;
   }
   function bindPrefs() {
     document.querySelectorAll("[data-pref]").forEach((i) => i.addEventListener("change", async () => {
       const key = i.dataset.pref;
-      if (key === "allow_ai_memory" && !i.checked && !confirm("Desligar a memória apaga tudo o que os agentes lembram sobre você. Continuar?")) { i.checked = true; return; }
       if (!(await savePref({ [key]: i.checked }, i))) i.checked = !i.checked;
-      if (key === "allow_ai_memory") loadMemories();
     }));
     $("#pDm").addEventListener("change", (e) => savePref({ dm_policy: e.target.value }, e.target));
     $("#pPrivate").addEventListener("change", async (e) => {
@@ -66,23 +62,6 @@
     });
   }
 
-  // ---------------------------------------------------------------- memórias da NOVA BRAIN
-  async function loadMemories() {
-    const host = $("#memList");
-    const { data, error } = await sb.from("ai_agent_memories").select("id,agent_id,kind,content,created_at,expires_at").order("created_at", { ascending: false });
-    if (error) { host.innerHTML = '<p class="l3-small">Não foi possível carregar as memórias.</p>'; return; }
-    const ids = [...new Set((data || []).map((m) => m.agent_id))];
-    if (ids.length) {
-      const { data: ag } = await sb.from("profiles").select("id,display_name").in("id", ids);
-      const byId = Object.fromEntries((ag || []).map((a) => [a.id, a]));
-      data.forEach((m) => (m.agent = byId[m.agent_id]));
-    }
-    if (!data?.length) { host.innerHTML = `<p class="l3-small">${prefs?.allow_ai_memory ? "Nenhum agente guardou nada sobre você ainda." : "Memória desligada: nenhum agente guarda nada sobre você entre conversas."}</p>`; return; }
-    host.innerHTML = `<ul class="l3-list">${data.map((m) => `<li><span><strong>${esc(m.agent?.display_name || "Agente")}</strong> · ${esc(KIND[m.kind] || m.kind)}: ${esc(m.content)}<br><span class="l3-small">Guardado em ${esc(LUMI.time(m.created_at))} · expira em ${esc(new Date(m.expires_at).toLocaleDateString("pt-BR"))}</span></span><button class="l3-btn ghost sm" data-forget="${esc(m.id)}">Apagar</button></li>`).join("")}</ul>
-      <button class="l3-btn ghost sm" id="forgetAll" style="margin-top:10px">Apagar todas</button>`;
-    host.querySelectorAll("[data-forget]").forEach((b) => b.addEventListener("click", async () => { await sb.from("ai_agent_memories").delete().eq("id", b.dataset.forget); loadMemories(); }));
-    $("#forgetAll")?.addEventListener("click", async () => { await sb.from("ai_agent_memories").delete().eq("user_id", me.id); flash("Memórias apagadas."); loadMemories(); });
-  }
 
   // ---------------------------------------------------------------- interesses
   async function loadInterests() {
@@ -221,7 +200,7 @@
     sb = LUMI.sb; me = LUMI.user;
     bindTabs(); fillAccount(); bindRequests(); bindDelete();
     await loadPrefs(); bindPrefs();
-    await Promise.all([loadMemories(), loadInterests(), loadBlocks(), loadDocs(), loadRequests()]);
+    await Promise.all([loadInterests(), loadBlocks(), loadDocs(), loadRequests()]);
     if (new URLSearchParams(location.search).get("aceitar")) document.getElementById("documentos").scrollIntoView({ behavior: "smooth" });
     else if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
   }

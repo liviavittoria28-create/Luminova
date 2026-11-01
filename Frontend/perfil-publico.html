@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <script src="luminova-theme.js?v=3.1.0"></script>
+    <script src="luminova-theme.js?v=3.5.0"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#8fd3ff" />
@@ -11,8 +11,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-pages.css?v=3.1.0" />
+    <link rel="stylesheet" href="style.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=3.5.0" />
     <style>
       .public-profile-wrap {
         max-width: 1120px;
@@ -43,9 +43,9 @@
       .pp-cover {
         height: 230px;
         background:
-          radial-gradient(ellipse at 20% 20%, #8b5cf688, transparent 45%),
-          radial-gradient(ellipse at 80% 0%, #e8c88a55, transparent 42%),
-          linear-gradient(135deg, #17122f, #090817);
+          radial-gradient(ellipse at 20% 20%, rgba(170,235,255,.55), transparent 45%),
+          radial-gradient(ellipse at 80% 0%, rgba(255,255,255,.35), transparent 42%),
+          linear-gradient(135deg, #1f86dc, #0b4a96);
         background-size: cover;
         background-position: center;
         position: relative;
@@ -187,8 +187,8 @@
         display: inline-block;
         font-size: 10px;
         letter-spacing: 1.5px;
-        color: #e8c88a;
-        border: 1px solid #e8c88a66;
+        color: #1f9fe8;
+        border: 1px solid #1f9fe866;
         padding: 7px 10px;
         border-radius: 99px;
         margin-bottom: 12px;
@@ -236,7 +236,7 @@
       }
 
       /* ---- Seções do perfil (mesmo conteúdo do perfil próprio, somente leitura) ---- */
-      .pp-level-chip{display:inline-flex;gap:8px;align-items:center;font-size:12px;color:#e8c88a;border:1px solid #e8c88a55;border-radius:99px;padding:4px 10px;margin-left:8px;vertical-align:middle}
+      .pp-level-chip{display:inline-flex;gap:8px;align-items:center;font-size:12px;color:#1f9fe8;border:1px solid #1f9fe855;border-radius:99px;padding:4px 10px;margin-left:8px;vertical-align:middle}
       .pp-section{margin-top:30px}
       .pp-section-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
       .pp-section-head h2{color:#f5f6fa;font:500 25px Fraunces,serif;margin:0}
@@ -244,13 +244,13 @@
       .pp-empty{color:#aaa2bd;font-size:14px;line-height:1.6;margin:0}
       .pp-ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
       .pp-ach{display:flex;gap:12px;padding:14px;border:1px solid #ffffff16;background:#100d22c9;border-radius:14px;opacity:.55}
-      .pp-ach.is-earned{opacity:1;border-color:#e8c88a66}
-      .pp-ach-icon{font-size:22px;line-height:1;width:34px;text-align:center;color:#e8c88a;flex:none;padding-top:2px}
+      .pp-ach.is-earned{opacity:1;border-color:#1f9fe866}
+      .pp-ach-icon{font-size:22px;line-height:1;width:34px;text-align:center;color:#1f9fe8;flex:none;padding-top:2px}
       .pp-ach strong{color:#fff}
       .pp-ach p{margin:4px 0 8px;color:#bfb6d3;font-size:13px;line-height:1.5}
       .pp-ach small{color:#aaa2bd;font-size:11px}
       .pp-bar{height:4px;background:#ffffff1a;border-radius:99px;overflow:hidden}
-      .pp-bar span{display:block;height:100%;background:#e8c88a}
+      .pp-bar span{display:block;height:100%;background:#1f9fe8}
       .pp-tree{border:1px solid #ffffff16;background:#060914;padding:8px;overflow-x:auto;border-radius:14px}
       .pp-tree svg{width:100%;min-width:520px;height:auto;display:block}
       .pp-skill-list{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;color:#7a84a8;font-size:13px}
@@ -259,31 +259,32 @@
       .pp-skill-list li span{color:#4ade80;margin-right:6px}
       .pp-skill-list small{display:block;color:#6b7596;font-size:11px}
       .pp-mural{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
-      .pp-thank-card{padding:14px;border:1px solid #e8c88a33;border-radius:14px;background:#100d22c9}
-      .pp-thank-card .who{color:#e8c88a;font-size:13px;display:flex;gap:8px;align-items:center}
+      .pp-thank-card{padding:14px;border:1px solid #1f9fe833;border-radius:14px;background:#100d22c9}
+      .pp-thank-card .who{color:#1f9fe8;font-size:13px;display:flex;gap:8px;align-items:center}
       .pp-thank-card p{margin:8px 0;color:#eee9f7;font-size:14px;line-height:1.5}
       .pp-thank-card time{color:#aaa2bd;font-size:11px}
       .pp-thank-card a{color:#bfb6d3;font-size:12px}
       .pp-com-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
       .pp-com{display:flex;gap:10px;align-items:center;padding:12px;border:1px solid #ffffff16;border-radius:14px;background:#100d22c9;color:#fff;text-decoration:none;min-width:0}
-      .pp-com:hover{border-color:#e8c88a66}
-      .pp-com-av{width:38px;height:38px;border-radius:10px;object-fit:cover;background:#27213e;display:grid;place-items:center;color:#e8c88a;flex:none}
+      .pp-com:hover{border-color:#1f9fe866}
+      .pp-com-av{width:38px;height:38px;border-radius:10px;object-fit:cover;background:#27213e;display:grid;place-items:center;color:#1f9fe8;flex:none}
       .pp-com span{min-width:0}
       .pp-com strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
       .pp-com small{display:block;color:#aaa2bd;font-size:12px}
       .pp-act-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;border-top:1px solid #ffffff12;padding-top:10px}
       .pp-act{background:transparent;border:0;color:#bfb6d3;font:inherit;font-size:13px;padding:6px 10px;border-radius:99px;cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
       .pp-act:hover{background:#ffffff12;color:#fff}
-      .pp-act.on{color:#e8c88a}
+      .pp-act.on{color:#1f9fe8}
       .pp-act:disabled{opacity:.5;cursor:not-allowed}
-      .pp-act:focus-visible{outline:2px solid #e8c88a;outline-offset:2px}
+      .pp-act:focus-visible{outline:2px solid #1f9fe8;outline-offset:2px}
       .pp-post-top .pp-meta{color:#aaa2bd;font-size:13px;font-weight:400}
       .pp-post-top .pp-meta time{margin-left:6px;font-size:12px}
       @media (max-width: 640px){ .pp-ach-grid,.pp-com-grid,.pp-mural{grid-template-columns:1fr} }
     </style>
-      <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
-      <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
+      <link rel="stylesheet" href="luminova-aero.css?v=3.5.0" />
+      <link rel="stylesheet" href="luminova-3.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-aero-max.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=3.5.0" />
   </head>
   <body>
     <div class="sky" aria-hidden="true">
@@ -350,8 +351,8 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-    <script src="supabase-config.js?v=3.1.0"></script>
-    <script src="luminova-sidebar.js?v=3.1.0" defer></script>
-    <script src="perfil-publico.js?v=3.1.0" defer></script>
+    <script src="supabase-config.js?v=3.5.0"></script>
+    <script src="luminova-sidebar.js?v=3.5.0" defer></script>
+    <script src="perfil-publico.js?v=3.5.0" defer></script>
 </body>
 </html>

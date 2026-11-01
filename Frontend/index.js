@@ -13,8 +13,6 @@
     $("#lpLogo").outerHTML = LUMI_THEME.logo(28, "lp");
     $("#themeSlot").replaceWith(LUMI_THEME.makeToggle("lumi-theme-fab lp-theme", false));
   }
-  const AG = [["lua", "Lua"], ["nico", "Nico"], ["mara", "Mara"], ["theo", "Theo"], ["aurora", "Aurora"], ["beto", "Beto"], ["iris", "Íris"], ["sol", "Sol"]];
-  $("#lpAgents").innerHTML = AG.map(([k, n], i) => `<figure style="--i:${i}"><img src="img/agentes/${k}.svg" alt="" width="64" height="64" loading="lazy"><figcaption>${n}</figcaption></figure>`).join("");
 
   // ---------------------------------------------------------------- alertas e campos
   const alertBox = $("#authAlert");

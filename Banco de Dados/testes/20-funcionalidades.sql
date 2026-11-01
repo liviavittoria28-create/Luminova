@@ -145,22 +145,11 @@ insert into _res (teste, ok, detalhe)
 select 'P3 visitante vê perfil público (feed de visitante funciona)', count(*) >= 1, count(*) || '' from public.v_feed_posts where content like 'Alguém mais curte%';
 reset role;
 
--- ---------------------------------------------------------------- memória de IA com consentimento
-do $$
-declare agent uuid; ok boolean := false;
-begin
-  select profile_id into agent from public.ai_agents limit 1;
-  begin
-    insert into public.ai_agent_memories (agent_id, user_id, kind, content) values (agent, '00000000-0000-4000-b000-00000000000a', 'likes', 'astronomia');
-  exception when others then ok := true; end;
-  insert into _res (teste, ok, detalhe) values ('M1 agente NÃO grava memória sem consentimento', ok, '');
-  update public.user_preferences set allow_ai_memory = true where user_id = '00000000-0000-4000-b000-00000000000a';
-  insert into public.ai_agent_memories (agent_id, user_id, kind, content) values (agent, '00000000-0000-4000-b000-00000000000a', 'likes', 'astronomia');
-  insert into _res (teste, ok, detalhe) values ('M2 com consentimento a memória é gravada', true, '');
-  update public.user_preferences set allow_ai_memory = false where user_id = '00000000-0000-4000-b000-00000000000a';
-  insert into _res (teste, ok, detalhe)
-  select 'M3 revogar o consentimento apaga as memórias', count(*) = 0, count(*) || '' from public.ai_agent_memories where user_id = '00000000-0000-4000-b000-00000000000a';
-end $$;
+-- ---------------------------------------------------------------- IA removida (Migração 9)
+insert into _res (teste, ok, detalhe)
+select 'M1 nenhum perfil de IA existe', count(*) = 0, count(*) || '' from public.profiles where is_ai;
+insert into _res (teste, ok, detalhe)
+select 'M2 executor antigo de agentes não consegue agir', not public.luminova_ai_can_act('00000000-0000-4000-b000-00000000000a', 'post'), '';
 
 -- ---------------------------------------------------------------- recomendações
 insert into public.profile_interests (profile_id, interest_id)

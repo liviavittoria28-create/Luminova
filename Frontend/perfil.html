@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <script src="luminova-theme.js?v=3.1.0"></script>
-  <link rel="stylesheet" href="style.css?v=3.1.0">
-  <link rel="stylesheet" href="luminova-pages.css?v=3.1.0">
+    <script src="luminova-theme.js?v=3.5.0"></script>
+  <link rel="stylesheet" href="style.css?v=3.5.0">
+  <link rel="stylesheet" href="luminova-pages.css?v=3.5.0">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#8fd3ff" />
@@ -39,10 +39,10 @@
 
     <!-- ✦ Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-    <script src="./supabase-config.js?v=3.1.0"></script>
-    <script src="./luminova-sidebar.js?v=3.1.0" defer></script>
-    <script src="./luminova-colorwheel.js?v=3.1.0" defer></script>
-    <script src="./supabase-perfil-design.js?v=3.1.0" defer></script>
+    <script src="./supabase-config.js?v=3.5.0"></script>
+    <script src="./luminova-sidebar.js?v=3.5.0" defer></script>
+    <script src="./luminova-colorwheel.js?v=3.5.0" defer></script>
+    <script src="./supabase-perfil-design.js?v=3.5.0" defer></script>
 
     <style>
       /* ============================================================
@@ -141,7 +141,7 @@
    ============================================================ */
       :root {
         --lumi-page: #04060f;
-        --lumi-accent: #e8c88a;
+        --lumi-accent: #1f9fe8;
         --lumi-card: #0c1024;
         --lumi-on-accent: #141005;
         --lumi-accent-08: rgba(232, 200, 138, 0.08);
@@ -154,7 +154,7 @@
         --card: #0c1024;
         --card-foreground: #f8f9fd;
         --popover: #090d1f;
-        --primary: #e8c88a;
+        --primary: #1f9fe8;
         --primary-foreground: #141005;
         --secondary: rgba(255, 255, 255, 0.05);
         --muted: rgba(255, 255, 255, 0.05);
@@ -163,7 +163,7 @@
         --destructive: #f87171;
         --border: rgba(255, 255, 255, 0.08);
         --input: rgba(255, 255, 255, 0.1);
-        --ring: #e8c88a;
+        --ring: #1f9fe8;
         --radius: 0rem;
         --font-heading: "Playfair Display", Georgia, serif;
         --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -957,10 +957,10 @@
         background-color: transparent;
       }
       .bg-gradient-to-br {
-        background-image: linear-gradient(to bottom right, #e8c88a, #c99a4e);
+        background-image: linear-gradient(to bottom right, #1f9fe8, #c99a4e);
       }
-      .from-\[\#e8c88a\] {
-        --tw-gradient-from: #e8c88a;
+      .from-\[\#1f9fe8\] {
+        --tw-gradient-from: #1f9fe8;
       }
       .to-\[\#c99a4e\] {
         --tw-gradient-to: #c99a4e;
@@ -1718,9 +1718,10 @@
         border-radius: 12px !important;
       }
     </style>
-      <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
-      <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
+      <link rel="stylesheet" href="luminova-aero.css?v=3.5.0" />
+      <link rel="stylesheet" href="luminova-3.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-aero-max.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=3.5.0" />
   </head>
 
   <body>
@@ -1790,13 +1791,12 @@
               >
                 <div
                   class="lumi-cover-drift absolute inset-0"
-                  style="background: radial-gradient(ellipse 60% 30% at 20% 18%, rgba(255,255,255,.85), transparent 70%), radial-gradient(ellipse 50% 25% at 78% 28%, rgba(255,255,255,.7), transparent 70%), radial-gradient(ellipse 120% 40% at 30% 118%, #7fdc3e 0 50%, #3fae2a 66%, transparent 67%), linear-gradient(180deg, #2f9cf0, #7fcdfa 70%, #d6f0ff);"
+                  style="background: radial-gradient(ellipse 60% 30% at 20% 18%, rgba(255,255,255,.85), transparent 70%), radial-gradient(ellipse 50% 25% at 78% 28%, rgba(255,255,255,.7), transparent 70%), radial-gradient(ellipse 120% 40% at 30% 118%, #0f63bf 0 50%, #0b4a96 66%, transparent 67%), linear-gradient(180deg, #2f9cf0, #7fcdfa 70%, #d6f0ff);"
                 ></div>
                 <div
                   aria-hidden="true"
                   class="lumi-cover-stars lumi-sky-layer"
                 ></div>
-                <div id="coverMessage" class="absolute left-6 top-6 z-[5] max-w-[70%] whitespace-pre-wrap break-words text-xl font-semibold tracking-wide text-white drop-shadow-lg md:text-2xl" style="pointer-events:none;">Minha jornada, minha evolução ✦</div>
                 <button
                   id="coverEdit"
                   data-testid="btn-edit-cover"
@@ -1882,11 +1882,7 @@
                         >
                           Carregando…
                         </h1>
-                        <span
-                          class="text-sm text-[var(--lumi-accent)]"
-                          title="Perfil verificado"
-                          >✦</span
-                        >
+                        <span id="hero-cert"></span>
                         <span
                           id="badge-level"
                           data-testid="profile-level-badge"
@@ -2488,7 +2484,7 @@
                         <span
                           aria-hidden="true"
                           class="inline-block size-2 rounded-full"
-                          style="background: #e8c88a"
+                          style="background: #22c3f5"
                         ></span>
                         <span id="next-unlock-name">Centelha Primordial</span>
                       </p>
@@ -2639,25 +2635,6 @@
               <option value="ocean">Oceano aqua</option>
               <option value="sunset">Pôr do sol</option>
               <option value="forest">Campo verde</option>
-            </select>
-          </label>
-          <label
-            >Mensagem da capa
-            <textarea id="coverMessageInput" maxlength="100" rows="2" placeholder="Escreva uma frase para sua capa..."></textarea>
-            <small class="field-hint">Personalize a frase que aparece sobre a imagem.</small>
-          </label>
-          <label
-            >Posição da mensagem
-            <select id="coverMessagePosition">
-              <option value="top-left">Superior esquerda</option>
-              <option value="top-center">Superior centro</option>
-              <option value="top-right">Superior direita</option>
-              <option value="center-left">Centro esquerda</option>
-              <option value="center">Centro</option>
-              <option value="center-right">Centro direita</option>
-              <option value="bottom-left">Inferior esquerda</option>
-              <option value="bottom-center">Inferior centro</option>
-              <option value="bottom-right">Inferior direita</option>
             </select>
           </label>
           <div class="modal-actions">

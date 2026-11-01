@@ -240,20 +240,19 @@ html[data-theme] .ln-kicker {
 /* ---------- 4. JANELAS DE VIDRO + BARRA DE TÍTULO ---------- */
 html[data-theme] .ln-page .ln-panel,
 html[data-theme] .ln-page .ln-community-card,
-html[data-theme] .ln-page .ln-community-hero,
 html[data-theme] .ln-page .ln-real-card,
-html[data-theme] .ln-page .ln-lock,
 html[data-theme] .ln-page .ln-hero,
 html[data-theme] .chat-list,
 html[data-theme] .chat-main,
 html[data-theme] .x-card,
 html[data-theme] .x-post,
-html[data-theme] .ad-card,
 html[data-theme] .pp-card,
 html[data-theme] .pp-person,
-html[data-theme] .screen .card,
 html[data-theme] .tw-feed,
-html[data-theme] main [class*="bg-[rgba(12,16,36,.9)]"] {
+html[data-theme] main [class*="bg-[rgba(12,
+16,
+36,
+.9)]"] {
   background: var(--a-glass);
   -webkit-backdrop-filter: blur(10px) saturate(1.25);
   backdrop-filter: blur(10px) saturate(1.25);
@@ -268,7 +267,6 @@ html[data-theme] .ln-page .ln-mini-cta {
 }
 /* a barra de título: gradiente azul, texto branco, linha de luz por cima */
 html[data-theme] .ln-page .ln-panel-head,
-html[data-theme] .win-title,
 html[data-theme] .tw-head h1,
 html[data-theme] .chat-win-title {
   display: flex;
@@ -312,43 +310,10 @@ html[data-theme] .ln-handle {
 html[data-theme] .ln-handle {
   font-size: 12.5px;
 }
-/* controle de janela REAL: minimizar (recolhe o conteúdo) — criado por luminova-windows.js */
-.win-ctl {
-  all: unset;
-  box-sizing: border-box;
-  display: inline-grid;
-  place-items: center;
-  width: 22px;
-  height: 20px;
-  cursor: pointer;
-  color: #fff;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08) 50%, rgba(0, 20, 70, 0.15) 52%, rgba(255, 255, 255, 0.12));
-  border: 1px solid rgba(0, 30, 90, 0.55);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-.win-ctl:hover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.2) 50%, rgba(0, 20, 70, 0.1) 52%, rgba(255, 255, 255, 0.25));
-}
-.win-ctl:active {
-  box-shadow: inset 0 1px 3px rgba(0, 20, 70, 0.5);
-}
-.win-ctl:focus-visible {
-  outline: 2px solid #fff !important;
-  outline-offset: 1px;
-}
-.win-ctl svg {
-  width: 12px;
-  height: 12px;
-}
-.win-min > :not(.ln-panel-head):not(.win-title) {
-  display: none !important;
-}
 
 /* ---------- 5. BOTÕES ---------- */
 html[data-theme] .ln-page .ln-btn,
 html[data-theme] .pp-btn,
-html[data-theme] .btn--solid,
-html[data-theme] .welcome__cta,
 html[data-theme] .chat-form button,
 html[data-theme] main .bg-\[var\(--lumi-accent\)\],
 html[data-theme] .button-primary {
@@ -367,15 +332,12 @@ html[data-theme="dark"] .chat-form button {
 }
 html[data-theme] .ln-page .ln-btn:hover,
 html[data-theme] .pp-btn:hover,
-html[data-theme] .btn--solid:hover,
-html[data-theme] .welcome__cta:hover,
 html[data-theme] .chat-form button:hover,
 html[data-theme] main .bg-\[var\(--lumi-accent\)\]:hover,
 html[data-theme] .button-primary:hover {
   filter: brightness(1.08) saturate(1.05);
 }
 html[data-theme] .ln-page .ln-btn:active,
-html[data-theme] .btn--solid:active,
 html[data-theme] .chat-form button:active,
 html[data-theme] .button-primary:active,
 html[data-theme] .pp-btn:active {
@@ -406,7 +368,6 @@ html[data-theme] main [class*="text-[#141005]"] {
 }
 html[data-theme] .ln-page .ln-btn.ghost,
 html[data-theme] .pp-btn.ghost,
-html[data-theme] .btn--ghost,
 html[data-theme] .button-secondary,
 html[data-theme] .chat-back,
 html[data-theme] .ln-page .ln-chip {
@@ -418,7 +379,6 @@ html[data-theme] .ln-page .ln-chip {
   font-weight: 700;
 }
 html[data-theme] .ln-page .ln-btn.ghost:hover,
-html[data-theme] .btn--ghost:hover,
 html[data-theme] .button-secondary:hover,
 html[data-theme] .ln-page .ln-chip:hover {
   border-color: var(--lumi-accent) !important;
@@ -437,14 +397,11 @@ html[data-theme] .ln-page .ln-chip.active {
 html[data-theme] .ln-page .ln-input,
 html[data-theme] .ln-page .ln-field textarea,
 html[data-theme] .ln-page .ln-field select,
-html[data-theme] .ln-page .ln-compose textarea,
-html[data-theme] .ln-page .ln-detail-compose textarea,
 html[data-theme] .ln-page .ln-search,
 html[data-theme] .x-search,
 html[data-theme] .chat-form input,
 html[data-theme] .chat-search input,
 html[data-theme] .ad-nums input,
-html[data-theme] .field input,
 html[data-theme] .modal input:not([type="color"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
 html[data-theme] .modal textarea,
 html[data-theme] .modal select,
@@ -471,7 +428,6 @@ html[data-theme] textarea::placeholder {
   opacity: 1;
 }
 html[data-theme] .ln-page .ln-input:focus,
-html[data-theme] .field input:focus,
 html[data-theme] .chat-form input:focus,
 html[data-theme] .ln-search:focus-within,
 html[data-theme] .x-search:focus-within {
@@ -481,7 +437,6 @@ html[data-theme] .x-search:focus-within {
 
 /* ---------- 7. CAIXAS DE DIÁLOGO ---------- */
 html[data-theme] .ln-page .ln-modal,
-html[data-theme] .modal__box,
 html[data-theme] .modal-backdrop > section,
 html[data-theme] [role="dialog"] {
   position: relative;
@@ -496,7 +451,6 @@ html[data-theme] [role="dialog"] {
   color: var(--a-ink) !important;
 }
 html[data-theme] .ln-page .ln-modal::before,
-html[data-theme] .modal__box::before,
 html[data-theme] .modal-backdrop > section::before,
 html[data-theme] [role="dialog"]::before {
   content: "LumiNova";
@@ -561,7 +515,6 @@ html[data-theme] .chat-title {
 html[data-theme] .ln-subtitle {
   color: var(--a-ink-2);
 }
-html[data-theme] .ln-avatar,
 html[data-theme] .ln-avatar-img,
 html[data-theme] .lumi-av,
 html[data-theme] .lsb-avatar,
@@ -578,8 +531,7 @@ html[data-theme] .pp-avatar {
 html[data-theme] .ln-hashtag,
 html[data-theme] .g-trend-n,
 html[data-theme] .ln-card-tag,
-html[data-theme] .ln-card-foot strong,
-html[data-theme] .ln-page .ln-trend strong {
+html[data-theme] .ln-card-foot strong {
   color: var(--lumi-accent) !important;
 }
 html[data-theme] .x-sq {
@@ -594,26 +546,20 @@ html[data-theme] mark {
 html[data-theme] .ln-page .ln-card-art,
 html[data-theme] .ln-page .ln-card-art.blue,
 html[data-theme] .ln-page .ln-card-art.rose,
-html[data-theme] .ln-page .ln-card-art.green,
-html[data-theme] .ln-page .ln-community-banner,
-html[data-theme] .ln-page .ln-community-banner.blue,
-html[data-theme] .ln-page .ln-community-banner.rose,
-html[data-theme] .ln-page .ln-community-banner.green {
+html[data-theme] .ln-page .ln-card-art.green {
   background:
     radial-gradient(ellipse 120px 30px at 24% 30%, rgba(255, 255, 255, 0.7), transparent 72%),
     radial-gradient(ellipse 140px 26px at 78% 46%, rgba(255, 255, 255, 0.5), transparent 72%),
     radial-gradient(ellipse 130% 30% at 30% 112%, #8fd04f 0 48%, #4e9c30 72%, transparent 73%),
     linear-gradient(180deg, #4a98e4, #9ccff3);
 }
-html[data-theme] .ln-page .ln-card-art.rose,
-html[data-theme] .ln-page .ln-community-banner.rose {
+html[data-theme] .ln-page .ln-card-art.rose {
   background:
     radial-gradient(ellipse 120px 30px at 24% 30%, rgba(255, 255, 255, 0.6), transparent 72%),
     radial-gradient(ellipse 130% 30% at 30% 112%, #6fa6d8 0 48%, #3a6ea8 72%, transparent 73%),
     linear-gradient(180deg, #6f8fd8, #c4d4f2);
 }
-html[data-theme] .ln-page .ln-card-art.green,
-html[data-theme] .ln-page .ln-community-banner.green {
+html[data-theme] .ln-page .ln-card-art.green {
   background:
     radial-gradient(ellipse 120px 30px at 24% 30%, rgba(255, 255, 255, 0.6), transparent 72%),
     radial-gradient(ellipse 130% 30% at 30% 112%, #5cb86a 0 48%, #2f8546 72%, transparent 73%),
@@ -942,12 +888,6 @@ html[data-theme] .chat-form button {
     max-width: 90%;
   }
 }
-
-/* ---------- 10. ADMIN / PERFIL PÚBLICO ---------- */
-html[data-theme] .ad-log td,
-html[data-theme] .ad-log th {
-  border-color: var(--a-edge-2);
-}
 html[data-theme] .ad-nums label {
   color: var(--a-ink-2);
 }
@@ -1027,88 +967,17 @@ html[data-theme] ::-webkit-scrollbar-thumb {
 html[data-theme] ::-webkit-scrollbar-track {
   background: var(--a-edge-2);
 }
-
-/* ---------- 12. LOGIN / BOAS-VINDAS ---------- */
-html[data-theme] .screen {
-  color: var(--a-ink);
-}
-html[data-theme] .welcome__mark {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font: 500 14px var(--a-display);
-  color: var(--a-title-ink);
-  background: var(--a-title);
-  border: 1px solid var(--a-title-edge);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
-  text-shadow: 0 1px 0 rgba(0, 30, 80, 0.55);
-  padding: 4px 12px 4px 6px;
-}
-html[data-theme] .welcome__orb {
-  display: grid;
-  place-items: center;
-  margin-bottom: 10px;
-}
-html[data-theme] .welcome__orb .lumi-logo-mark {
-  box-shadow: 0 10px 22px -10px rgba(6, 40, 100, 0.8);
-}
-html[data-theme] .welcome__title {
-  font-family: var(--a-display) !important;
-  font-weight: 500 !important;
-  font-style: normal !important;
-  letter-spacing: 0.02em !important;
-  color: #fff !important;
-  -webkit-text-fill-color: #fff !important;
-  background: none !important;
-  filter: none !important;
-  text-shadow: 0 2px 0 rgba(10, 60, 130, 0.6), 0 6px 18px rgba(10, 50, 110, 0.45);
-}
-html[data-theme] .welcome__sub {
-  color: #fff !important;
-  font-style: normal !important;
-  text-shadow: 0 1px 2px rgba(10, 50, 110, 0.7);
-}
-html[data-theme] .welcome__foot {
-  color: #fff !important;
-  letter-spacing: 0.08em !important;
-  text-shadow: 0 1px 2px rgba(10, 50, 110, 0.7);
-}
-html[data-theme] .login__eyebrow,
-html[data-theme] .login__text,
-html[data-theme] .card__sub,
-html[data-theme] .login__facts li,
 html[data-theme] .remember,
 html[data-theme] .or {
   color: var(--a-ink-2) !important;
   font-style: normal !important;
 }
-html[data-theme] .login__title {
+html[data-theme] .card h2 {
   font-family: var(--a-display) !important;
   font-weight: 500 !important;
   color: var(--a-ink) !important;
 }
-html[data-theme] .login__title em {
-  color: var(--lumi-accent) !important;
-  font-style: normal !important;
-}
-html[data-theme] .welcome__cta {
-  padding: 12px 40px;
-  font-size: 16px;
-  letter-spacing: 0.04em;
-}
-html[data-theme] .card h2,
-html[data-theme] .modal__title {
-  font-family: var(--a-display) !important;
-  font-weight: 500 !important;
-  color: var(--a-ink) !important;
-}
-html[data-theme] .field label {
-  color: var(--a-ink-2) !important;
-  font-weight: 700;
-  font-size: 13px;
-}
-html[data-theme] .forgot,
-html[data-theme] .toggle-pw {
+html[data-theme] .forgot {
   color: var(--lumi-accent) !important;
   font-weight: 700;
 }
@@ -1119,14 +988,6 @@ html[data-theme] .back {
 html[data-theme] .dot {
   background: var(--lumi-accent) !important;
   box-shadow: none !important;
-}
-html[data-theme] .screen .card {
-  padding: 28px;
-  border-top: 3px solid var(--lumi-accent);
-}
-html[data-theme] .toggle-pw {
-  top: auto !important;
-  bottom: 9px;
 }
 
 /* ---------- 13. INTERRUPTOR DE TEMA ---------- */

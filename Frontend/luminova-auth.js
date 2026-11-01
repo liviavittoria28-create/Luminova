@@ -15,7 +15,7 @@
     if (u.length > 30) return "Use no máximo 30 caracteres.";
     if (!USER_RE.test(u)) return "Use só letras sem acento, números, ponto, hífen ou _.";
     if (/^[._-]|[._-]$/.test(u)) return "Não comece nem termine com ponto, hífen ou _.";
-    if (/^ia\./.test(u)) return "O prefixo ia. é reservado aos agentes da NOVA BRAIN.";
+    if (/^ia\./.test(u)) return "O prefixo ia. é reservado pelo sistema.";
     return "";
   }
   function passwordScore(p) {

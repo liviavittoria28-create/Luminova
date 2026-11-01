@@ -101,18 +101,7 @@
     },
   };
 
-  // Cena Aero de fundo: só a ilustração (dia/noite), parada. Decoração (aria-hidden), não intercepta cliques.
-  function scene() {
-    if (document.querySelector(".l3-scene") || document.body.dataset.noScene) return;
-    const s = document.createElement("div");
-    s.className = "l3-scene";
-    s.setAttribute("aria-hidden", "true");
-    s.innerHTML = '<div class="l3-scene-art"></div>';
-    document.body.prepend(s);
-    document.documentElement.classList.add("l3-has-scene");
-  }
-
-  const ready = () => { apply(state.theme, false); setFavicon(); scene(); };
+  const ready = () => { apply(state.theme, false); setFavicon(); };   // fundo azul vem do luminova-azul.css (sem cena ilustrada)
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", ready);
   else ready();
 

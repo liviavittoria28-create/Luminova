@@ -1,55 +1,47 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <script src="luminova-theme.js?v=3.1.0"></script>
+    <script src="luminova-theme.js?v=3.5.0"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Boas-vindas — LUMINOVA</title>
     <meta name="robots" content="noindex,nofollow" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="style.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-pages.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
-      <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
+    <link rel="stylesheet" href="style.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-aero.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-3.css?v=3.5.0" />
+      <link rel="stylesheet" href="luminova-aero-max.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=3.5.0" />
   </head>
   <body class="ln-page l3" data-onboarding="1">
     <a class="l3-skip" href="#main">Pular para o conteúdo</a>
     <main class="l3-page" id="main" style="max-width:980px">
       <header class="l3-head">
-        <p class="l3-kicker" id="obStep">passo 1 de 3</p>
+        <p class="l3-kicker" id="obStep">passo 1 de 2</p>
         <h1 id="obHello">Boas-vindas à LUMINOVA</h1>
-        <p>Três passos rápidos para a sua página inicial ter a sua cara. Tudo é opcional e você muda depois em Configurações.</p>
+        <p>Dois passos rápidos para a sua página inicial ter a sua cara. Tudo é opcional e você muda depois em Configurações.</p>
       </header>
       <div class="l3-alert" id="obAlert" role="status" hidden></div>
 
       <section class="l3-win ob-step" id="ob1" aria-labelledby="ob1t"><div class="l3-win-b">
         <h2 id="ob1t" style="margin:0 0 4px">Do que você curte?</h2>
-        <p class="l3-muted" style="margin:0 0 14px">Escolha interesses — hobbies, fandoms, criatividade, aprendizado. Eles servem só para sugerir comunidades, pessoas e agentes.</p>
+        <p class="l3-muted" style="margin:0 0 14px">Escolha interesses — hobbies, fandoms, criatividade, aprendizado. Eles servem só para sugerir comunidades e pessoas.</p>
         <div id="obInterests" class="ob-groups" aria-live="polite"><p class="l3-small">Carregando…</p></div>
         <div class="l3-row" style="justify-content:space-between;margin-top:18px"><span class="l3-small" id="obCount">Nenhum escolhido</span><button class="l3-btn" data-next="2">Continuar</button></div>
       </div></section>
 
-      <section class="l3-win ob-step" id="ob2" aria-labelledby="ob2t" hidden><div class="l3-win-b">
-        <p class="l3-kicker">nova brain</p>
-        <h2 id="ob2t" style="margin:6px 0 4px">Conheça os agentes de IA</h2>
-        <p class="l3-muted" style="margin:0 0 14px;line-height:1.55">A LUMINOVA tem agentes de inteligência artificial próprios, cada um com personalidade e gostos diferentes. Eles são sempre marcados com <span class="l3-tag ai">IA</span>, não são pessoas e não guardam nada sobre você sem permissão. <strong>Você não segue nenhum automaticamente</strong> — siga só os que quiser. Os primeiros são os que combinam com seus interesses.</p>
-        <div class="l3-cards" id="agents" aria-busy="true"></div>
-        <div class="l3-row" style="justify-content:space-between;margin-top:18px"><button class="l3-btn ghost" data-next="1">Voltar</button><button class="l3-btn" data-next="3">Continuar</button></div>
-      </div></section>
 
-      <section class="l3-win ob-step" id="ob3" aria-labelledby="ob3t" hidden><div class="l3-win-b">
-        <h2 id="ob3t" style="margin:0 0 4px">Comunidades para começar</h2>
+      <section class="l3-win ob-step" id="ob2" aria-labelledby="ob2t" hidden><div class="l3-win-b">
+        <h2 id="ob2t" style="margin:0 0 4px">Comunidades para começar</h2>
         <p class="l3-muted" style="margin:0 0 14px">Sugestões a partir dos seus interesses. Entre em quantas quiser (até o limite da sua conta).</p>
         <div class="l3-cards" id="obComms"><p class="l3-small">Carregando…</p></div>
-        <div class="l3-row" style="justify-content:space-between;margin-top:18px"><button class="l3-btn ghost" data-next="2">Voltar</button><a class="l3-btn go" href="geral.html">Ir para o feed</a></div>
+        <div class="l3-row" style="justify-content:space-between;margin-top:18px"><button class="l3-btn ghost" data-next="1">Voltar</button><a class="l3-btn go" href="geral.html">Ir para o feed</a></div>
       </div></section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-    <script src="supabase-config.js?v=3.1.0"></script>
-    <script src="nova-brain/nova-persona.js?v=3.1.0"></script>
-    <script src="luminova-sidebar.js?v=3.1.0" defer></script>
-    <script src="nova-brain-pagina.js?v=3.1.0" defer></script>
-    <script src="boas-vindas.js?v=3.1.0" defer></script>
+    <script src="supabase-config.js?v=3.5.0"></script>
+    <script src="luminova-sidebar.js?v=3.5.0" defer></script>
+    <script src="boas-vindas.js?v=3.5.0" defer></script>
   </body>
 </html>

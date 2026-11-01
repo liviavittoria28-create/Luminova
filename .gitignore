@@ -1,6 +1,5 @@
+# nunca vai para o GitHub
 node_modules/
 .env
-.env.*
-!.env.example
-.DS_Store
-Thumbs.db
+*.env
+.claude/

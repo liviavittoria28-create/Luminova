@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <script src="luminova-theme.js?v=3.1.0"></script>
-  <link rel="stylesheet" href="style.css?v=3.1.0">
+    <script src="luminova-theme.js?v=3.5.0"></script>
+  <link rel="stylesheet" href="style.css?v=3.5.0">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#8fd3ff" />
@@ -26,10 +26,10 @@
     />
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-    <script src="./supabase-config.js?v=3.1.0"></script>
-    <link rel="stylesheet" href="luminova-pages.css?v=3.1.0" />
-    <script src="./luminova-sidebar.js?v=3.1.0" defer></script>
-    <script src="./luminova-colorwheel.js?v=3.1.0" defer></script>
+    <script src="./supabase-config.js?v=3.5.0"></script>
+    <link rel="stylesheet" href="luminova-pages.css?v=3.5.0" />
+    <script src="./luminova-sidebar.js?v=3.5.0" defer></script>
+    <script src="./luminova-colorwheel.js?v=3.5.0" defer></script>
 
     <style>
       /* ═══════════ BASE ═══════════ */
@@ -108,7 +108,7 @@
       /* ═══════════ TEMA ═══════════ */
       :root {
         --lumi-page: #04060f;
-        --lumi-accent: #e8c88a;
+        --lumi-accent: #1f9fe8;
         --lumi-card: #0c1024;
         --lumi-accent-08: rgba(232, 200, 138, 0.08);
         --lumi-accent-12: rgba(232, 200, 138, 0.12);
@@ -1232,7 +1232,7 @@
         font-size: 0.8rem;
         font-weight: 600;
         color: #141005;
-        background: linear-gradient(to bottom right, #e8c88a, #c99a4e);
+        background: linear-gradient(to bottom right, #1f9fe8, #c99a4e);
         flex-shrink: 0;
         overflow: hidden;
       }
@@ -1304,7 +1304,7 @@
         font-size: 0.65rem;
         font-weight: 600;
         color: #141005;
-        background: linear-gradient(to bottom right, #e8c88a, #c99a4e);
+        background: linear-gradient(to bottom right, #1f9fe8, #c99a4e);
         flex-shrink: 0;
         overflow: hidden;
       }
@@ -1345,7 +1345,7 @@
         font-size: 0.75rem;
         font-weight: 600;
         color: #141005;
-        background: linear-gradient(to bottom right, #e8c88a, #c99a4e);
+        background: linear-gradient(to bottom right, #1f9fe8, #c99a4e);
         flex-shrink: 0;
         overflow: hidden;
       }
@@ -1698,9 +1698,10 @@
   
     
 
-      <link rel="stylesheet" href="luminova-aero.css?v=3.1.0" />
-      <link rel="stylesheet" href="luminova-3.css?v=3.1.0" />
-    <link rel="stylesheet" href="luminova-aero-max.css?v=3.1.0" />
+      <link rel="stylesheet" href="luminova-aero.css?v=3.5.0" />
+      <link rel="stylesheet" href="luminova-3.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-aero-max.css?v=3.5.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=3.5.0" />
   </head>
 
   <body>
@@ -2764,7 +2765,7 @@
             const style = settings.cover_style || "cosmic";
             const presets = {
               cosmic:
-                "radial-gradient(ellipse 60% 30% at 20% 18%,rgba(255,255,255,.85),transparent 70%),radial-gradient(ellipse 50% 25% at 78% 28%,rgba(255,255,255,.7),transparent 70%),radial-gradient(ellipse 120% 40% at 30% 118%,#7fdc3e 0 50%,#3fae2a 66%,transparent 67%),linear-gradient(180deg,#2f9cf0,#7fcdfa 70%,#d6f0ff)",
+                "radial-gradient(ellipse 60% 30% at 20% 18%,rgba(255,255,255,.75),transparent 70%),radial-gradient(ellipse 50% 25% at 78% 28%,rgba(170,235,255,.6),transparent 70%),radial-gradient(ellipse 120% 40% at 30% 118%,#0f63bf 0 50%,#0b4a96 66%,transparent 67%),linear-gradient(180deg,#1f86dc,#5cc0ff 70%,#bfe9ff)",
               ocean:
                 "radial-gradient(circle at 25% 30%,rgba(255,255,255,.55),transparent 40%),radial-gradient(circle at 75% 70%,rgba(80,240,220,.55),transparent 50%),linear-gradient(160deg,#4fd8ff,#1479d8 55%,#0a3f94)",
               sunset:
@@ -2861,7 +2862,7 @@
               avatar_url, cover_url, visibility, join_policy, rules,
               settings, welcome_text, created_at,
               owner:profiles!communities_owner_id_fkey (id, username, display_name, avatar_url),
-              category:interests (id, name, slug)
+              category:interests!communities_category_id_fkey (id, name, slug)
             `,
             )
                         .eq(communityId ? "id" : "slug", communityId || slug)
@@ -3044,7 +3045,7 @@
               const sb2 = $("subBanner");
               sb2.classList.remove("hidden");
               const srules = Array.isArray(sc.rules) && sc.rules.length ? `<ol class="mt-2 list-decimal pl-5">${sc.rules.map((r) => `<li>${escapeHtml(r)}</li>`).join("")}</ol>` : "";
-              sb2.innerHTML = `<strong>Subcomunidade: ${escapeHtml(sc.name)}</strong> · parte de <a class="underline" href="./comunidade-detalhe.html?id=${encodeURIComponent(community.id)}">${escapeHtml(community.name)}</a><p class="mt-1 text-muted-foreground">${escapeHtml(sc.description || "")}</p>${srules}<p class="mt-1 text-xs text-muted-foreground">O chat abaixo é desta subcomunidade; os membros são os da comunidade principal.</p>`;
+              sb2.innerHTML = `<strong>Subcomunidade: ${escapeHtml(sc.name)}</strong> · parte de <a class="underline" href="./comunidade-detalhe.html?id=${encodeURIComponent(community.id)}">${escapeHtml(community.name)}</a><p class="mt-1 text-muted-foreground">${escapeHtml(sc.description || "")}</p>${srules}<p class="mt-1 text-xs text-muted-foreground">O feed e o chat abaixo são desta subcomunidade; posts da comunidade principal só aparecem aqui se alguém encaminhar. Os membros são os da comunidade principal.</p>`;
               $("crumb-name").textContent = `${community.name} / ${sc.name}`;
             }
           } catch (e) { console.warn("sub:", e); }
@@ -3251,7 +3252,7 @@
         });
 
         // ─── 8. Posts do feed ───
-        const renderPost = (post) => {
+        const renderPost = (post, extra = {}) => {
           const feedList = $("feed-list");
           const loading = feedList.querySelector(".lumi-loading-box");
           if (loading) loading.remove();
@@ -3274,12 +3275,16 @@
                   <span class="font-mono text-[10px] text-muted-foreground">· ${timeAgo(post.created_at)}</span>
                   ${post.post_type === "question" ? '<span class="text-[10px] text-[var(--lumi-accent)]">✦ Pergunta</span>' : ""}
                 </div>
+                ${extra.subName && !state.subId ? `<a class="post-sub-tag" href="./comunidade-detalhe.html?id=${encodeURIComponent(community.id)}&sub=${encodeURIComponent(extra.subId)}">em ◈ ${escapeHtml(extra.subName)}</a>` : ""}
+                ${extra.forwardedBy ? `<span class="post-sub-tag">↪ encaminhado por ${escapeHtml(extra.forwardedBy)}</span>` : ""}
                 <p class="mt-2 text-sm leading-relaxed text-[#dfe3f3] whitespace-pre-wrap"></p>
                 ${post.link_url ? `<a href="${escapeHtml(post.link_url)}" target="_blank" rel="noopener" class="mt-2 inline-block text-xs text-[var(--lumi-accent)] underline break-all">${escapeHtml(post.link_url)}</a>` : ""}
                 <div class="post-actions">
                   <button class="post-action-btn upvote-btn" data-post-id="${post.id}">▲ <span class="vote-count">0</span></button>
                   <button class="post-action-btn toggle-comments" data-post-id="${post.id}">💬 <span>0 comentário(s)</span></button>
+                  ${!state.subId && state.user && (state.isMember || state.isAdmin) ? `<button class="post-action-btn forward-btn" data-post-id="${post.id}" aria-label="Encaminhar para uma subcomunidade">↪ Encaminhar</button>` : ""}
                 </div>
+                <div class="forward-box hidden" data-forward-for="${post.id}"></div>
                 <div class="comments-thread hidden" data-comments-for="${post.id}">
                   <div class="lumi-loading-box" style="padding:1rem;"><span class="lumi-spinner"></span></div>
                 </div>
@@ -3294,11 +3299,12 @@
         // Buscar posts da comunidade
         let posts = [];
         try {
-          const { data } = await supabase
+          let q = supabase
             .from("community_posts")
             .select(
               `
-              post_id, created_at,
+              post_id, created_at, subcommunity_id,
+              sub:community_subcommunities ( id, name ),
               post:posts!inner (
                 id, content, post_type, link_url, media_urls, visibility, is_pinned, created_at, deleted_at,
                 author:profiles!posts_author_id_fkey (id, username, display_name, avatar_url)
@@ -3308,9 +3314,30 @@
             .eq("community_id", community.id)
             .order("created_at", { ascending: false })
             .limit(50);
+          // na subcomunidade: só os posts feitos nela (o que é da comunidade principal só entra se for encaminhado)
+          if (state.subId) q = q.eq("subcommunity_id", state.subId);
+          const { data } = await q;
           posts = (data || [])
-            .map((r) => r.post)
-            .filter((p) => p && !p.deleted_at);
+            .filter((r) => r.post && !r.post.deleted_at)
+            .map((r) => ({ post: r.post, at: r.created_at, extra: { subId: r.subcommunity_id, subName: r.sub?.name } }));
+          if (state.subId) {
+            const { data: fw } = await supabase
+              .from("community_post_forwards")
+              .select(`
+                created_at,
+                quem:profiles!community_post_forwards_forwarded_by_fkey ( display_name, username ),
+                post:posts!inner (
+                  id, content, post_type, link_url, media_urls, visibility, is_pinned, created_at, deleted_at,
+                  author:profiles!posts_author_id_fkey (id, username, display_name, avatar_url)
+                )
+              `)
+              .eq("subcommunity_id", state.subId)
+              .order("created_at", { ascending: false })
+              .limit(50);
+            (fw || []).filter((r) => r.post && !r.post.deleted_at).forEach((r) =>
+              posts.push({ post: r.post, at: r.created_at, extra: { forwardedBy: r.quem?.display_name || r.quem?.username || "um membro" } }));
+            posts.sort((a, b) => new Date(b.at) - new Date(a.at));
+          }
         } catch (e) {
           console.warn("posts:", e);
         }
@@ -3321,7 +3348,7 @@
           showEmpty("feed-list", "Nenhum post ainda. Comece publicando algo.");
         } else {
           $("feed-list").innerHTML = "";
-          posts.forEach(renderPost);
+          posts.forEach((x) => renderPost(x.post, x.extra));
         }
 
         async function hydrateCounts(ids) {
@@ -3338,10 +3365,10 @@
             (mine || []).forEach((r) => document.querySelector(`.post-card[data-post-id="${r.post_id}"] .upvote-btn`)?.classList.add("upvoted"));
           }
         }
-        hydrateCounts(posts.map((p) => p.id)).catch((e) => console.warn("contagens:", e));
+        hydrateCounts(posts.map((x) => x.post.id)).catch((e) => console.warn("contagens:", e));
 
         // ─── 9. Dúvidas (posts type=question) ───
-        const questions = posts.filter((p) => p.post_type === "question");
+        const questions = posts.map((x) => x.post).filter((p) => p.post_type === "question");
         $("stat-questions").textContent = questions.length;
         $("tab-count-questions").textContent = questions.length;
 
@@ -3412,6 +3439,7 @@
             .eq("community_id", community.id)
             .order("created_at", { ascending: false });
           subs = data || [];
+          state.subs = subs;
         } catch (e) {
           console.warn("subs:", e);
         }
@@ -3623,7 +3651,7 @@
           // 2. Ligar à comunidade
           const { error: linkErr } = await supabase
             .from("community_posts")
-            .insert({ community_id: community.id, post_id: newPost.id });
+            .insert({ community_id: community.id, post_id: newPost.id, subcommunity_id: state.subId || null });
 
           if (linkErr) {
             console.error(linkErr);
@@ -3638,6 +3666,34 @@
           postInput.value = "";
           if (composerCount) composerCount.textContent = "0";
           toast("Post publicado ✦");
+        });
+
+        // ─── 13b. Encaminhar post da comunidade principal para uma subcomunidade ───
+        $("feed-list").addEventListener("click", async (e) => {
+          const fwd = e.target.closest(".forward-btn");
+          if (fwd) {
+            const box = document.querySelector(`.forward-box[data-forward-for="${fwd.dataset.postId}"]`);
+            if (!box) return;
+            if (!box.classList.contains("hidden")) { box.classList.add("hidden"); return; }
+            const lista = state.subs || [];
+            box.innerHTML = lista.length
+              ? `<label class="text-xs">Encaminhar para <select class="forward-sub">${lista.map((x) => `<option value="${escapeHtml(x.id)}">◈ ${escapeHtml(x.name)}</option>`).join("")}</select></label> <button type="button" class="post-action-btn forward-ok" data-post-id="${fwd.dataset.postId}">Encaminhar</button>`
+              : '<p class="text-xs">Esta comunidade ainda não tem subcomunidades.</p>';
+            box.classList.remove("hidden");
+            return;
+          }
+          const ok = e.target.closest(".forward-ok");
+          if (ok) {
+            const box = ok.closest(".forward-box"), subId = box.querySelector(".forward-sub").value;
+            ok.disabled = true;
+            const { error } = await supabase.from("community_post_forwards").insert({ post_id: ok.dataset.postId, subcommunity_id: subId, forwarded_by: state.user.id });
+            ok.disabled = false;
+            if (error) { toast(error.code === "23505" ? "Esse post já foi encaminhado para essa subcomunidade ✦" : (error.message || "Não deu para encaminhar")); return; }
+            const nome = (state.subs || []).find((x) => x.id === subId)?.name || "subcomunidade";
+            box.innerHTML = `<p class="text-xs">↪ Encaminhado para ◈ ${escapeHtml(nome)}.</p>`;
+            toast("Encaminhado ✦");
+            return;
+          }
         });
 
         // ─── 14. Comentários (delegado) ───
@@ -3814,7 +3870,7 @@
                   <span class="font-mono text-[10px] text-muted-foreground">@${escapeHtml(author.username || "user")} · ${timeAgo(c.created_at)}</span>
                   ${c.is_best_answer ? '<span class="text-[10px] text-[#4ade80]">✓ resposta aceita</span>' : ""}
                 </div>
-                <p class="mt-1 text-sm leading-relaxed text-[#c6cbe4] whitespace-pre-wrap"></p>
+                <p class="mt-1 text-sm leading-relaxed text-[#c6cbe4] whitespace-pre-wrap">${escapeHtml(c.content || "")}</p>
                 <div class="mt-1 flex items-center gap-3">
                   <button class="text-[10px] text-muted-foreground hover:text-[var(--lumi-accent)]">▲ 0</button>
                   <button class="text-[10px] text-muted-foreground hover:text-[var(--lumi-accent)]" data-reply-to="${c.id}">Responder</button>
@@ -4077,7 +4133,7 @@
           if (!q || !q.trim()) return;
           const { data: np, error: pe } = await supabase.from("posts").insert({ author_id: state.user.id, content: q.trim(), post_type: "question", visibility: "public" }).select("id").single();
           if (pe) { toast("Erro ao publicar a pergunta"); return; }
-          const { error: le } = await supabase.from("community_posts").insert({ community_id: community.id, post_id: np.id });
+          const { error: le } = await supabase.from("community_posts").insert({ community_id: community.id, post_id: np.id, subcommunity_id: state.subId || null });
           if (le) { toast("Erro ao vincular à comunidade"); return; }
           toast("Pergunta publicada ✦"); setTimeout(() => location.reload(), 500);
         });
@@ -4100,7 +4156,7 @@
           toast("Link copiado ✦");
         });
 
-        if (state.sub) document.querySelector('.tab[data-tab="chat"]')?.click();
+        // subcomunidade abre no feed dela (o chat continua na aba ao lado)
         // ─── 20. Comunidade pronta ───
         console.log("✦ LumiNova comunidade carregada:", community.name);
       })();

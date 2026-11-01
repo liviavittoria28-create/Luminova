@@ -1,15 +1,4 @@
-/* ==========================================================================
-   LUMINOVA 3.1 — AERO MAXIMAL
-   Referências: Frutiger Aero, Windows Media Player/Vista, mundos aquáticos e holográficos.
-   Cena ilustrada de fundo (parada), vidro com reflexo forte, molduras cromadas, gel azul/verde/rosa.
-   Cantos SEMPRE retos e nenhuma animação decorativa.
-   Carregado por último em todas as páginas.
-   ========================================================================== */
-html.l3-has-scene body { background: transparent !important; }
-html.l3-has-scene .sky, html.l3-has-scene .lumi-sky-layer { display: none !important; }
-.l3-scene { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-.l3-scene-art { position: absolute; inset: 0; background: url("img/cena-aero.svg") center bottom / cover no-repeat #3aa6f2; }
-html[data-theme="dark"] .l3-scene-art { background-image: url("img/cena-aero-noite.svg"); background-color: #071d4a; }
+
 /* ---------- tokens de gel e cromo ---------- */
 html[data-theme] {
   --gel-blue: linear-gradient(180deg, #c3f1ff 0%, #5ccaff 18%, #1ea2ec 48%, #0577cf 52%, #1a9ae8 80%, #5fd3ff 100%);
@@ -105,7 +94,6 @@ html[data-theme] .l3-card { border: 1px solid #fff; border-radius: 2px; backgrou
 html[data-theme] .l3-card:hover { box-shadow: 0 0 0 1px #1ea2ec, 0 0 22px -4px rgba(40,220,255,.85), 0 14px 26px -12px rgba(0,50,120,.6); }
 html[data-theme] .l3-card-cover { position: relative; height: 92px; }
 html[data-theme] .l3-card-cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,.55), transparent 50%); }
-html[data-theme] .l3-card-av { position: relative; z-index: 1; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(18,95,180,.6), 0 6px 14px -6px rgba(0,40,100,.7); }
 html[data-theme="dark"] .l3-card { border-color: rgba(140,230,255,.6); background: linear-gradient(180deg, rgba(20,60,120,.92), rgba(8,30,70,.92)); }
 
 /* ---------- campos ---------- */
@@ -134,7 +122,6 @@ html[data-theme] .lp-feat:nth-child(3) .lp-ico { background: radial-gradient(cir
 html[data-theme] .lp-feat:nth-child(4) .lp-ico { background: radial-gradient(circle at 34% 28%, #fff 0 8%, #fff2b0 22%, #f5a300 60%, #9a5a00 100%); }
 html[data-theme] .lp-orbit li { border-radius: 2px; color: #0c3a6a; font-weight: 700; background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(210,240,255,.85)); border: 1px solid rgba(18,95,180,.4); box-shadow: inset 0 1px 0 #fff; }
 html[data-theme="dark"] .lp-orbit li { color: #e3f4ff; background: rgba(10,40,90,.75); border-color: rgba(110,220,255,.45); }
-html[data-theme] .lp-agents img { box-shadow: 0 0 0 2px #fff, 0 0 0 3px rgba(18,95,180,.6), 0 10px 18px -8px rgba(0,40,100,.8), 0 0 20px -4px rgba(60,220,255,.8); }
 html[data-theme] .lp-brand { color: #fff; text-shadow: 0 1px 2px rgba(0,40,100,.8), 0 0 14px rgba(60,220,255,.8); }
 html[data-theme] .lp-nav a { color: #fff; text-shadow: 0 1px 2px rgba(0,40,100,.8); }
 html[data-theme] .lp-nav a:hover { background: var(--gel-blue); border-color: #0a5aa8; color: #fff; }
@@ -154,22 +141,37 @@ html[data-theme="dark"] .lsb-btn, html[data-theme="dark"] .lsb-theme { backgroun
 html[data-theme] .ln-post { border-radius: 2px; border: 1px solid #fff; background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(232,247,255,.85)); box-shadow: 0 0 0 1px rgba(18,95,180,.35), 0 8px 18px -12px rgba(0,50,120,.6); }
 html[data-theme="dark"] .ln-post { border-color: rgba(140,230,255,.45); background: linear-gradient(180deg, rgba(18,52,108,.9), rgba(8,30,70,.9)); }
 
-
 /* ---------- painéis das páginas antigas com o mesmo vidro das janelas 3.x ---------- */
-html[data-theme] .ln-page .ln-panel, html[data-theme] .ln-page .ln-community-card, html[data-theme] .ln-page .ln-community-hero,
-html[data-theme] .ln-page .ln-real-card, html[data-theme] .ln-page .ln-hero, html[data-theme] .chat-list, html[data-theme] .chat-main,
-html[data-theme] .x-card, html[data-theme] .x-post, html[data-theme] .ad-card, html[data-theme] .pp-card, html[data-theme] .pp-person,
-html[data-theme] .tw-feed, html[data-theme] .chat-shell {
+html[data-theme] .ln-page .ln-panel,
+html[data-theme] .ln-page .ln-community-card,
+html[data-theme] .ln-page .ln-real-card,
+html[data-theme] .ln-page .ln-hero,
+html[data-theme] .chat-list,
+html[data-theme] .chat-main,
+html[data-theme] .x-card,
+html[data-theme] .x-post,
+html[data-theme] .pp-card,
+html[data-theme] .pp-person,
+html[data-theme] .tw-feed,
+html[data-theme] .chat-shell {
   border: 1px solid #fff; border-radius: 2px;
   background: linear-gradient(180deg, rgba(255,255,255,.86) 0%, rgba(236,248,255,.76) 45%, rgba(214,240,255,.7) 100%);
   -webkit-backdrop-filter: blur(18px) saturate(1.7); backdrop-filter: blur(18px) saturate(1.7);
   box-shadow: 0 0 0 1px rgba(18,95,180,.55), 0 0 0 4px rgba(255,255,255,.5), 0 0 0 5px rgba(18,95,180,.32),
               inset 0 1px 0 #fff, 0 16px 34px -14px rgba(0,50,120,.6), 0 0 30px -10px rgba(40,220,255,.5);
 }
-html[data-theme="dark"] .ln-page .ln-panel, html[data-theme="dark"] .ln-page .ln-community-card, html[data-theme="dark"] .ln-page .ln-community-hero,
-html[data-theme="dark"] .ln-page .ln-real-card, html[data-theme="dark"] .ln-page .ln-hero, html[data-theme="dark"] .chat-list, html[data-theme="dark"] .chat-main,
-html[data-theme="dark"] .x-card, html[data-theme="dark"] .x-post, html[data-theme="dark"] .ad-card, html[data-theme="dark"] .pp-card, html[data-theme="dark"] .pp-person,
-html[data-theme="dark"] .tw-feed, html[data-theme="dark"] .chat-shell {
+html[data-theme="dark"] .ln-page .ln-panel,
+html[data-theme="dark"] .ln-page .ln-community-card,
+html[data-theme="dark"] .ln-page .ln-real-card,
+html[data-theme="dark"] .ln-page .ln-hero,
+html[data-theme="dark"] .chat-list,
+html[data-theme="dark"] .chat-main,
+html[data-theme="dark"] .x-card,
+html[data-theme="dark"] .x-post,
+html[data-theme="dark"] .pp-card,
+html[data-theme="dark"] .pp-person,
+html[data-theme="dark"] .tw-feed,
+html[data-theme="dark"] .chat-shell {
   border-color: rgba(140,230,255,.7);
   background: linear-gradient(180deg, rgba(20,60,120,.84) 0%, rgba(8,32,72,.82) 60%, rgba(6,24,56,.86) 100%);
   box-shadow: 0 0 0 1px rgba(60,240,255,.55), 0 0 0 4px rgba(10,40,90,.6), 0 0 0 5px rgba(60,240,255,.3), 0 18px 40px -14px rgba(0,0,0,.85), 0 0 36px -8px rgba(60,240,255,.45);
@@ -209,7 +211,6 @@ html[data-theme] .ln-panel-head + * , html[data-theme] .g-pad { position: relati
 
 html[data-theme] #generalFeed .ln-post > a.tw-av { grid-column: 1; grid-row: 1 / span 4; }
 
-
 /* ---------- CANTOS RETOS EM TUDO ---------- */
 html[data-theme] *, html[data-theme] *::before, html[data-theme] *::after { border-radius: 0 !important; }
 /* ícones da landing: quadrados de vidro em vez de orbes */
@@ -217,10 +218,163 @@ html[data-theme] .lp-ico { border-radius: 0 !important; }
 html[data-theme] .l3-win-h::before { border-radius: 0 !important; width: 8px; height: 8px; }
 
 /* ---------- SEM ANIMAÇÕES DECORATIVAS ---------- */
-html[data-theme] .l3-rise, html[data-theme] .lp-agents figure, html[data-theme] .l3-modal.open { animation: none !important; }
+html[data-theme] .l3-rise,
+html[data-theme] .l3-modal.open { animation: none !important; }
 html[data-theme] .l3-btn::after, html[data-theme] .ln-btn::after { display: none !important; }
 html[data-theme] .l3-card:hover, html[data-theme] #generalFeed .ln-post:hover, html[data-theme] .lp-feat { transform: none !important; }
 html[data-theme] .l3-btn:active, html[data-theme] .ln-btn:active { transform: none; filter: brightness(.95); }
 
 /* nenhuma animação em loop ou de entrada em nenhuma página (pedido de design) */
 html[data-theme] *, html[data-theme] *::before, html[data-theme] *::after { animation: none !important; }
+
+/* ==========================================================================
+   PERFIL no padrão Aero: posts, cartões, Skill Tree e XP
+   ========================================================================== */
+/* posts do perfil = janelinhas de vidro (igual ao feed) */
+html[data-theme] #feed-list { display: grid; gap: 12px; }
+html[data-theme] .lt-post {
+  position: relative; padding: 14px 16px; border: 1px solid #fff;
+  background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(232,247,255,.88)); color: #0c2a45;
+  box-shadow: 0 0 0 1px rgba(18,95,180,.45), 0 0 0 3px rgba(255,255,255,.45), 0 10px 22px -12px rgba(0,50,120,.6);
+}
+html[data-theme] .lt-post::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 22px; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,.8), transparent); }
+.lt-post-h { position: relative; display: flex; align-items: center; gap: 10px; }
+.lt-post-h strong { font-weight: 800; }
+.lt-post-h time { margin-left: auto; font-size: 12px; color: #5d7b98; }
+.lt-post-t { position: relative; margin: 10px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.6; font-size: 15px; }
+html[data-theme="dark"] .lt-post { border-color: rgba(140,230,255,.5); color: #e3f1ff; background: linear-gradient(180deg, rgba(20,58,118,.94), rgba(8,30,70,.94)); box-shadow: 0 0 0 1px rgba(60,240,255,.4), 0 12px 26px -12px rgba(0,0,0,.85); }
+html[data-theme="dark"] .lt-post::before { background: linear-gradient(180deg, rgba(160,235,255,.14), transparent); }
+html[data-theme="dark"] .lt-post-h time { color: #9fbbd8; }
+
+/* cartões de conquistas, mural, atividade e comunidades */
+html[data-theme] .lt-card {
+  display: block; padding: 12px 14px; border: 1px solid #fff; color: #0c2a45; text-decoration: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.93), rgba(225,244,255,.86)); box-shadow: 0 0 0 1px rgba(18,95,180,.35);
+}
+html[data-theme] .lt-card.on { box-shadow: 0 0 0 1px #1ea2ec, 0 0 16px -6px rgba(40,220,255,.9); }
+html[data-theme] a.lt-card:hover { box-shadow: 0 0 0 1px #1ea2ec, 0 0 18px -4px rgba(40,220,255,.85); }
+html[data-theme="dark"] .lt-card { color: #e3f1ff; border-color: rgba(140,230,255,.45); background: linear-gradient(180deg, rgba(20,58,118,.9), rgba(8,30,70,.9)); }
+.lt-accent { color: #0a6fd0; }
+html[data-theme="dark"] .lt-accent { color: #6fe6ff; }
+.lt-comm { padding: 0; overflow: hidden; }
+.lt-comm > .p-4 { padding: 12px 14px; }
+.lt-comm-cover { height: 90px; border-bottom: 1px solid rgba(18,95,180,.3); background: radial-gradient(ellipse at 50% 0%, rgba(127,230,255,.55), rgba(127,230,255,0) 70%), linear-gradient(180deg, #1f86dc, #0b4a96); background-size: cover; background-position: center; }
+.lt-bar { height: 8px; margin-top: 8px; border: 1px solid rgba(18,95,180,.45); background: linear-gradient(180deg, #dceefb, #fff); box-shadow: inset 0 1px 2px rgba(0,40,100,.2); }
+.lt-bar i { display: block; height: 100%; background: var(--gel-green); box-shadow: inset 0 1px 0 rgba(255,255,255,.8); }
+html[data-theme="dark"] .lt-bar { background: #06183a; border-color: #3c7cc0; }
+
+/* barra de XP ("Minha jornada") e etiquetas de nível */
+html[data-theme] [data-testid="journey-xp-bar"] { height: 12px !important; border: 1px solid rgba(18,95,180,.5); background: linear-gradient(180deg, #dceefb, #fff) !important; box-shadow: inset 0 1px 3px rgba(0,40,100,.25); }
+html[data-theme] #journey-xp-bar-fill { height: 100% !important; background: var(--gel-blue) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 0 10px rgba(40,200,255,.6); }
+html[data-theme="dark"] [data-testid="journey-xp-bar"] { background: #06183a !important; border-color: #3c7cc0; }
+html[data-theme] [data-testid="topbar-xp-chip"], html[data-theme] #badge-level {
+  border: 1px solid #0a5aa8 !important; background: var(--gel-blue) !important; color: #fff !important;
+  text-shadow: 0 1px 1px rgba(0,40,100,.7); box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+/* Skill Tree: mapa como janela de céu, nós quadrados de gel */
+html[data-theme] .lt-tree {
+  border: 1px solid #fff; background: linear-gradient(180deg, #d9f1ff 0%, #f4fbff 55%, #e2f6d8 100%);
+  box-shadow: 0 0 0 1px rgba(18,95,180,.45), inset 0 1px 0 #fff;
+}
+html[data-theme="dark"] .lt-tree { border-color: rgba(140,230,255,.5); background: linear-gradient(180deg, #071a3d, #0a2550 60%, #0b2d3e); box-shadow: 0 0 0 1px rgba(60,240,255,.4); }
+.lt-tree svg { display: block; }
+.lt-branch { font: 400 11px "Share Tech Mono", monospace; letter-spacing: 3px; fill: #36587a; }
+html[data-theme="dark"] .lt-branch { fill: #8fb3d6; }
+.lt-edge { stroke: #8fb0cf; stroke-width: 2; stroke-dasharray: 5 6; }
+.lt-edge.on { stroke: #2f9a12; stroke-dasharray: none; stroke-width: 3; }
+html[data-theme="dark"] .lt-edge { stroke: #3c6a9a; }
+html[data-theme="dark"] .lt-edge.on { stroke: #7ede5e; }
+.lt-node { cursor: pointer; outline: none; }
+.lt-box { stroke: #fff; stroke-width: 2; }
+.lt-gloss { fill: #fff; opacity: .45; pointer-events: none; }
+.lt-ico { font: 700 18px "Nunito Sans", sans-serif; fill: #fff; pointer-events: none; paint-order: stroke; stroke: rgba(0,40,100,.45); stroke-width: 2px; }
+.lt-label { font: 800 12px "Nunito Sans", sans-serif; fill: #0c2a45; paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
+html[data-theme="dark"] .lt-label { fill: #eaf7ff; stroke: #04142e; }
+.lt-done .lt-box { fill: #3fae1c; }
+.lt-available .lt-box { fill: #f2a100; }
+.lt-progress .lt-box { fill: #1a8fe0; }
+.lt-locked .lt-box { fill: #c9d8e6; stroke-dasharray: 5 4; stroke: #7f97b0; }
+.lt-locked .lt-ico { fill: #6f8aa4; stroke: none; }
+.lt-locked .lt-label { fill: #5d7b98; }
+html[data-theme="dark"] .lt-locked .lt-box { fill: #1a3557; stroke: #5a83ad; }
+html[data-theme="dark"] .lt-locked .lt-label { fill: #9fbbd8; }
+.lt-node.sel .lt-box { stroke: #13c8ff; stroke-width: 4; filter: drop-shadow(0 0 6px rgba(40,200,255,.9)); }
+.lt-node:hover .lt-box, .lt-node:focus-visible .lt-box { stroke: #13c8ff; stroke-width: 3; }
+html[data-theme] .lt-detail {
+  border: 1px solid #fff; color: #0c2a45; background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(225,244,255,.9));
+  box-shadow: 0 0 0 1px rgba(18,95,180,.45);
+}
+html[data-theme="dark"] .lt-detail { color: #e3f1ff; border-color: rgba(140,230,255,.5); background: linear-gradient(180deg, rgba(20,58,118,.94), rgba(8,30,70,.94)); }
+
+/* ==========================================================================
+   COMUNIDADE + PERFIL: mesmo azul de vidro do feed (posts, comentários, textos fixos antigos)
+   ========================================================================== */
+/* textos claros fixos do tema cósmico antigo → tinta do tema (no escuro continuam claros) */
+html[data-theme="light"] .text-\[\#f5f6fa\], html[data-theme="light"] .text-\[\#e9ecf9\],
+html[data-theme="light"] .text-\[\#dfe3f3\], html[data-theme="light"] .text-\[\#c6cbe4\] { color: #0c2a45 !important; }
+html[data-theme="light"] .text-\[\#8f96b3\] { color: #5d7b98 !important; }
+html[data-theme="light"] .text-muted-foreground { color: #3f5e7c !important; }
+/* fundos quase pretos fixos → vidro */
+html[data-theme] .bg-\[\#0c1024\], html[data-theme] .bg-\[\#060914\], html[data-theme] .bg-\[\#090d1f\] {
+  background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(225,244,255,.82)) !important; border-color: rgba(18,95,180,.35) !important;
+}
+html[data-theme="dark"] .bg-\[\#0c1024\], html[data-theme="dark"] .bg-\[\#060914\], html[data-theme="dark"] .bg-\[\#090d1f\] {
+  background: linear-gradient(180deg, rgba(20,58,118,.92), rgba(8,30,70,.92)) !important; border-color: rgba(140,230,255,.4) !important;
+}
+/* botões dourados antigos → gel azul */
+html[data-theme] .bg-\[var\(--lumi-accent\)\], html[data-theme] .hover\:bg-\[\#d9b878\]:hover {
+  background: var(--gel-blue) !important; color: #fff !important; border: 1px solid #0a5aa8; text-shadow: 0 1px 1px rgba(0,40,100,.7);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 3px 8px -3px rgba(0,50,120,.7);
+}
+html[data-theme] .text-\[\#141005\] { color: #fff !important; }
+
+/* posts da comunidade = janelas de vidro */
+html[data-theme] .post-card {
+  position: relative; padding: 14px 16px; border: 1px solid #fff; color: #0c2a45;
+  background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(232,247,255,.88));
+  box-shadow: 0 0 0 1px rgba(18,95,180,.45), 0 0 0 3px rgba(255,255,255,.45), 0 10px 22px -12px rgba(0,50,120,.6);
+}
+html[data-theme] .post-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 24px; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,.8), transparent); }
+html[data-theme] .post-card:hover { border-color: #fff; box-shadow: 0 0 0 1px #1ea2ec, 0 0 0 3px rgba(255,255,255,.6), 0 0 22px -4px rgba(40,220,255,.8); }
+html[data-theme] .post-card p { color: inherit !important; font-size: 15px; overflow-wrap: anywhere; }
+html[data-theme="dark"] .post-card { color: #e3f1ff; border-color: rgba(140,230,255,.5); background: linear-gradient(180deg, rgba(20,58,118,.94), rgba(8,30,70,.94)); box-shadow: 0 0 0 1px rgba(60,240,255,.4), 0 12px 26px -12px rgba(0,0,0,.85); }
+html[data-theme="dark"] .post-card::before { background: linear-gradient(180deg, rgba(160,235,255,.14), transparent); }
+html[data-theme] #feed-list { display: grid; gap: 12px; }
+
+/* avatares: dourado antigo → gel azul */
+html[data-theme] .post-avatar, html[data-theme] .comment-avatar {
+  color: #fff; background: var(--gel-blue); border: 1px solid #0a5aa8; text-shadow: 0 1px 1px rgba(0,40,100,.7); box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+/* ações (votar, comentar) como botões de vidro */
+html[data-theme] .post-action-btn { color: #0c3a6a; background: var(--chrome); border: 1px solid var(--chrome-edge); text-shadow: 0 1px 0 #fff; min-height: 34px; }
+html[data-theme] .post-action-btn:hover, html[data-theme] .post-action-btn.active { color: #fff; background: var(--gel-blue); border-color: #0a5aa8; text-shadow: 0 1px 1px rgba(0,40,100,.7); }
+html[data-theme] .post-action-btn.upvoted { color: #fff; background: var(--gel-green); border-color: #226b0c; text-shadow: 0 1px 1px rgba(10,60,0,.7); }
+html[data-theme="dark"] .post-action-btn { color: #e8f7ff; background: var(--chrome-dark); border-color: #6fd0ff; text-shadow: none; }
+
+/* comentários */
+html[data-theme] .comments-thread { border-left: 3px solid #1ea2ec; padding-left: 12px; }
+html[data-theme] .comment { margin: 8px 0; padding: 10px 12px; border: 1px solid rgba(18,95,180,.25); border-bottom: 1px solid rgba(18,95,180,.25) !important; background: rgba(255,255,255,.75); color: #0c2a45; }
+html[data-theme="dark"] .comment { background: rgba(10,40,90,.6); color: #e3f1ff; border-color: rgba(110,220,255,.3); }
+html[data-theme] .comment-form input, html[data-theme] .comment-form textarea {
+  border: 1px solid #7fa6cc; background: linear-gradient(180deg, #eef7ff, #fff 40%); color: #0c2a45; padding: 8px 10px; box-shadow: inset 0 2px 3px rgba(0,40,100,.18);
+}
+html[data-theme="dark"] .comment-form input, html[data-theme="dark"] .comment-form textarea { background: #0b2550; border-color: #3c7cc0; color: #e3f1ff; }
+
+/* ==========================================================================
+   CELULAR: comunidade e perfil
+   ========================================================================== */
+@media (max-width: 760px) {
+  html[data-theme] .post-card, html[data-theme] .lt-post { padding: 12px; }
+  html[data-theme] .post-card .flex.gap-3 { gap: 10px; }
+  html[data-theme] .post-avatar { width: 2.1rem; height: 2.1rem; }
+  html[data-theme] .comments-thread { padding-left: 8px; }
+  .post-actions { gap: 6px; }
+  .lt-tree svg { min-width: 0 !important; }
+  .lt-label { font-size: 14px; }
+  [data-testid="profile-hero"] h1 { font-size: 1.6rem !important; }
+  main [class*="max-w-[1280px]"] { padding-left: 10px !important; padding-right: 10px !important; }
+  img, video, iframe { max-width: 100%; height: auto; }
+  main { overflow-x: clip; }
+}

@@ -49,7 +49,7 @@
   LUMI.hhmm = (iso) => {
     try { return new Date(iso).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }); } catch { return ""; }
   };
-  LUMI.aiBadge = (p) => (p?.is_ai ? ' <span title="Perfil de IA da LUMINOVA" style="font:800 10px/1 Nunito,sans-serif;letter-spacing:.08em;border:1px solid var(--a-aqua);color:var(--a-aqua);background:color-mix(in srgb,var(--a-aqua) 12%,transparent);border-radius:2px;padding:3px 6px;vertical-align:middle">IA</span>' : "");
+  LUMI.aiBadge = () => "";
   // Selo de perfil certificado (certified vem de profile_progress.certified).
   LUMI.certBadge = (certified) => (certified ? ' <span class="ln-cert" title="Perfil certificado LUMINOVA" aria-label="Perfil certificado" style="display:inline-block;font-size:12px;line-height:1;color:#fff;background:linear-gradient(180deg,#6fc2f5,#2a72c4);box-shadow:inset 0 1px 0 #fff8;border-radius:2px;padding:3px 5px;vertical-align:middle;margin-left:4px"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span>' : "");
   LUMI.profileUrl = (id) => (LUMI.user && LUMI.user.id === id ? "perfil.html" : `perfil-publico.html?id=${encodeURIComponent(id)}`);
@@ -106,7 +106,6 @@
     conquistas: ic('<path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/><path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/><path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/>'),
     admin: ic('<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>'),
     notificacoes: ic('<path d="M10.27 21a2 2 0 0 0 3.46 0"/><path d="M3.26 15.33A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.67C19.41 13.96 18 12.5 18 8A6 6 0 0 0 6 8c0 4.5-1.41 5.96-2.74 7.33"/>'),
-    novabrain: ic('<path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v13"/>'),
     salvos: ic('<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>'),
     configuracoes: ic('<path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/>'),
     sair: ic('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/>'),
@@ -127,7 +126,6 @@
     : page === "explorar.html" ? "explorar"
     : page === "admin.html" ? "admin"
     : page === "notificacoes.html" ? "notificacoes"
-    : page === "nova-brain.html" ? "novabrain"
     : page === "configuracoes.html" ? "configuracoes"
     : page === "perfil.html" && tab === "atividade" ? "atividades"
     : page === "perfil.html" && tab === "conquistas" ? "conquistas"
@@ -138,7 +136,6 @@
     ["chats", "chats.html", "Chats"],
     ["notificacoes", "notificacoes.html", "Notificações"],
     ["explorar", "explorar.html", "Explorar"],
-    ["novabrain", "nova-brain.html", "NOVA BRAIN"],
     ["salvos", "geral.html?salvos=1", "Salvos"],
     ["atividades", "perfil.html?tab=atividade", "Atividades"],
     ["conquistas", "perfil.html?tab=conquistas", "Conquistas"],
@@ -153,7 +150,7 @@
 
     const css = document.createElement("link");
     css.rel = "stylesheet";
-    css.href = "luminova-sidebar.css?v=3.1.0";
+    css.href = "luminova-sidebar.css?v=3.5.0";
     document.head.append(css);
 
     const aside = document.createElement("aside");

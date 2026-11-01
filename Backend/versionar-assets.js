@@ -12,7 +12,7 @@ if (!version) throw new Error("LUMINOVA_VERSION não encontrada em supabase-conf
 let n = 0;
 for (const f of fs.readdirSync(FE).filter((x) => x.endsWith(".html"))) {
   const p = path.join(FE, f), src = fs.readFileSync(p, "utf8");
-  const out = src.replace(/\b(src|href)="(\.\/)?((?:nova-brain\/)?[\w.-]+\.(?:js|css))(?:\?v=[\w.-]+)?"/g, (m, attr, dot, file) => `${attr}="${dot || ""}${file}?v=${version}"`);
+  const out = src.replace(/\b(src|href)="(\.\/)?([\w.-]+\.(?:js|css))(?:\?v=[\w.-]+)?"/g, (m, attr, dot, file) => `${attr}="${dot || ""}${file}?v=${version}"`);
   if (out !== src) { fs.writeFileSync(p, out); n++; }
 }
 // o CSS da sidebar é injetado pelo JS

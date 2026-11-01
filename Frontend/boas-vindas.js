@@ -1,4 +1,4 @@
-/* LUMINOVA 3.x — onboarding: interesses → agentes (opcional) → comunidades sugeridas. */
+/* LUMINOVA 3.x — onboarding: interesses → comunidades sugeridas. */
 (() => {
   "use strict";
   const $ = (s) => document.querySelector(s);
@@ -7,10 +7,9 @@
 
   const flash = (t, k = "ok") => { const a = $("#obAlert"); a.className = "l3-alert " + k; a.textContent = t; a.hidden = !t; };
   function go(n) {
-    [1, 2, 3].forEach((i) => ($("#ob" + i).hidden = i !== n));
-    $("#obStep").textContent = `passo ${n} de 3`;
-    if (n === 2) renderAgents();
-    if (n === 3) renderCommunities();
+    [1, 2].forEach((i) => ($("#ob" + i).hidden = i !== n));
+    $("#obStep").textContent = `passo ${n} de 2`;
+    if (n === 2) renderCommunities();
     $("#ob" + n).querySelector("h2").setAttribute("tabindex", "-1");
     $("#ob" + n).querySelector("h2").focus();
   }
@@ -31,16 +30,6 @@
   }
   function count() { $("#obCount").textContent = chosen.size ? `${chosen.size} interesse${chosen.size > 1 ? "s" : ""} escolhido${chosen.size > 1 ? "s" : ""}` : "Nenhum escolhido (tudo bem, dá para pular)"; }
 
-  async function renderAgents() {
-    const host = $("#agents");
-    const { rows, following } = await LUMI_AGENTS.loadAgents();
-    // ordena pelos agentes cujos interesses batem com os escolhidos
-    const slugs = new Set(interests.filter((i) => chosen.has(i.id)).map((i) => i.slug));
-    const score = (a) => (a.interests || (NovaPersona.get(a.username) || {}).interests || []).filter((s) => slugs.has(s)).length;
-    rows.sort((a, b) => score(b) - score(a));
-    host.removeAttribute("aria-busy");
-    host.innerHTML = rows.map((a) => LUMI_AGENTS.cardHtml(a, { following: following.has(a.profile_id) })).join("") || '<p class="l3-small">Os agentes ainda não foram configurados.</p>';
-  }
 
   async function renderCommunities() {
     const host = $("#obComms");
@@ -74,7 +63,6 @@
       b.setAttribute("aria-pressed", String(!on)); count();
     });
     document.querySelectorAll("[data-next]").forEach((b) => b.addEventListener("click", () => go(+b.dataset.next)));
-    LUMI_AGENTS.bindFollow($("#agents"));
     $("#obComms").addEventListener("click", async (e) => {
       const b = e.target.closest("[data-join]"); if (!b) return;
       b.disabled = true;
