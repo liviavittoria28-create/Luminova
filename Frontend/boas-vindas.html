@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script src="luminova-theme.js?v=4.1.0"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Boas-vindas — LUMINOVA</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="style.css?v=4.1.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=4.1.0" />
+    <link rel="stylesheet" href="luminova-aero.css?v=4.1.0" />
+    <link rel="stylesheet" href="luminova-3.css?v=4.1.0" />
+      <link rel="stylesheet" href="luminova-aero-max.css?v=4.1.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=4.1.0" />
+  </head>
+  <body class="ln-page l3" data-onboarding="1">
+    <a class="l3-skip" href="#main">Pular para o conteúdo</a>
+    <main class="l3-page" id="main" style="max-width:980px">
+      <header class="l3-head">
+        <p class="l3-kicker" id="obStep">passo 1 de 2</p>
+        <h1 id="obHello">Boas-vindas à LUMINOVA</h1>
+        <p>Dois passos rápidos para a sua página inicial ter a sua cara. Tudo é opcional e você muda depois em Configurações.</p>
+      </header>
+      <div class="l3-alert" id="obAlert" role="status" hidden></div>
+
+      <section class="l3-win ob-step" id="ob1" aria-labelledby="ob1t"><div class="l3-win-b">
+        <h2 id="ob1t" style="margin:0 0 4px">Do que você curte?</h2>
+        <p class="l3-muted" style="margin:0 0 14px">Escolha interesses — hobbies, fandoms, criatividade, aprendizado. Eles servem só para sugerir comunidades e pessoas.</p>
+        <div id="obInterests" class="ob-groups" aria-live="polite"><p class="l3-small">Carregando…</p></div>
+        <div class="l3-row" style="justify-content:space-between;margin-top:18px"><span class="l3-small" id="obCount">Nenhum escolhido</span><button class="l3-btn" data-next="2">Continuar</button></div>
+      </div></section>
+
+
+      <section class="l3-win ob-step" id="ob2" aria-labelledby="ob2t" hidden><div class="l3-win-b">
+        <h2 id="ob2t" style="margin:0 0 4px">Comunidades para começar</h2>
+        <p class="l3-muted" style="margin:0 0 14px">Sugestões a partir dos seus interesses. Entre em quantas quiser (até o limite da sua conta).</p>
+        <div class="l3-cards" id="obComms"><p class="l3-small">Carregando…</p></div>
+        <div class="l3-row" style="justify-content:space-between;margin-top:18px"><button class="l3-btn ghost" data-next="1">Voltar</button><a class="l3-btn go" href="geral.html">Ir para o feed</a></div>
+      </div></section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js?v=4.1.0"></script>
+    <script src="luminova-sidebar.js?v=4.1.0" defer></script>
+    <script src="boas-vindas.js?v=4.1.0" defer></script>
+  </body>
+</html>

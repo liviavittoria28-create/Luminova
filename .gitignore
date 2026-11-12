@@ -1,0 +1,8 @@
+# nunca vai para o GitHub
+node_modules/
+.env
+*.env
+.claude/
+
+.env.*
+!.env.example

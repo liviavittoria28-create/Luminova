@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script src="luminova-theme.js?v=4.1.0"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#8fd3ff" />
+    <title>Administração — LumiNova</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=4.1.0" />
+    <link rel="stylesheet" href="luminova-pages.css?v=4.1.0" />
+      <link rel="stylesheet" href="luminova-aero.css?v=4.1.0" />
+      <link rel="stylesheet" href="luminova-3.css?v=4.1.0" />
+    <link rel="stylesheet" href="luminova-aero-max.css?v=4.1.0" />
+    <link rel="stylesheet" href="luminova-azul.css?v=4.1.0" />
+  </head>
+  <body class="ln-page">
+        <div class="ln-layout">
+      <main class="ln-content" id="main">
+        <header class="ln-top"><div class="ln-crumb">LumiNova <span> / </span> Administração</div></header>
+        <div id="adGate" class="ln-panel ln-empty" style="padding:24px">Verificando permissões…</div>
+        <div id="adBody" hidden>
+          <section class="ln-panel" style="padding:20px;margin-bottom:18px">
+            <span class="ln-kicker">DIAGNÓSTICO</span><h2 style="margin:6px 0 10px">Estado do banco</h2>
+            <ul id="adChecks" class="ln-muted" style="line-height:1.9;padding-left:18px"></ul>
+          </section>
+          <section class="ln-panel" style="padding:20px;margin-bottom:18px">
+            <span class="ln-kicker">CERTIFICAÇÃO</span><h2 style="margin:6px 0 4px">Selo de perfil certificado</h2>
+            <p class="ln-muted" style="margin:0 0 14px">Um perfil é certificado quando atinge <b>os dois</b> critérios abaixo, ou quando você certifica manualmente.</p>
+            <div class="ad-nums" style="display:flex;flex-wrap:wrap;gap:12px;align-items:end">
+              <label>Seguidores mínimos<input type="number" id="certFollowers" min="0" max="1000000" style="display:block;margin-top:4px"></label>
+              <label>XP mínimo<input type="number" id="certXp" min="0" max="10000000" style="display:block;margin-top:4px"></label>
+              <button type="button" class="ln-btn" id="certSave">Salvar critérios</button>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:18px">
+              <label>Certificar manualmente (@usuário)<input type="text" id="certUser" placeholder="@usuario" maxlength="40" style="display:block;margin-top:4px"></label>
+              <button type="button" class="ln-btn" id="certOn">Certificar</button>
+              <button type="button" class="ln-btn ghost" id="certOff">Remover selo manual</button>
+            </div>
+            <p id="certMsg" class="ln-muted" style="margin:12px 0 0" aria-live="polite"></p>
+          </section>
+          <section class="ln-panel" style="padding:20px">
+            <span class="ln-kicker">CONTEÚDO</span><h2 style="margin:6px 0 10px">Atalhos</h2>
+            <p><a class="ln-btn" href="geral.html" style="text-decoration:none;display:inline-block">Definir tópico do dia (em Geral)</a> <a class="ln-btn ghost" href="comunidades.html" style="text-decoration:none;display:inline-block">Gerenciar comunidades</a></p>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js?v=4.1.0"></script>
+    <script src="luminova-sidebar.js?v=4.1.0" defer></script>
+    <script src="admin.js?v=4.1.0" defer></script>
+  </body>
+</html>
