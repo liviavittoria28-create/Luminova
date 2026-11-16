@@ -326,3 +326,11 @@ html[data-theme] .feed-more { display: block; width: 100%; min-height: 42px; mar
 @media (prefers-reduced-motion: reduce) {
   html[data-theme] * { transition-duration: .001ms !important; }
 }
+
+/* Nota do painel lateral (ex.: "Assuntos do momento") fora de .ln-page: herdava o lilás claro do tema antigo
+   e ficava quase invisível sobre o azul. Usa as mesmas cores das outras notas do painel. */
+html[data-theme] .tw-side .ln-mini-cta {
+  background: var(--a-solid-2);
+  border-top: 1px solid var(--a-edge-2);
+  color: var(--a-ink-2);
+}
