@@ -334,3 +334,8 @@ html[data-theme] .tw-side .ln-mini-cta {
   border-top: 1px solid var(--a-edge-2);
   color: var(--a-ink-2);
 }
+
+/* Tema escuro: o rótulo acima do título da página inicial usava o mesmo azul do tema claro e sumia no fundo escuro. */
+html[data-theme="dark"] .l3-win .l3-kicker,
+html[data-theme="dark"] .l3-card .l3-kicker,
+html[data-theme="dark"] .lp-hero-copy .l3-kicker { color: #8cc8ff; }
